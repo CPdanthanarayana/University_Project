@@ -32,7 +32,7 @@
     margin-bottom: 5px;
     font-weight: 500;
   }
-  input[type="text"], input[type="date"], input[type="time"], textarea {
+  input[type="text"], input[type="date"], input[type="time"], textarea, select {
     width: 100%;
     padding: 7px 10px;
     margin-bottom: 14px;
@@ -40,6 +40,9 @@
     border-radius: 4px;
     font-size: 1em;
     background: #fafbfc;
+  }
+  .date-input {
+    width: 40%;
   }
   textarea {
     min-height: 50px;
@@ -90,7 +93,7 @@
   .signature-line {
     margin-top: 30px;
     border-bottom: 1px solid #bfc9d1;
-    width: 80%;
+    width: 40%;
     margin-bottom: 8px;
   }
   .approval-section {
@@ -142,24 +145,44 @@
 
     <div class="section-title">Applicant Details</div>
     <div class="row">
-      <div class="col">
-        <label>1. Service No. and Name of Applicant:</label>
-        <input type="text" name="service_no_name">
-      </div>
-      <div class="col">
-        <label>2. Designation:</label>
-        <input type="text" name="designation">
-      </div>
-      <div class="col">
-        <label>3. Department:</label>
-        <input type="text" name="department">
-      </div>
-    </div>
-    <label>4. Contact No./s:</label>
-    <input type="text" name="contact_no">
+  <div class="col">
+    <label>1. Service No. and Name of Applicant:</label>
+    <input type="text" name="service_no_name">
+  </div>
+  <div class="col">
+    <label>2. Designation:</label>
+    <input type="text" name="designation">
+  </div>
+  <div class="col">
+    <label>3. Faculty:</label>
+    <select name="faculty" required>
+      <option value="">-- Select Faculty --</option>
+      <option value="Faculty of Applied Sciences">Faculty of Applied Sciences</option>
+      <option value="Faculty of Engineering">Faculty of Management Studies</option>
+      <option value="Faculty of Technology">Faculty of Technology</option>
+      <option value="Faculty of Islamic Studies">Faculty of Computing</option>
+      <option value="Faculty of Management and Commerce">Faculty of Social Science and language</option>
+      <option value="Faculty of Arts and Culture">Faculty of Geomatics</option>
+      <option value="Faculty of Medicine">Faculty of Medicine</option>
+      <option value="Faculty of Law">Faculty of  Agricultural Sciences</option>
+    </select>
+  </div>
+</div>
 
-    <label>5. Purpose of Travelling:</label>
-    <textarea name="purpose"></textarea>
+<div class="row">
+  <div class="col">
+    <label>4. Department:</label>
+    <input type="text" name="department">
+  </div>
+  <div class="col">
+    <label>5. Contact No./s:</label>
+    <input type="text" name="contact_no">
+  </div>
+</div>
+
+<label>6. Purpose of Travelling:</label>
+<textarea name="purpose"></textarea>
+
 
     <div class="checkbox-group">
       <label>Supporting Document(s) attached:</label>
@@ -168,38 +191,49 @@
     </div>
 
     <div class="section-title">6. Name(s) of Person(s) Travelling</div>
-    <table>
-      <tr>
-        <th>SN</th>
-        <th>Service No.</th>
-        <th>Name</th>
-      </tr>
-      <tr>
-        <td>i.</td>
-        <td><input type="text" name="sn1_service_no"></td>
-        <td><input type="text" name="sn1_name"></td>
-      </tr>
-      <tr>
-        <td>ii.</td>
-        <td><input type="text" name="sn2_service_no"></td>
-        <td><input type="text" name="sn2_name"></td>
-      </tr>
-      <tr>
-        <td>iii.</td>
-        <td><input type="text" name="sn3_service_no"></td>
-        <td><input type="text" name="sn3_name"></td>
-      </tr>
-      <tr>
-        <td>iv.</td>
-        <td><input type="text" name="sn4_service_no"></td>
-        <td><input type="text" name="sn4_name"></td>
-      </tr>
-      <tr>
-        <td>v.</td>
-        <td><input type="text" name="sn5_service_no"></td>
-        <td><input type="text" name="sn5_name"></td>
-      </tr>
-    </table>
+
+<table id="travelers-table">
+  <thead>
+    <tr>
+      <th>SN</th>
+      <th>Service No.</th>
+      <th>Name</th>
+    </tr>
+  </thead>
+  <tbody id="travelers-body">
+    <tr>
+      <td>i.</td>
+      <td><input type="text" name="sn1_service_no"></td>
+      <td><input type="text" name="sn1_name"></td>
+    </tr>
+    <tr>
+      <td>ii.</td>
+      <td><input type="text" name="sn2_service_no"></td>
+      <td><input type="text" name="sn2_name"></td>
+    </tr>
+    <tr>
+      <td>iii.</td>
+      <td><input type="text" name="sn3_service_no"></td>
+      <td><input type="text" name="sn3_name"></td>
+    </tr>
+    <tr>
+      <td>iv.</td>
+      <td><input type="text" name="sn4_service_no"></td>
+      <td><input type="text" name="sn4_name"></td>
+    </tr>
+    <tr>
+      <td>v.</td>
+      <td><input type="text" name="sn5_service_no"></td>
+      <td><input type="text" name="sn5_name"></td>
+    </tr>
+  </tbody>
+</table>
+
+<!-- Add Row Button -->
+<button type="button" onclick="addRow()" style="margin-bottom: 10px; background-color: #ffffffff; color: black; padding: 6px 12px; border: none; border-radius: 4px; border: 1px solid #ccc; cursor: pointer;">
+  + Add Row
+</button>
+
 
     <div class="section-title">7. Proposed Journey</div>
     <div class="row">
@@ -264,130 +298,29 @@
     </div>
 
     <div class="signature-section">
-      <div class="signature-box">
-        <label>Signature of the Applicant</label>
-        <div class="signature-line"></div>
-        <label>Date:</label>
-        <input type="date" name="applicant_date">
-      </div>
-      <div class="signature-box">
-        <label>Head of the Department / Division</label>
-        <div class="signature-line"></div>
-        <label>Date:</label>
-        <input type="date" name="hod_date">
-      </div>
+  <div class="signature-box">
+    <label>Signature of the Applicant</label>
+    
+    <!-- Signature Preview -->
+    <div class="signature-preview" style="margin-top: 10px;">
+      <img id="applicantSignaturePreview" src="" alt="Signature Preview" style="max-height: 80px; display: none; border: 1px solid #ccc; padding: 4px;">
     </div>
 
-    <div class="approval-section">
-      <div class="section-title">Recommendation of Deputy Registrar / General Administration</div>
-      <table class="approval-table">
-        <tr>
-          <td>
-            <label>Recommended / Not Recommended</label>
-            <input type="text" name="dr_recommendation">
-            <br>
-            <label>Deputy Registrar / General Administration</label>
-            <br>
-            <label>Date:</label>
-            <input type="date" name="dr_date">
-          </td>
-          <td>
-            <label>Comments (if any):</label>
-            <textarea name="dr_comments"></textarea>
-          </td>
-        </tr>
-        <tr>
-          <td>
-            <label>Approved / Not Approved</label>
-            <input type="text" name="vc_approval">
-            <br>
-            <label>Vice-Chancellor / Registrar</label>
-          </td>
-          <td>
-            <label>Reservation of Vehicle and Driver</label>
-            <br>
-            Vehicle No.: <input type="text" name="vehicle_no"><br>
-            Driver: <input type="text" name="driver">
-          </td>
-        </tr>
-      </table>
+    <!-- Upload Signature File -->
+    <input type="file" accept="image/*" onchange="previewSignature(event)" name="applicant_signature">
+      <br>
+    <!-- Date -->
+    <label style="margin-top: 10px;">Date:</label>
+    <div class="date-input">
+      <input type="date" name="applicant_date">
     </div>
+  </div>
+</div>
 
-    <div class="driver-section">
-      <div class="section-title">To be filled by the Driver</div>
-      <label>1. Meter reading at the start of journey:</label>
-      <input type="text" name="start_meter">
 
-      <table>
-        <tr>
-          <th>Date</th>
-          <th>Place Visited</th>
-          <th>KM</th>
-          <th>Sign. (Officer)</th>
-        </tr>
-        <tr>
-          <td><input type="date" name="day1_date"></td>
-          <td><input type="text" name="day1_place"></td>
-          <td><input type="text" name="day1_km"></td>
-          <td><input type="text" name="day1_sign"></td>
-        </tr>
-        <tr>
-          <td><input type="date" name="day2_date"></td>
-          <td><input type="text" name="day2_place"></td>
-          <td><input type="text" name="day2_km"></td>
-          <td><input type="text" name="day2_sign"></td>
-        </tr>
-        <tr>
-          <td><input type="date" name="day3_date"></td>
-          <td><input type="text" name="day3_place"></td>
-          <td><input type="text" name="day3_km"></td>
-          <td><input type="text" name="day3_sign"></td>
-        </tr>
-        <tr>
-          <td><input type="date" name="day4_date"></td>
-          <td><input type="text" name="day4_place"></td>
-          <td><input type="text" name="day4_km"></td>
-          <td><input type="text" name="day4_sign"></td>
-        </tr>
-        <tr>
-          <td><input type="date" name="day5_date"></td>
-          <td><input type="text" name="day5_place"></td>
-          <td><input type="text" name="day5_km"></td>
-          <td><input type="text" name="day5_sign"></td>
-        </tr>
-      </table>
-      <label>2. Final Meter reading (at SEUSL):</label>
-      <input type="text" name="final_meter">
-      <label>3. Total Mileage (KM):</label>
-      <input type="text" name="total_mileage">
-      <label>4. Reports, if any damages / defects:</label>
-      <textarea name="damage_report"></textarea>
+    
 
-      <div class="row">
-        <div class="col">
-          <label>Driver's Name:</label>
-          <input type="text" name="driver_name">
-        </div>
-        <div class="col">
-          <label>Signature:</label>
-          <input type="text" name="driver_signature">
-        </div>
-        <div class="col">
-          <label>Date:</label>
-          <input type="date" name="driver_date">
-        </div>
-      </div>
-    </div>
-
-    <div class="section-title">Certified Correct</div>
-    <div style="margin-bottom: 32px;">
-      <input type="text" name="certified_correct" style="width: 40%;">
-    </div>
-    <div class="note">
-      <strong>Note:</strong>
-      <br>1. To be returned by Driver to DR / General Administration after completion of the trip.
-      <br>2. Travelling & Subsistence will be paid only after receipt of this form.
-    </div>
+    
   </div>
 
           <!-- ========== App Menu Start ========== -->
@@ -418,6 +351,74 @@
 
      <!-- Dashboard Js -->
      <script src="admincss/js/dashboard.js"></script>
+    <script>
+      let rowCount = 5; // You already have 5 default rows: i. to v.
+
+      function toRoman(num) {
+        const romanMap = [
+          ['M', 1000], ['CM', 900], ['D', 500], ['CD', 400],
+          ['C', 100], ['XC', 90], ['L', 50], ['XL', 40],
+          ['X', 10], ['IX', 9], ['V', 5], ['IV', 4], ['I', 1]
+        ];
+        let result = '';
+        for (const [roman, value] of romanMap) {
+          while (num >= value) {
+            result += roman;
+            num -= value;
+          }
+        }
+        return result.toLowerCase(); // i, ii, iii...
+      }
+
+      function addRow() {
+        rowCount++;
+        const romanSN = toRoman(rowCount); // convert to roman numeral
+        const tableBody = document.getElementById("travelers-body");
+        const newRow = document.createElement("tr");
+
+        newRow.innerHTML = `
+          <td>${romanSN}.</td>
+          <td><input type="text" name="sn${rowCount}_service_no"></td>
+          <td><input type="text" name="sn${rowCount}_name"></td>
+          <td><button type="button" onclick="removeRow(this)">x</button></td>
+        `;
+
+        tableBody.appendChild(newRow);
+      }
+
+      function removeRow(button) {
+        const row = button.closest("tr");
+        row.remove();
+        updateSN(); // Optional: Re-index Roman numbers after row removal
+      }
+
+      function updateSN() {
+        const rows = document.querySelectorAll("#travelers-body tr");
+        rowCount = rows.length;
+        rows.forEach((row, index) => {
+          const roman = toRoman(index + 1);
+          row.cells[0].innerText = `${roman}.`;
+          row.querySelectorAll("input")[0].name = `sn${index + 1}_service_no`;
+          row.querySelectorAll("input")[1].name = `sn${index + 1}_name`;
+        });
+      }
+    </script>
+    <script>
+      function previewSignature(event) {
+        const file = event.target.files[0];
+        const preview = document.getElementById("applicantSignaturePreview");
+        
+        if (file) {
+          preview.src = URL.createObjectURL(file);
+          preview.style.display = "block";
+        } else {
+          preview.src = "";
+          preview.style.display = "none";
+        }
+      }
+    </script>
+
+
 
 
 
