@@ -16,3 +16,6 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('adminview.index');
 });
+Route::get('/user-registration', function () {
+    return view('userview.userRegistration');
+});
