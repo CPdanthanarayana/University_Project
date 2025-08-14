@@ -43,6 +43,20 @@
   }
   .date-input {
     width: 40%;
+    display: flex;
+    gap: 800px;
+
+  }
+  .submit-button{
+    background-color: #a7d4f8ff;
+    color: white;
+    padding: 10px;
+    border: none;
+    border-radius: 4px;
+    
+  }
+  .submit-button:hover {
+    background-color: #2853ffff;
   }
   textarea {
     min-height: 50px;
@@ -306,13 +320,15 @@
       <img id="applicantSignaturePreview" src="" alt="Signature Preview" style="max-height: 80px; display: none; border: 1px solid #ccc; padding: 4px;">
     </div>
 
+    
     <!-- Upload Signature File -->
     <input type="file" accept="image/*" onchange="previewSignature(event)" name="applicant_signature">
       <br>
     <!-- Date -->
     <label style="margin-top: 10px;">Date:</label>
-    <div class="date-input">
+    <div class="date-input" >
       <input type="date" name="applicant_date">
+      <button class="submit-button" type="submit">Submit</button>
     </div>
   </div>
 </div>
