@@ -14,5 +14,11 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
+
+    return view('userview.userForm');
+
+});
+
+Route::get('/admin', function () {
     return view('adminview.index');
 });
