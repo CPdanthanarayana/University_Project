@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AuthManager;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -19,3 +20,11 @@ Route::get('/', function () {
 Route::get('/user-registration', function () {
     return view('userview.userRegistration');
 });
+
+Route::get('/user-login', function () {
+    return view('userview.userlogin');
+});
+
+
+//Route::get('/user-login', [AuthManager::class, 'login'])->name('login');
+//Route::post('/user-login', [AuthManager::class, 'loginPost'])->name('login.post');
