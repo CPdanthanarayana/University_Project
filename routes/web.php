@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AuthManager;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -35,3 +36,10 @@ Route::post('/admin-register', function () {
     // Simply redirect to admin page after form submission
     return redirect('/admin')->with('success', 'Registration successful!');
 });
+Route::get('/user-login', function () {
+    return view('userview.userlogin');
+});
+
+
+//Route::get('/user-login', [AuthManager::class, 'login'])->name('login');
+//Route::post('/user-login', [AuthManager::class, 'loginPost'])->name('login.post');
