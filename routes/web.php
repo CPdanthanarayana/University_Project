@@ -25,3 +25,13 @@ Route::get('/user-registration', function () {
 Route::get('/admin', function () {
     return view('adminview.index');
 });
+
+Route::get('/admin-registration', function () {
+    return view('adminview.adminRegistration');
+});
+
+// Handle admin registration form submission - no server-side validation
+Route::post('/admin-register', function () {
+    // Simply redirect to admin page after form submission
+    return redirect('/admin')->with('success', 'Registration successful!');
+});
