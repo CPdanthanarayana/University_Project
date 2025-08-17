@@ -473,6 +473,9 @@
           const result = await response.json();
           
           if (response.ok) {
+            // Show browser alert first
+            alert('Form submitted successfully');
+            
             showMessage('success', `Application submitted successfully! Application ID: ${result.data.id}`);
             document.getElementById('applicationForm').reset();
             document.getElementById('applicantSignaturePreview').style.display = 'none';
