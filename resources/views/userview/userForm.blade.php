@@ -156,29 +156,34 @@
     <div class="form-container">
     <h2>VEHICLE REQUISITION FORM FOR OUTSTATION TRIP</h2>
     <div class="note">(To be submitted to the Transport Division at least 03 working days prior to departure date)</div>
+    
+    <!-- Success/Error Messages -->
+    <div id="message-container" style="display: none; padding: 10px; margin-bottom: 20px; border-radius: 4px;"></div>
+    
+    <form id="applicationForm" enctype="multipart/form-data">
 
     <div class="section-title">Applicant Details</div>
     <div class="row">
   <div class="col">
     <label>1. Service No. and Name of Applicant:</label>
-    <input type="text" name="service_no_name">
+    <input type="text" name="service_no_name" required>
   </div>
   <div class="col">
     <label>2. Designation:</label>
-    <input type="text" name="designation">
+    <input type="text" name="designation" required>
   </div>
   <div class="col">
     <label>3. Faculty:</label>
     <select name="faculty" required>
       <option value="">-- Select Faculty --</option>
       <option value="Faculty of Applied Sciences">Faculty of Applied Sciences</option>
-      <option value="Faculty of Engineering">Faculty of Management Studies</option>
+      <option value="Faculty of Management Studies">Faculty of Management Studies</option>
       <option value="Faculty of Technology">Faculty of Technology</option>
-      <option value="Faculty of Islamic Studies">Faculty of Computing</option>
-      <option value="Faculty of Management and Commerce">Faculty of Social Science and language</option>
-      <option value="Faculty of Arts and Culture">Faculty of Geomatics</option>
+      <option value="Faculty of Computing">Faculty of Computing</option>
+      <option value="Faculty of Social Science and language">Faculty of Social Science and language</option>
+      <option value="Faculty of Geomatics">Faculty of Geomatics</option>
       <option value="Faculty of Medicine">Faculty of Medicine</option>
-      <option value="Faculty of Law">Faculty of  Agricultural Sciences</option>
+      <option value="Faculty of Agricultural Sciences">Faculty of Agricultural Sciences</option>
     </select>
   </div>
 </div>
@@ -186,22 +191,29 @@
 <div class="row">
   <div class="col">
     <label>4. Department:</label>
-    <input type="text" name="department">
+    <input type="text" name="department" required>
   </div>
   <div class="col">
     <label>5. Contact No./s:</label>
-    <input type="text" name="contact_no">
+    <input type="text" name="contact_no" required>
   </div>
 </div>
 
 <label>6. Purpose of Travelling:</label>
-<textarea name="purpose"></textarea>
+<textarea name="purpose" required></textarea>
 
 
     <div class="checkbox-group">
       <label>Supporting Document(s) attached:</label>
-      <input type="checkbox" name="supporting_docs" value="yes"> Yes
-      <input type="checkbox" name="supporting_docs" value="no"> No
+      <input type="radio" name="supporting_docs" value="yes" required> Yes
+      <input type="radio" name="supporting_docs" value="no" required> No
+    </div>
+    
+    <!-- File Upload Section for Supporting Documents -->
+    <div id="documents-section" style="display: none; margin-top: 10px;">
+      <label>Upload Supporting Documents:</label>
+      <input type="file" name="supporting_documents[]" multiple accept=".pdf,.doc,.docx,.jpg,.jpeg,.png">
+      <div class="note">Accepted formats: PDF, DOC, DOCX, JPG, PNG (Max 5MB each)</div>
     </div>
 
     <div class="section-title">6. Name(s) of Person(s) Travelling</div>
@@ -253,22 +265,22 @@
     <div class="row">
       <div class="col">
         <label>From:</label>
-        <input type="text" name="from">
+        <input type="text" name="from" required>
       </div>
       <div class="col">
         <label>To:</label>
-        <input type="text" name="to">
+        <input type="text" name="to" required>
       </div>
     </div>
     <div class="row">
       <div class="col">
         <label>8. Date & Time of Departure:</label>
-        <input type="date" name="departure_date">
+        <input type="date" name="departure_date" required>
         <input type="time" name="departure_time">
       </div>
       <div class="col">
         <label>9. Date & Time of Return (From Outstation):</label>
-        <input type="date" name="return_date">
+        <input type="date" name="return_date" required>
         <input type="time" name="return_time">
       </div>
     </div>
@@ -327,11 +339,16 @@
     <!-- Date -->
     <label style="margin-top: 10px;">Date:</label>
     <div class="date-input" >
-      <input type="date" name="applicant_date">
-      <button class="submit-button" type="submit">Submit</button>
+      <input type="date" name="applicant_date" required>
+      <button class="submit-button" type="submit" id="submitBtn">
+        <span id="submitText">Submit</span>
+        <span id="loadingText" style="display: none;">Submitting...</span>
+      </button>
     </div>
   </div>
 </div>
+
+</form>
 
 
     
@@ -417,6 +434,138 @@
           row.querySelectorAll("input")[0].name = `sn${index + 1}_service_no`;
           row.querySelectorAll("input")[1].name = `sn${index + 1}_name`;
         });
+      }
+
+      // Show/hide supporting documents upload section
+      document.addEventListener('DOMContentLoaded', function() {
+        const supportingDocsRadios = document.querySelectorAll('input[name="supporting_docs"]');
+        const documentsSection = document.getElementById('documents-section');
+        
+        supportingDocsRadios.forEach(radio => {
+          radio.addEventListener('change', function() {
+            if (this.value === 'yes') {
+              documentsSection.style.display = 'block';
+            } else {
+              documentsSection.style.display = 'none';
+            }
+          });
+        });
+      });
+
+      // Initialize CSRF token for AJAX requests
+      window.Laravel = {
+        csrfToken: '{{ csrf_token() }}'
+      };
+
+      // API submission function
+      async function submitApplication(formData) {
+        try {
+          const response = await fetch('/submit-application', {
+            method: 'POST',
+            headers: {
+              'X-CSRF-TOKEN': window.Laravel.csrfToken,
+              'Accept': 'application/json',
+              'X-Requested-With': 'XMLHttpRequest'
+            },
+            body: formData
+          });
+
+          const result = await response.json();
+          
+          if (response.ok) {
+            showMessage('success', `Application submitted successfully! Application ID: ${result.data.id}`);
+            document.getElementById('applicationForm').reset();
+            document.getElementById('applicantSignaturePreview').style.display = 'none';
+            
+            // Show submission summary
+            if (result.data.members_created > 0) {
+              setTimeout(() => {
+                showMessage('info', `Summary: ${result.data.members_created} members and ${result.data.visits_created} visits added.`);
+              }, 2000);
+            }
+          } else {
+            if (result.errors) {
+              let errorMsg = 'Please fix the following errors:\n';
+              Object.values(result.errors).forEach(errors => {
+                errors.forEach(error => errorMsg += `• ${error}\n`);
+              });
+              throw new Error(errorMsg);
+            } else {
+              throw new Error(result.message || 'Submission failed');
+            }
+          }
+        } catch (error) {
+          console.error('Submission error:', error);
+          showMessage('error', error.message);
+        }
+      }
+
+      // Form submission handler
+      document.getElementById('applicationForm').addEventListener('submit', async function(e) {
+        e.preventDefault();
+        
+        const submitBtn = document.getElementById('submitBtn');
+        const submitText = document.getElementById('submitText');
+        const loadingText = document.getElementById('loadingText');
+        
+        // Show loading state
+        submitBtn.disabled = true;
+        submitText.style.display = 'none';
+        loadingText.style.display = 'inline';
+        
+        try {
+          const formData = new FormData(this);
+          
+          // Add authentication - get current user or use guest system
+          // Remove hardcoded user_id as it's now handled by the controller
+          
+          await submitApplication(formData);
+        } finally {
+          // Reset button state
+          submitBtn.disabled = false;
+          submitText.style.display = 'inline';
+          loadingText.style.display = 'none';
+        }
+      });
+
+      // Message display function
+      function showMessage(type, message) {
+        const container = document.getElementById('message-container');
+        let bgColor, textColor, borderColor;
+        
+        switch(type) {
+          case 'success':
+            bgColor = '#d4edda';
+            textColor = '#155724';
+            borderColor = '#c3e6cb';
+            break;
+          case 'error':
+            bgColor = '#f8d7da';
+            textColor = '#721c24';
+            borderColor = '#f5c6cb';
+            break;
+          case 'info':
+            bgColor = '#d1ecf1';
+            textColor = '#0c5460';
+            borderColor = '#bee5eb';
+            break;
+          default:
+            bgColor = '#e2e3e5';
+            textColor = '#383d41';
+            borderColor = '#d6d8db';
+        }
+        
+        container.style.backgroundColor = bgColor;
+        container.style.color = textColor;
+        container.style.border = `1px solid ${borderColor}`;
+        container.innerHTML = message.replace(/\n/g, '<br>');
+        container.style.display = 'block';
+        
+        // Auto-hide after 10 seconds for success, 15 seconds for errors
+        const hideTimeout = type === 'error' ? 15000 : 10000;
+        setTimeout(() => {
+          container.style.display = 'none';
+        }, hideTimeout);
       }
     </script>
     <script>
