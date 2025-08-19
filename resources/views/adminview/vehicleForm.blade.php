@@ -6,55 +6,47 @@
 
 @section('content')
 <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-    <h1 class="h2">Dashboard</h1>
-    <div class="btn-toolbar mb-2 mb-md-0">
-        <div class="btn-group me-2">
-            <button type="button" class="btn btn-sm btn-outline-secondary">Share</button>
-            <button type="button" class="btn btn-sm btn-outline-secondary">Export</button>
-        </div>
-        <button type="button" class="btn btn-sm btn-outline-secondary dropdown-toggle">
-            <i class="bi bi-calendar"></i> This week
-        </button>
-    </div>
+    <h1 class="h2">Vehicle Management</h1>
 </div>
-<div class="container-fluid px-4">
-    <div class="row">
+<div class="container-fluid">
+    <div class="row g-0"> <!-- Removed padding classes and added g-0 to remove gutters -->
         <div class="col-12">
-            <h1 class="mt-4 mb-4">Vehicle Registration</h1>
             <div class="form-container">
-                <h2>VEHICLE REGISTRATION & DETAILS FORM</h2>
+                <h2>Add New Vehicle</h2>
 
                 <div id="message-container"></div>
 
-                <form id="addVehicleForm" enctype="multipart/form-data">
+                <form id="addVehicleForm">
 
                     <!-- Basic Details -->
-                    <div class="section-title">Basic Details</div>
-                    <div class="row">
-                        <div class="col">
-                            <label>1. Vehicle No:</label>
-                            <input type="text" name="vehicle_no" placeholder="Ex: ABC-1234" required>
+                    <div class="form-section">
+                        <div class="section-title">Basic Details</div>
+                        <div class="row">
+                            <div class="col">
+                                <label>1. Vehicle No:</label>
+                                <input type="text" name="vehicle_no" placeholder="Ex: ABC-1234" required>
+                            </div>
+                            <div class="col">
+                                <label>2. Vehicle Type:</label>
+                                <select name="vehicle_type" required>
+                                    <option value="">-- Select vehicle type --</option>
+                                    <option value="car">Car</option>
+                                    <option value="van">Van</option>
+                                    <option value="bus">Bus</option>
+                                    <option value="utility vehicle">Utility vehicle</option>
+                                </select>
+                            </div>
+                            <div class="col">
+                                <label>3. Capacity:</label>
+                                <input type="number" name="capacity" placeholder="Number of passengers" required>
+                            </div>
                         </div>
-                        <div class="col">
-                            <label>2. Vehicle Type:</label>
-                            <select name="vehicle_type" required>
-                                <option value="">-- Select vehicle type --</option>
-                                <option value="car">Car</option>
-                                <option value="van">Van</option>
-                                <option value="bus">Bus</option>
-                                <option value="utility vehicle">Utility vehicle</option>
-                            </select>
-                        </div>
-                        <div class="col">
-                            <label>3. Capacity:</label>
-                            <input type="number" name="capacity" placeholder="Number of passengers" required>
-                        </div>
-                    </div>
 
-                    <div class="row">
-                        <div class="col">
-                            <label>4. Driver's Name:</label>
-                            <input type="text" name="driver_name" required>
+                        <div class="row">
+                            <div class="col">
+                                <label>4. Driver's Name:</label>
+                                <input type="text" name="driver_name" required>
+                            </div>
                         </div>
                     </div>
 
@@ -85,7 +77,9 @@
                     </div>
 
                     <!-- Submit -->
-                    <button class="submit-button" type="submit">Submit</button>
+                    <div class="form-actions">
+                        <button class="submit-button" type="submit">Add Vehicle</button>
+                    </div>
 
                 </form>
             </div>
