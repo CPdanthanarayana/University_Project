@@ -85,6 +85,10 @@
                                         <i class="bi bi-speedometer2"></i>
                                         Dashboard
                                    </a>
+                                   <a href="{{ url('/addVehicle') }}" class="nav-link">
+                                        <i class="bi bi-car-front"></i>
+                                        Vehicle Mangement
+                                    </a>
                               </li>
                          </ul>
                     </div>

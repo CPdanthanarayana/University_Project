@@ -34,3 +34,8 @@ Route::middleware([
         return view('dashboard');
     })->name('dashboard');
 });
+
+// Vehicle routes
+Route::get('/addVehicle', function () {
+    return view('adminView.vehicleForm');
+})->name('vehicle.add');
