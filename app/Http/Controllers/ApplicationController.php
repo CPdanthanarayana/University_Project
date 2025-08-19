@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Application;
+
 use App\Models\Applicant;
 use App\Models\ApplicationMember;
 use App\Models\ApplicationVisit;
@@ -10,11 +11,9 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 
+
 class ApplicationController extends Controller
 {
-    /**
-     * Display a listing of applications.
-     */
     public function index()
     {
         $applications = Application::with(['applicant', 'user', 'application_members'])
