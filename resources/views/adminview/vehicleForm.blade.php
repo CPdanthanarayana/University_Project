@@ -86,6 +86,101 @@
         </div>
     </div>
 </div>
+
+<!-- Vehicle Table -->
+<div class="card mt-5 shadow-lg border-0 rounded-xl">
+    <!-- Header -->
+    <div class="card-header bg-gradient-to-r from-purple-600 to-indigo-500 text-black d-flex justify-content-between align-items-center py-3 px-4">
+        <h5 class="mb-0 text-lg font-semibold text-black tracking-wide">Vehicles List</h5>
+        
+    </div>
+
+    <!-- Body -->
+    <div class="card-body p-0">
+        <div class="table-responsive">
+            <table class="table align-middle mb-0" style="min-width: 100%;">
+                <thead class="bg-purple-50 text-purple-700 text-sm uppercase font-semibold border-bottom">
+                    <tr>
+                        <th>ID</th>
+                        <th>Vehicle No</th>
+                        <th>Type</th>
+                        <th>Capacity</th>
+                        <th>Driver</th>
+                        <th>Fuel</th>
+                        <th>Insurance Expiry</th>
+                        <th>Notes</th>
+                        <th>Status</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody id="vehicleTable" class="text-sm">
+                    <tr class="hover:bg-purple-50 transition-colors">
+                        <td>1</td>
+                        <td>ABC-1234</td>
+                        <td>Car</td>
+                        <td>5</td>
+                        <td>John Doe</td>
+                        <td>Petrol</td>
+                        <td>2025-06-30</td>
+                        <td>Regular maintenance done</td>
+                        <td>
+                            <span class="badge bg-success text-white px-3 py-1 rounded-pill">Available</span>
+                        </td>
+                        <td class="d-flex gap-2">
+                            <button class="btn btn-sm btn-outline-warning px-3">Edit</button>
+                            <button class="btn btn-sm btn-outline-danger px-3">Delete</button>
+                        </td>
+                    </tr>
+                    <tr class="hover:bg-purple-50 transition-colors">
+                        <td>2</td>
+                        <td>XYZ-5678</td>
+                        <td>Van</td>
+                        <td>12</td>
+                        <td>Jane Smith</td>
+                        <td>Diesel</td>
+                        <td>2024-12-15</td>
+                        <td>-</td>
+                        <td>
+                            <span class="badge bg-warning text-white px-3 py-1 rounded-pill">In Service</span>
+                        </td>
+                        <td class="d-flex gap-2">
+                            <button class="btn btn-sm btn-outline-warning px-3">Edit</button>
+                            <button class="btn btn-sm btn-outline-danger px-3">Delete</button>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Pagination & Rows per page -->
+        <div class="d-flex justify-content-between align-items-center mt-3 px-4 py-3 border-top bg-purple-50 rounded-b-xl">
+            <div class="d-flex align-items-center gap-2">
+                <label for="rowsPerPage" class="mb-0 font-semibold text-purple-700">Show:</label>
+                <select id="rowsPerPage" class="form-select form-select-sm" style="width: 70px;">
+                    <option>5</option>
+                    <option selected>10</option>
+                    <option>25</option>
+                    <option>50</option>
+                </select>
+            </div>
+            <nav aria-label="Page navigation">
+                <ul class="pagination pagination-sm mb-0">
+                    <li class="page-item disabled">
+                        <a class="page-link text-purple-700" href="#" tabindex="-1">Previous</a>
+                    </li>
+                    <li class="page-item active"><a class="page-link bg-purple-600 border-0 text-white" href="#">1</a></li>
+                    <li class="page-item"><a class="page-link text-purple-700" href="#">2</a></li>
+                    <li class="page-item"><a class="page-link text-purple-700" href="#">3</a></li>
+                    <li class="page-item">
+                        <a class="page-link text-purple-700" href="#">Next</a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+
+
+
 @endsection
 
 @push('scripts')
@@ -118,5 +213,52 @@ document.getElementById('addVehicleForm').addEventListener('submit', function(e)
         this.submit();
     }
 });
+
+
+// Add new vehicle row dynamically from form
+document.getElementById('addVehicleForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+
+    const vehicleNo = this.vehicle_no.value.trim();
+    const vehicleType = this.vehicle_type.value;
+    const capacity = this.capacity.value.trim();
+    const driverName = this.driver_name.value.trim();
+    const fuelType = this.fuel_type.value;
+    const insuranceExpiry = this.insurance_expiry.value || '-';
+    const notes = this.notes.value.trim() || '-';
+
+    if(!vehicleNo || !vehicleType || !capacity || !driverName || !fuelType){
+        alert("Please fill in all required fields.");
+        return;
+    }
+
+    const table = document.getElementById('vehicleTable');
+    const rowCount = table.rows.length + 1;
+
+    const newRow = table.insertRow();
+    newRow.classList.add('hover:bg-purple-50', 'transition-colors', 'duration-150');
+    newRow.innerHTML = `
+        <td class="px-4 py-2 text-sm text-purple-700 font-medium">${rowCount}</td>
+        <td class="px-4 py-2 text-sm text-purple-700">${vehicleNo}</td>
+        <td class="px-4 py-2 text-sm text-purple-700">${vehicleType}</td>
+        <td class="px-4 py-2 text-sm text-purple-700">${capacity}</td>
+        <td class="px-4 py-2 text-sm text-purple-700">${driverName}</td>
+        <td class="px-4 py-2 text-sm text-purple-700">${fuelType}</td>
+        <td class="px-4 py-2 text-sm text-purple-700">${insuranceExpiry}</td>
+        <td class="px-4 py-2 text-sm text-purple-700">${notes}</td>
+        <td class="px-4 py-2 text-sm">
+            <span class="badge bg-success text-white px-3 py-1 rounded-pill">Available</span>
+        </td>
+        <td class="px-4 py-2 text-sm flex gap-2">
+            <button class="btn btn-outline-warning btn-sm px-3">Edit</button>
+            <button class="btn btn-outline-danger btn-sm px-3">Delete</button>
+        </td>
+    `;
+
+    this.reset(); // clear form
+});
+
+
+
 </script>
 @endpush
