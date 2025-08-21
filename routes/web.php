@@ -40,6 +40,7 @@ Route::middleware([
 // Vehicle routes
 Route::prefix('admin')->group(function () {
     Route::get('/vehicles', [VehicleController::class, 'index'])->name('vehicle.index');
+    Route::post('/vehicles', [VehicleController::class, 'store'])->name('vehicle.store');
     Route::delete('/vehicles/{vehicle}', [VehicleController::class, 'destroy'])->name('vehicle.delete');
 });
 

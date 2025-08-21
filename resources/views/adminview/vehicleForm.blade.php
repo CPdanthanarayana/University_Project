@@ -36,7 +36,8 @@
 
                 <div id="message-container"></div>
 
-                <form id="addVehicleForm">
+                <form id="addVehicleForm" action="{{ route('vehicle.store') }}" method="POST">
+                    @csrf
 
                     <!-- Basic Details -->
                     <div class="form-section">
@@ -48,7 +49,7 @@
                             </div>
                             <div class="col">
                                 <label>2. Vehicle Type:</label>
-                                <select name="vehicle_type" required>
+                                <select name="type" required>
                                     <option value="">-- Select vehicle type --</option>
                                     <option value="car">Car</option>
                                     <option value="van">Van</option>
@@ -65,7 +66,7 @@
                         <div class="row">
                             <div class="col">
                                 <label>4. Driver's Name:</label>
-                                <input type="text" name="driver_name" required>
+                                <input type="text" name="driver" required>
                             </div>
                         </div>
                     </div>
@@ -75,7 +76,7 @@
                     <div class="row">
                         <div class="col">
                             <label>5. Fuel Type:</label>
-                            <select name="fuel_type" required>
+                            <select name="fuel" required>
                                 <option value="">-- Select type --</option>
                                 <option value="petrol">Petrol</option>
                                 <option value="diesel">Diesel</option>
@@ -212,10 +213,12 @@ document.getElementById('addVehicleForm').addEventListener('submit', function(e)
     let errors = [];
 
     const vehicleNo = this.vehicle_no.value.trim();
-    const vehicleType = this.vehicle_type.value;
+    const vehicleType = this.type.value;
     const capacity = this.capacity.value.trim();
-    const driverName = this.driver_name.value.trim();
-    const fuelType = this.fuel_type.value;
+    const driverName = this.driver.value.trim();
+    const fuelType = this.fuel.value;
+    const insuranceExpiry = this.insurance_expiry.value || '-';
+    const notes = this.notes.value.trim() || '-';
 
     if(vehicleNo.length < 5) errors.push("Vehicle number must be at least 5 characters.");
     if(!vehicleType) errors.push("Please select a vehicle type.");
@@ -241,10 +244,10 @@ document.getElementById('addVehicleForm').addEventListener('submit', function(e)
     e.preventDefault();
 
     const vehicleNo = this.vehicle_no.value.trim();
-    const vehicleType = this.vehicle_type.value;
+    const vehicleType = this.type.value;
     const capacity = this.capacity.value.trim();
-    const driverName = this.driver_name.value.trim();
-    const fuelType = this.fuel_type.value;
+    const driverName = this.driver.value.trim();
+    const fuelType = this.fuel.value;
     const insuranceExpiry = this.insurance_expiry.value || '-';
     const notes = this.notes.value.trim() || '-';
 
@@ -276,7 +279,8 @@ document.getElementById('addVehicleForm').addEventListener('submit', function(e)
         </td>
     `;
 
-    this.reset(); // clear form
+    this.submit(); //send data to backend
+    this.reset(); //reset form fields
 });
 
 
