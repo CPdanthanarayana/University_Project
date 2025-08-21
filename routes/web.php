@@ -41,6 +41,8 @@ Route::middleware([
 Route::prefix('admin')->group(function () {
     Route::get('/vehicles', [VehicleController::class, 'index'])->name('vehicle.index');
     Route::delete('/vehicles/{vehicle}', [VehicleController::class, 'destroy'])->name('vehicle.delete');
+    Route::get('/vehicles/{vehicle}/edit', [VehicleController::class, 'edit'])->name('vehicle.edit');
+    Route::put('/vehicles/{vehicle}', [VehicleController::class, 'update'])->name('vehicle.update');
 });
 
 

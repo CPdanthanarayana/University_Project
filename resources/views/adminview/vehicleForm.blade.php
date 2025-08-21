@@ -153,11 +153,16 @@
                                         {{ ucfirst(str_replace('_', ' ', $vehicle->status)) }}
                                     </span>
                                 </td>
-                                <td>
+                                <td class="px-4 py-2 text-sm flex gap-2">
+                                    <!-- Edit button -->
+                                    <a href="{{ route('vehicle.edit', $vehicle->id) }}"
+                                    class="btn btn-outline-warning btn-sm px-3">Edit</a>
+
+                                    <!-- Delete button -->
                                     <form action="{{ route('vehicle.delete', $vehicle->id) }}" method="POST" class="d-inline">
                                         @csrf
                                         @method('DELETE')
-                                        <button type="submit" class="btn btn-sm btn-outline-danger px-3">Delete</button>
+                                        <button type="submit" class="btn btn-outline-danger btn-sm px-3">Delete</button>
                                     </form>
                                 </td>
                             </tr>
