@@ -109,94 +109,99 @@
 </div>
 
 <!-- Vehicle Table -->
-<div class="card mt-5 shadow-lg border-0 rounded-xl">
+<div class="vehicle-table-container">
     <!-- Header -->
-    <div class="card-header bg-gradient-to-r from-purple-600 to-indigo-500 text-black d-flex justify-content-between align-items-center py-3 px-4">
-        <h5 class="mb-0 text-lg font-semibold text-black tracking-wide">Vehicles List</h5>
-
+    <div class="vehicle-table-header">
+        <h5>Vehicles List</h5>
     </div>
 
     <!-- Body -->
-    <div class="card-body p-0">
-        <div class="table-responsive">
-            <table class="table align-middle mb-0" style="min-width: 100%;">
-                <thead class="bg-purple-50 text-purple-700 text-sm uppercase font-semibold border-bottom">
-                    <tr>
-                        <th>ID</th>
-                        <th>Vehicle No</th>
-                        <th>Type</th>
-                        <th>Capacity</th>
-                        <th>Driver</th>
-                        <th>Fuel</th>
-                        <th>Insurance Expiry</th>
-                        <th>Notes</th>
-                        <th>Status</th>
-                        <th>Actions</th>
-                    </tr>
-                </thead>
-                <tbody id="vehicleTable" class="text-sm">
-                    @if(isset($vehicles) && count($vehicles) > 0)
-                        @foreach($vehicles as $vehicle)
-                            <tr class="hover:bg-purple-50 transition-colors">
-                                <td>{{ $vehicle->id }}</td>
-                                <td>{{ $vehicle->vehicle_no }}</td>
-                                <td>{{ ucfirst($vehicle->type) }}</td>
-                                <td>{{ $vehicle->capacity }}</td>
-                                <td>{{ $vehicle->driver }}</td>
-                                <td>{{ ucfirst($vehicle->fuel) }}</td>
-                                <td>{{ $vehicle->insurance_expiry ?? '-' }}</td>
-                                <td>{{ Str::limit($vehicle->notes, 30) ?? '-' }}</td>
-                                <td>
-                                    <span class="badge
-                                        {{ $vehicle->status == 'available' ? 'bg-success' :
-                                        ($vehicle->status == 'under_maintenance' ? 'bg-warning' :
-                                        ($vehicle->status == 'reserved' ? 'bg-info' : 'bg-secondary')) }}">
-                                        {{ ucfirst(str_replace('_', ' ', $vehicle->status)) }}
-                                    </span>
-                                </td>
-                                <td>
+    <div class="table-responsive">
+        <table class="vehicle-table">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Vehicle No</th>
+                    <th>Type</th>
+                    <th>Capacity</th>
+                    <th>Driver</th>
+                    <th>Fuel</th>
+                    <th>Insurance Expiry</th>
+                    <th>Notes</th>
+                    <th>Status</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                @if(isset($vehicles) && count($vehicles) > 0)
+                    @foreach($vehicles as $vehicle)
+                        <tr>
+                            <td>{{ $vehicle->id }}</td>
+                            <td>{{ $vehicle->vehicle_no }}</td>
+                            <td>{{ ucfirst($vehicle->type) }}</td>
+                            <td>{{ $vehicle->capacity }}</td>
+                            <td>{{ $vehicle->driver }}</td>
+                            <td>{{ ucfirst($vehicle->fuel) }}</td>
+                            <td>{{ $vehicle->insurance_expiry ?? '-' }}</td>
+                            <td>{{ Str::limit($vehicle->notes, 30) ?? '-' }}</td>
+                            <td>
+                                <form action="{{ route('vehicle.status', $vehicle->id) }}" method="POST">
+                                    @csrf
+                                    @method('PATCH')
+                                    <select name="status" onchange="this.form.submit()" class="form-select form-select-sm">
+                                        <option value="available" {{ $vehicle->status == 'available' ? 'selected' : '' }}>Available</option>
+                                        <option value="under_maintenance" {{ $vehicle->status == 'under_maintenance' ? 'selected' : '' }}>Under Maintenance</option>
+                                        <option value="reserved" {{ $vehicle->status == 'reserved' ? 'selected' : '' }}>Reserved</option>
+                                        <option value="out_of_service" {{ $vehicle->status == 'out_of_service' ? 'selected' : '' }}>Out of Service</option>
+                                    </select>
+                                </form>
+                            </td>
+                            <td>
+                                <div class="action-buttons">
+                                    <a href="{{ route('vehicle.edit', $vehicle->id) }}"
+                                       class="btn-table-action btn btn-outline-warning">Edit</a>
                                     <form action="{{ route('vehicle.delete', $vehicle->id) }}" method="POST" class="d-inline">
                                         @csrf
                                         @method('DELETE')
-                                        <button type="submit" class="btn btn-sm btn-outline-danger px-3">Delete</button>
+                                        <button type="submit" class="btn-table-action btn btn-outline-danger">Delete</button>
                                     </form>
-                                </td>
-                            </tr>
-                        @endforeach
-                    @else
-                        <tr>
-                            <td colspan="10" class="text-center py-4">No vehicles found</td>
+                                </div>
+                            </td>
                         </tr>
-                    @endif
-                </tbody>
-            </table>
-        </div>
+                    @endforeach
+                @else
+                    <tr>
+                        <td colspan="10" class="text-center py-4">No vehicles found</td>
+                    </tr>
+                @endif
+            </tbody>
+        </table>
+    </div>
 
-        <!-- Pagination & Rows per page -->
-        <div class="d-flex justify-content-between align-items-center mt-3 px-4 py-3 border-top bg-purple-50 rounded-b-xl">
-            <div class="d-flex align-items-center gap-2">
-                <label for="rowsPerPage" class="mb-0 font-semibold text-purple-700">Show:</label>
-                <select id="rowsPerPage" class="form-select form-select-sm" style="width: 70px;">
-                    <option>5</option>
-                    <option selected>10</option>
-                    <option>25</option>
-                    <option>50</option>
-                </select>
-            </div>
-            <nav aria-label="Page navigation">
-                <ul class="pagination pagination-sm mb-0">
-                    <li class="page-item disabled">
-                        <a class="page-link text-purple-700" href="#" tabindex="-1">Previous</a>
-                    </li>
-                    <li class="page-item active"><a class="page-link bg-purple-600 border-0 text-white" href="#">1</a></li>
-                    <li class="page-item"><a class="page-link text-purple-700" href="#">2</a></li>
-                    <li class="page-item"><a class="page-link text-purple-700" href="#">3</a></li>
-                    <li class="page-item">
-                        <a class="page-link text-purple-700" href="#">Next</a>
-                    </li>
-                </ul>
-            </nav>
+    <!-- Footer with Pagination -->
+    <div class="table-footer">
+        <div class="rows-per-page">
+            <label for="rowsPerPage">Show:</label>
+            <select id="rowsPerPage" class="form-select form-select-sm">
+                <option>5</option>
+                <option selected>10</option>
+                <option>25</option>
+                <option>50</option>
+            </select>
         </div>
+        <nav aria-label="Page navigation">
+            <ul class="pagination pagination-sm">
+                <li class="page-item disabled">
+                    <a class="page-link" href="#" tabindex="-1">Previous</a>
+                </li>
+                <li class="page-item active"><a class="page-link" href="#">1</a></li>
+                <li class="page-item"><a class="page-link" href="#">2</a></li>
+                <li class="page-item"><a class="page-link" href="#">3</a></li>
+                <li class="page-item">
+                    <a class="page-link" href="#">Next</a>
+                </li>
+            </ul>
+        </nav>
     </div>
 </div>
 
