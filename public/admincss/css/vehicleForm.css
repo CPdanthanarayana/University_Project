@@ -109,6 +109,172 @@ select {
     display: none;
 }
 
+/* Table Styles */
+.vehicle-table-container {
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0 0 15px rgba(0,0,0,0.05);
+    margin: 20px 0;
+    max-width: 100%;
+}
+
+.vehicle-table-header {
+    background: #f8f9fc;
+    padding: 15px 30px;
+    border-bottom: 1px solid #e3e6f0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.vehicle-table-header h5 {
+    color: #4e73df;
+    font-size: 1.1rem;
+    font-weight: 500;
+    margin: 0;
+}
+
+.table-responsive {
+    padding: 0;
+}
+
+.vehicle-table {
+    width: 100%;
+    margin-bottom: 0;
+    border-collapse: separate;
+    border-spacing: 0;
+}
+
+.vehicle-table thead th {
+    background: #f8f9fc;
+    color: #000000;
+    font-weight: 500;
+    font-size: 0.875rem;
+    padding: 12px 30px;
+    border-bottom: 2px solid #e3e6f0;
+    white-space: nowrap;
+}
+
+.vehicle-table tbody td {
+    padding: 8px 30px;
+    vertical-align: middle;
+    border-bottom: 1px solid #e3e6f0;
+    color: #5a5c69;
+    font-size: 0.875rem;
+    white-space: nowrap;
+}
+
+.vehicle-table tbody tr:hover {
+    background-color: #f8f9fc;
+}
+
+/* Status Badge Styles */
+.status-badge {
+    padding: 5px 12px;
+    border-radius: 15px;
+    font-size: 0.75rem;
+    font-weight: 500;
+    text-transform: capitalize;
+}
+
+.status-available {
+    background-color: #e3fcef;
+    color: #1a9850;
+}
+
+.status-maintenance {
+    background-color: #fff3cd;
+    color: #856404;
+}
+
+.status-reserved {
+    background-color: #e3f2fd;
+    color: #0d6efd;
+}
+
+.status-outofservice {
+    background-color: #ffebee;
+    color: #dc3545;
+}
+
+/* Action Buttons */
+.action-buttons {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+    white-space: nowrap;
+}
+
+.btn-table-action {
+    padding: 4px 12px;
+    font-size: 0.8rem;
+    border-radius: 4px;
+    transition: all 0.2s;
+}
+
+/* Pagination Styles */
+.table-footer {
+    padding: 15px 30px;
+    background: #f8f9fc;
+    border-top: 1px solid #e3e6f0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.rows-per-page {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.rows-per-page select {
+    width: 70px;
+    padding: 4px 8px;
+    border-radius: 4px;
+    border: 1px solid #d1d3e2;
+}
+
+.pagination {
+    margin: 0;
+}
+
+.page-link {
+    padding: 5px 10px;
+    color: #4e73df;
+}
+
+.page-item.active .page-link {
+    background-color: #4e73df;
+    border-color: #4e73df;
+}
+
+/* Table Select Styles */
+.vehicle-table td select.form-select-sm {
+    width: auto;
+    min-width: 140px;
+    padding: 4px 24px 4px 8px;
+    margin: 0;
+    height: 31px;
+    font-size: 0.875rem;
+    border: 1px solid #d1d3e2;
+    border-radius: 4px;
+    background-position: right 8px center;
+    background-size: 8px 8px;
+    vertical-align: middle;
+}
+
+/* Status column width */
+.vehicle-table th:nth-child(9),
+.vehicle-table td:nth-child(9) {
+    min-width: 140px;
+}
+
+/* Actions column width */
+.vehicle-table th:nth-child(10),
+.vehicle-table td:nth-child(10) {
+    min-width: 160px;
+}
 
 @media (max-width: 700px) {
     .row {
