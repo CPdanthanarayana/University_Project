@@ -16,7 +16,6 @@ class Vehicle extends Model
         'driver',
         'fuel',
         'insurance_expiry',
-        'notes',
         'status'
     ];
 }

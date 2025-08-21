@@ -217,7 +217,6 @@ document.getElementById('addVehicleForm').addEventListener('submit', function(e)
     const driverName = this.driver.value.trim();
     const fuelType = this.fuel.value;
     const insuranceExpiry = this.insurance_expiry.value || '-';
-    const notes = this.notes.value.trim() || '-';
 
     if(vehicleNo.length < 5) errors.push("Vehicle number must be at least 5 characters.");
     if(!vehicleType) errors.push("Please select a vehicle type.");
@@ -238,7 +237,7 @@ document.getElementById('addVehicleForm').addEventListener('submit', function(e)
 });
 
 
-// Add new vehicle row dynamically from form
+// Add new vehicle row dynamically from form 
 document.getElementById('addVehicleForm').addEventListener('submit', function(e) {
     e.preventDefault();
 
@@ -248,39 +247,48 @@ document.getElementById('addVehicleForm').addEventListener('submit', function(e)
     const driverName = this.driver.value.trim();
     const fuelType = this.fuel.value;
     const insuranceExpiry = this.insurance_expiry.value || '-';
-    const notes = this.notes.value.trim() || '-';
 
-    if(!vehicleNo || !vehicleType || !capacity || !driverName || !fuelType){
+    if (!vehicleNo || !vehicleType || !capacity || !driverName || !fuelType) {
         alert("Please fill in all required fields.");
         return;
     }
 
-    const table = document.getElementById('vehicleTable');
-    const rowCount = table.rows.length + 1;
+    const tableBody = document.querySelector('#vehicleTable tbody');
+    const rowCount = tableBody.rows.length + 1;
 
-    const newRow = table.insertRow();
-    newRow.classList.add('hover:bg-purple-50', 'transition-colors', 'duration-150');
+    const newRow = tableBody.insertRow();
     newRow.innerHTML = `
-        <td class="px-4 py-2 text-sm text-purple-700 font-medium">${rowCount}</td>
-        <td class="px-4 py-2 text-sm text-purple-700">${vehicleNo}</td>
-        <td class="px-4 py-2 text-sm text-purple-700">${vehicleType}</td>
-        <td class="px-4 py-2 text-sm text-purple-700">${capacity}</td>
-        <td class="px-4 py-2 text-sm text-purple-700">${driverName}</td>
-        <td class="px-4 py-2 text-sm text-purple-700">${fuelType}</td>
-        <td class="px-4 py-2 text-sm text-purple-700">${insuranceExpiry}</td>
-        <td class="px-4 py-2 text-sm text-purple-700">${notes}</td>
-        <td class="px-4 py-2 text-sm">
-            <span class="badge bg-success text-white px-3 py-1 rounded-pill">Available</span>
+        <td>${rowCount}</td>
+        <td>${vehicleNo}</td>
+        <td>${vehicleType.charAt(0).toUpperCase() + vehicleType.slice(1)}</td>
+        <td>${capacity}</td>
+        <td>${driverName}</td>
+        <td>${fuelType.charAt(0).toUpperCase() + fuelType.slice(1)}</td>
+        <td>${insuranceExpiry}</td>
+        <td>
+            <select class="form-select form-select-sm">
+                <option value="available" selected>Available</option>
+                <option value="under_maintenance">Under Maintenance</option>
+                <option value="reserved">Reserved</option>
+                <option value="out_of_service">Out of Service</option>
+            </select>
         </td>
-        <td class="px-4 py-2 text-sm flex gap-2">
-            <button class="btn btn-outline-warning btn-sm px-3">Edit</button>
-            <button class="btn btn-outline-danger btn-sm px-3">Delete</button>
+        <td>
+            <div class="action-buttons">
+                <button type="button" class="btn-table-action btn btn-outline-warning" title="Edit">
+                    <i class="bi bi-pencil-square"></i>
+                </button>
+                <button type="button" class="btn-table-action btn btn-outline-danger" title="Delete">
+                    <i class="bi bi-trash"></i>
+                </button>
+            </div>
         </td>
     `;
 
-    this.submit(); //send data to backend
-    this.reset(); //reset form fields
+    this.submit(); // send to backend (Laravel)
+    this.reset();  // reset form
 });
+
 
 
 

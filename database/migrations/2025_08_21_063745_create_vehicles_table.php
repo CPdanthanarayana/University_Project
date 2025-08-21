@@ -21,7 +21,6 @@ class CreateVehiclesTable extends Migration
         $table->string('driver');
         $table->string('fuel');
         $table->date('insurance_expiry');
-        $table->text('notes')->nullable();
         $table->enum('status', ['available', 'under_maintenance', 'reserved', 'out_of_service'])->default('available');
         $table->timestamps();
     });
