@@ -97,7 +97,7 @@
                     <!-- Submit -->
                     <div class="form-actions mt-3">
                         <button class="submit-button btn btn-primary" type="submit">Update Vehicle</button>
-                        <a href="{{ route('vehicle.index') }}" class="btn btn-secondary ms-2">Cancel</a>
+                        <a href="{{ route('vehicle.index') }}" class="submit-button btn btn-secondary ms-2">Cancel</a>
                     </div>
                 </form>
 

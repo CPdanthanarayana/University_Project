@@ -5,208 +5,202 @@
 @endpush
 
 @section('content')
-<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-    <h1 class="h2">Vehicle Management</h1>
-</div>
-
-<!-- Success and Error Messages -->
-@if(session('success'))
-    <div class="alert alert-success alert-dismissible fade show" role="alert">
-        {{ session('success') }}
-        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+<div>
+    <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+        <h1 class="h2">Vehicle Management</h1>
     </div>
-@endif
 
-@if($errors->any())
-    <div class="alert alert-danger alert-dismissible fade show" role="alert">
-        <ul class="mb-0">
-            @foreach($errors->all() as $error)
-                <li>{{ $error }}</li>
-            @endforeach
-        </ul>
-        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-    </div>
-@endif
+    <!-- Success and Error Messages -->
+    @if(session('success'))
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            {{ session('success') }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    @endif
 
-<div class="container-fluid">
-    <div class="row g-0">
-        <div class="col-12">
-            <div class="form-container">
-                <h2>Add New Vehicle</h2>
+    @if($errors->any())
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            <ul class="mb-0">
+                @foreach($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    @endif
 
-                <div id="message-container"></div>
+    <div class="container-fluid">
+        <div class="row g-0">
+            <div class="col-12">
+                <div class="form-container">
+                    <h2 class="head-Tag">Add New Vehicle</h2>
 
-                <form id="addVehicleForm" action="{{ route('vehicle.store') }}" method="POST">
-                    @csrf
+                    <div id="message-container"></div>
 
-                    <!-- Basic Details -->
-                    <div class="form-section">
-                        <div class="section-title">Basic Details</div>
+                    <form id="addVehicleForm" action="{{ route('vehicle.store') }}" method="POST" novalidate>
+                        @csrf
+
+                        <!-- Basic Details -->
+                        <div class="form-section">
+                            <div class="section-title">Basic Details</div>
+                            <div class="row">
+                                <div class="col">
+                                    <label>1. Vehicle No:</label>
+                                    <input type="text" name="vehicle_no" placeholder="Ex: ABC-1234" required>
+                                </div>
+                                <div class="col">
+                                    <label>2. Vehicle Type:</label>
+                                    <select name="type" required>
+                                        <option value="">-- Select vehicle type --</option>
+                                        <option value="car">Car</option>
+                                        <option value="van">Van</option>
+                                        <option value="bus">Bus</option>
+                                        <option value="utility vehicle">Utility vehicle</option>
+                                    </select>
+                                </div>
+                                <div class="col">
+                                    <label>3. Capacity:</label>
+                                    <input type="number" name="capacity" placeholder="Number of passengers" required>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col">
+                                    <label>4. Driver's Name:</label>
+                                    <input type="text" name="driver" required>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Operational & Maintenance Details -->
+                        <div class="section-title">Operational & Maintenance Details</div>
                         <div class="row">
                             <div class="col">
-                                <label>1. Vehicle No:</label>
-                                <input type="text" name="vehicle_no" placeholder="Ex: ABC-1234" required>
-                            </div>
-                            <div class="col">
-                                <label>2. Vehicle Type:</label>
-                                <select name="type" required>
-                                    <option value="">-- Select vehicle type --</option>
-                                    <option value="car">Car</option>
-                                    <option value="van">Van</option>
-                                    <option value="bus">Bus</option>
-                                    <option value="utility vehicle">Utility vehicle</option>
+                                <label>5. Fuel Type:</label>
+                                <select name="fuel" required>
+                                    <option value="">-- Select type --</option>
+                                    <option value="petrol">Petrol</option>
+                                    <option value="diesel">Diesel</option>
+                                    <option value="electric">Electric</option>
+                                    <option value="hybrid">Hybrid</option>
                                 </select>
                             </div>
                             <div class="col">
-                                <label>3. Capacity:</label>
-                                <input type="number" name="capacity" placeholder="Number of passengers" required>
+                                <label>6. Insurance Expiry Date:</label>
+                                <input type="date" name="insurance_expiry">
                             </div>
                         </div>
 
-                        <div class="row">
-                            <div class="col">
-                                <label>4. Driver's Name:</label>
-                                <input type="text" name="driver" required>
-                            </div>
+                        <!-- Submit -->
+                        <div class="form-actions">
+                            <button class="submit-button" type="submit">Add Vehicle</button>
                         </div>
+                    </form>
+                </div>
+            </div>
+
+            <div class="col-12">
+                <!-- Vehicle Table -->
+                <div class="vehicle-table-container">
+                    <!-- Header -->
+                    <div class="vehicle-table-header">
+                        <h5>Vehicles List</h5>
                     </div>
 
-                    <!-- Operational & Maintenance Details -->
-                    <div class="section-title">Operational & Maintenance Details</div>
-                    <div class="row">
-                        <div class="col">
-                            <label>5. Fuel Type:</label>
-                            <select name="fuel" required>
-                                <option value="">-- Select type --</option>
-                                <option value="petrol">Petrol</option>
-                                <option value="diesel">Diesel</option>
-                                <option value="electric">Electric</option>
-                                <option value="hybrid">Hybrid</option>
+                    <!-- Body -->
+                    <div class="table-responsive">
+                        <table class="vehicle-table" id="vehicleTable">
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Vehicle No</th>
+                                    <th>Type</th>
+                                    <th>Capacity</th>
+                                    <th>Driver</th>
+                                    <th>Fuel</th>
+                                    <th>Insurance Expiry</th>
+                                    <th>Status</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @if(isset($vehicles) && count($vehicles) > 0)
+                                    @foreach($vehicles as $vehicle)
+                                        <tr>
+                                            <td>{{ $vehicle->id }}</td>
+                                            <td>{{ $vehicle->vehicle_no }}</td>
+                                            <td>{{ ucfirst($vehicle->type) }}</td>
+                                            <td>{{ $vehicle->capacity }}</td>
+                                            <td>{{ $vehicle->driver }}</td>
+                                            <td>{{ ucfirst($vehicle->fuel) }}</td>
+                                            <td>{{ $vehicle->insurance_expiry ?? '-' }}</td>
+                                            <td>
+                                                <form action="{{ route('vehicle.status', $vehicle->id) }}" method="POST">
+                                                    @csrf
+                                                    @method('PATCH')
+                                                    <select name="status" onchange="this.form.submit()" class="form-select form-select-sm">
+                                                        <option value="available" {{ $vehicle->status == 'available' ? 'selected' : '' }}>Available</option>
+                                                        <option value="under_maintenance" {{ $vehicle->status == 'under_maintenance' ? 'selected' : '' }}>Under Maintenance</option>
+                                                        <option value="reserved" {{ $vehicle->status == 'reserved' ? 'selected' : '' }}>Reserved</option>
+                                                        <option value="out_of_service" {{ $vehicle->status == 'out_of_service' ? 'selected' : '' }}>Out of Service</option>
+                                                    </select>
+                                                </form>
+                                            </td>
+                                            <td>
+                                                <div class="action-buttons">
+                                                    <a href="{{ route('vehicle.edit', $vehicle->id) }}" class="btn-table-action btn btn-outline-warning" title="Edit">
+                                                        <i class="bi bi-pencil-square"></i>
+                                                    </a>
+                                                    <form action="{{ route('vehicle.delete', $vehicle->id) }}" method="POST" class="d-inline">
+                                                        @csrf
+                                                        @method('DELETE')
+                                                        <button type="submit" class="btn-table-action btn btn-outline-danger" title="Delete">
+                                                            <i class="bi bi-trash"></i>
+                                                        </button>
+                                                    </form>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    @endforeach
+                                @else
+                                    <tr>
+                                        <td colspan="9" class="text-center py-4">No vehicles found</td>
+                                    </tr>
+                                @endif
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <!-- Footer with Pagination -->
+                    <div class="table-footer">
+                        <div class="rows-per-page">
+                            <select id="rowsPerPage" class="form-select form-select-sm">
+                                <option>5</option>
+                                <option selected>10</option>
+                                <option>25</option>
+                                <option>50</option>
                             </select>
                         </div>
-                        <div class="col">
-                            <label>6. Insurance Expiry Date:</label>
-                            <input type="date" name="insurance_expiry">
-                        </div>
+                        <nav aria-label="Page navigation">
+                            <ul class="pagination pagination-sm">
+                                <li class="page-item disabled">
+                                    <a class="page-link" href="#" tabindex="-1">Previous</a>
+                                </li>
+                                <li class="page-item active"><a class="page-link" href="#">1</a></li>
+                                <li class="page-item"><a class="page-link" href="#">2</a></li>
+                                <li class="page-item"><a class="page-link" href="#">3</a></li>
+                                <li class="page-item">
+                                    <a class="page-link" href="#">Next</a>
+                                </li>
+                            </ul>
+                        </nav>
                     </div>
-
-                    <div class="row">
-                        <div class="col">
-                            <label>7. Additional Notes:</label>
-                            <textarea name="notes" placeholder="Any additional information about the vehicle..."></textarea>
-                        </div>
-                    </div>
-
-                    <!-- Submit -->
-                    <div class="form-actions">
-                        <button class="submit-button" type="submit">Add Vehicle</button>
-                    </div>
-
-                </form>
+                </div>
+                <!-- /Vehicle Table -->
             </div>
         </div>
     </div>
 </div>
-
-<!-- Vehicle Table -->
-<div class="vehicle-table-container">
-    <!-- Header -->
-    <div class="vehicle-table-header">
-        <h5>Vehicles List</h5>
-    </div>
-
-    <!-- Body -->
-    <div class="table-responsive">
-        <table class="vehicle-table">
-            <thead>
-                <tr>
-                    <th>ID</th>
-                    <th>Vehicle No</th>
-                    <th>Type</th>
-                    <th>Capacity</th>
-                    <th>Driver</th>
-                    <th>Fuel</th>
-                    <th>Insurance Expiry</th>
-                    <th>Notes</th>
-                    <th>Status</th>
-                    <th>Actions</th>
-                </tr>
-            </thead>
-            <tbody>
-                @if(isset($vehicles) && count($vehicles) > 0)
-                    @foreach($vehicles as $vehicle)
-                        <tr>
-                            <td>{{ $vehicle->id }}</td>
-                            <td>{{ $vehicle->vehicle_no }}</td>
-                            <td>{{ ucfirst($vehicle->type) }}</td>
-                            <td>{{ $vehicle->capacity }}</td>
-                            <td>{{ $vehicle->driver }}</td>
-                            <td>{{ ucfirst($vehicle->fuel) }}</td>
-                            <td>{{ $vehicle->insurance_expiry ?? '-' }}</td>
-                            <td>{{ Str::limit($vehicle->notes, 30) ?? '-' }}</td>
-                            <td>
-                                <form action="{{ route('vehicle.status', $vehicle->id) }}" method="POST">
-                                    @csrf
-                                    @method('PATCH')
-                                    <select name="status" onchange="this.form.submit()" class="form-select form-select-sm">
-                                        <option value="available" {{ $vehicle->status == 'available' ? 'selected' : '' }}>Available</option>
-                                        <option value="under_maintenance" {{ $vehicle->status == 'under_maintenance' ? 'selected' : '' }}>Under Maintenance</option>
-                                        <option value="reserved" {{ $vehicle->status == 'reserved' ? 'selected' : '' }}>Reserved</option>
-                                        <option value="out_of_service" {{ $vehicle->status == 'out_of_service' ? 'selected' : '' }}>Out of Service</option>
-                                    </select>
-                                </form>
-                            </td>
-                            <td>
-                                <div class="action-buttons">
-                                    <a href="{{ route('vehicle.edit', $vehicle->id) }}"
-                                       class="btn-table-action btn btn-outline-warning">Edit</a>
-                                    <form action="{{ route('vehicle.delete', $vehicle->id) }}" method="POST" class="d-inline">
-                                        @csrf
-                                        @method('DELETE')
-                                        <button type="submit" class="btn-table-action btn btn-outline-danger">Delete</button>
-                                    </form>
-                                </div>
-                            </td>
-                        </tr>
-                    @endforeach
-                @else
-                    <tr>
-                        <td colspan="10" class="text-center py-4">No vehicles found</td>
-                    </tr>
-                @endif
-            </tbody>
-        </table>
-    </div>
-
-    <!-- Footer with Pagination -->
-    <div class="table-footer">
-        <div class="rows-per-page">
-            <label for="rowsPerPage">Show:</label>
-            <select id="rowsPerPage" class="form-select form-select-sm">
-                <option>5</option>
-                <option selected>10</option>
-                <option>25</option>
-                <option>50</option>
-            </select>
-        </div>
-        <nav aria-label="Page navigation">
-            <ul class="pagination pagination-sm">
-                <li class="page-item disabled">
-                    <a class="page-link" href="#" tabindex="-1">Previous</a>
-                </li>
-                <li class="page-item active"><a class="page-link" href="#">1</a></li>
-                <li class="page-item"><a class="page-link" href="#">2</a></li>
-                <li class="page-item"><a class="page-link" href="#">3</a></li>
-                <li class="page-item">
-                    <a class="page-link" href="#">Next</a>
-                </li>
-            </ul>
-        </nav>
-    </div>
-</div>
-
-
-
 
 @endsection
 
