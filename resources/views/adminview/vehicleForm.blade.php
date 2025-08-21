@@ -146,12 +146,16 @@
                                 <td>{{ $vehicle->insurance_expiry ?? '-' }}</td>
                                 <td>{{ Str::limit($vehicle->notes, 30) ?? '-' }}</td>
                                 <td>
-                                    <span class="badge
-                                        {{ $vehicle->status == 'available' ? 'bg-success' :
-                                        ($vehicle->status == 'under_maintenance' ? 'bg-warning' :
-                                        ($vehicle->status == 'reserved' ? 'bg-info' : 'bg-secondary')) }}">
-                                        {{ ucfirst(str_replace('_', ' ', $vehicle->status)) }}
-                                    </span>
+                                    <form action="{{ route('vehicle.status', $vehicle->id) }}" method="POST">
+                                        @csrf
+                                        @method('PATCH')
+                                        <select name="status" onchange="this.form.submit()" class="form-select form-select-sm">
+                                            <option value="available" {{ $vehicle->status == 'available' ? 'selected' : '' }}>Available</option>
+                                            <option value="under_maintenance" {{ $vehicle->status == 'under_maintenance' ? 'selected' : '' }}>Under Maintenance</option>
+                                            <option value="reserved" {{ $vehicle->status == 'reserved' ? 'selected' : '' }}>Reserved</option>
+                                            <option value="out_of_service" {{ $vehicle->status == 'out_of_service' ? 'selected' : '' }}>Out of Service</option>
+                                        </select>
+                                    </form>
                                 </td>
                                 <td class="px-4 py-2 text-sm flex gap-2">
                                     <!-- Edit button -->

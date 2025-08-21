@@ -50,4 +50,18 @@ class VehicleController extends Controller
 
         return redirect()->route('vehicle.index')->with('success', 'Vehicle updated successfully!');
     }
+
+    //Update the status of a vehicle
+    public function updateStatus(Request $request, Vehicle $vehicle)
+    {
+        $request->validate([
+            'status' => 'required|in:available,under_maintenance,reserved,out_of_service',
+        ]);
+
+        $vehicle->status = $request->status;
+        $vehicle->save();
+
+        return redirect()->back()->with('success', 'Vehicle status updated successfully!');
+    }
+
 }

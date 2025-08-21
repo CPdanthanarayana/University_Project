@@ -43,6 +43,7 @@ Route::prefix('admin')->group(function () {
     Route::delete('/vehicles/{vehicle}', [VehicleController::class, 'destroy'])->name('vehicle.delete');
     Route::get('/vehicles/{vehicle}/edit', [VehicleController::class, 'edit'])->name('vehicle.edit');
     Route::put('/vehicles/{vehicle}', [VehicleController::class, 'update'])->name('vehicle.update');
+    Route::patch('/admin/vehicles/{vehicle}/status', [VehicleController::class, 'updateStatus'])->name('vehicle.status');
 });
 
 
