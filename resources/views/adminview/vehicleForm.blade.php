@@ -8,8 +8,28 @@
 <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
     <h1 class="h2">Vehicle Management</h1>
 </div>
+
+<!-- Success and Error Messages -->
+@if(session('success'))
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+        {{ session('success') }}
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+@endif
+
+@if($errors->any())
+    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+        <ul class="mb-0">
+            @foreach($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+@endif
+
 <div class="container-fluid">
-    <div class="row g-0"> <!-- Removed padding classes and added g-0 to remove gutters -->
+    <div class="row g-0">
         <div class="col-12">
             <div class="form-container">
                 <h2>Add New Vehicle</h2>
@@ -92,7 +112,7 @@
     <!-- Header -->
     <div class="card-header bg-gradient-to-r from-purple-600 to-indigo-500 text-black d-flex justify-content-between align-items-center py-3 px-4">
         <h5 class="mb-0 text-lg font-semibold text-black tracking-wide">Vehicles List</h5>
-        
+
     </div>
 
     <!-- Body -->
@@ -114,38 +134,39 @@
                     </tr>
                 </thead>
                 <tbody id="vehicleTable" class="text-sm">
-                    <tr class="hover:bg-purple-50 transition-colors">
-                        <td>1</td>
-                        <td>ABC-1234</td>
-                        <td>Car</td>
-                        <td>5</td>
-                        <td>John Doe</td>
-                        <td>Petrol</td>
-                        <td>2025-06-30</td>
-                        <td>Regular maintenance done</td>
-                        <td>
-                            <span class="badge bg-success text-white px-3 py-1 rounded-pill">Available</span>
-                        </td>
-                        <td class="d-flex gap-2">
-                            <button class="btn btn-sm btn-outline-warning px-3">Edit</button>
-                            <button class="btn btn-sm btn-outline-danger px-3">Delete</button>
-                        </td>
-                    </tr>
-                    <tr class="hover:bg-purple-50 transition-colors">
-                        <td>2</td>
-                        <td>XYZ-5678</td>
-                        <td>Van</td>
-                        <td>12</td>
-                        <td>Jane Smith</td>
-                        <td>Diesel</td>
-                        <td>2024-12-15</td>
-                        <td>-</td>
-                        <td>
-                            <span class="badge bg-warning text-white px-3 py-1 rounded-pill">In Service</span>
-                        </td>
-                        <td class="d-flex gap-2">
-                            <button class="btn btn-sm btn-outline-warning px-3">Edit</button>
-                            <button class="btn btn-sm btn-outline-danger px-3">Delete</button>
+                    @if(isset($vehicles) && count($vehicles) > 0)
+                        @foreach($vehicles as $vehicle)
+                            <tr class="hover:bg-purple-50 transition-colors">
+                                <td>{{ $vehicle->id }}</td>
+                                <td>{{ $vehicle->vehicle_no }}</td>
+                                <td>{{ ucfirst($vehicle->type) }}</td>
+                                <td>{{ $vehicle->capacity }}</td>
+                                <td>{{ $vehicle->driver }}</td>
+                                <td>{{ ucfirst($vehicle->fuel) }}</td>
+                                <td>{{ $vehicle->insurance_expiry ?? '-' }}</td>
+                                <td>{{ Str::limit($vehicle->notes, 30) ?? '-' }}</td>
+                                <td>
+                                    <span class="badge
+                                        {{ $vehicle->status == 'available' ? 'bg-success' :
+                                        ($vehicle->status == 'under_maintenance' ? 'bg-warning' :
+                                        ($vehicle->status == 'reserved' ? 'bg-info' : 'bg-secondary')) }}">
+                                        {{ ucfirst(str_replace('_', ' ', $vehicle->status)) }}
+                                    </span>
+                                </td>
+                                <td>
+                                    <form action="{{ route('vehicle.delete', $vehicle->id) }}" method="POST" class="d-inline">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit" class="btn btn-sm btn-outline-danger px-3">Delete</button>
+                                    </form>
+                                </td>
+                            </tr>
+                        @endforeach
+                    @else
+                        <tr>
+                            <td colspan="10" class="text-center py-4">No vehicles found</td>
+                        </tr>
+                    @endif
                 </tbody>
             </table>
         </div>

@@ -24,10 +24,10 @@
         <hr>
         <ul class="nav nav-pills flex-column mb-auto">
             <li class="nav-item">
-                <a href="{{ route('admin.dashboard') }}" class="nav-link {{ request()->is('admin') ? 'active' : '' }}">
+                <a href="{{ route('admin.dashboard') }}" class="nav-link {{ request()->routeIs('admin.dashboard') ? 'active' : '' }}">
                     <i class="bi bi-speedometer2"></i> Dashboard
                 </a>
-                <a href="{{ route('vehicle.add') }}" class="nav-link {{ request()->is('addVehicle') ? 'active' : '' }}">
+                <a href="{{ route('vehicle.index') }}" class="nav-link {{ request()->routeIs('vehicle.*') ? 'active' : '' }}">
                     <i class="bi bi-car-front"></i> Vehicle Management
                 </a>
             </li>

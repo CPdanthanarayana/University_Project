@@ -2,6 +2,8 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ApplicationFormController;
+use App\Http\Controllers\VehicleController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -36,6 +38,9 @@ Route::middleware([
 });
 
 // Vehicle routes
-Route::get('/addVehicle', function () {
-    return view('adminView.vehicleForm');
-})->name('vehicle.add');
+Route::prefix('admin')->group(function () {
+    Route::get('/vehicles', [VehicleController::class, 'index'])->name('vehicle.index');
+    Route::delete('/vehicles/{vehicle}', [VehicleController::class, 'destroy'])->name('vehicle.delete');
+});
+
+
