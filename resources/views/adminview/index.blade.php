@@ -45,6 +45,110 @@
                max-height: 500px;
           }
 
+          /* Modal specific styles */
+          .form-container-modal {
+               padding: 20px;
+               background-color: #f8f9fa;
+               border-radius: 8px;
+               box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+          }
+
+          .form-container-modal h2 {
+               text-align: center;
+               color: #343a40;
+               margin-bottom: 20px;
+               font-size: 1.8rem;
+          }
+
+          .form-container-modal .note {
+               text-align: center;
+               font-style: italic;
+               color: #6c757d;
+               margin-bottom: 25px;
+          }
+
+          .form-container-modal .section-title {
+               font-size: 1.3rem;
+               font-weight: bold;
+               color: #007bff;
+               border-bottom: 2px solid #007bff;
+               padding-bottom: 8px;
+               margin-top: 30px;
+               margin-bottom: 20px;
+          }
+
+          .form-container-modal label {
+               font-weight: 600;
+               margin-bottom: 8px;
+               display: block;
+               color: #495057;
+          }
+
+          .form-container-modal input[type="text"],
+          .form-container-modal input[type="date"],
+          .form-container-modal input[type="time"],
+          .form-container-modal textarea {
+               background-color: #e9ecef;
+               border: 1px solid #ced4da;
+               padding: 8px 12px;
+               border-radius: 5px;
+               width: 100%;
+               box-sizing: border-box;
+          }
+
+          .form-container-modal textarea {
+               min-height: 80px;
+               resize: vertical;
+          }
+
+          .form-container-modal .checkbox-group input {
+               margin-right: 5px;
+          }
+
+          .form-container-modal table {
+               width: 100%;
+               border-collapse: collapse;
+               margin-top: 15px;
+          }
+
+          .form-container-modal table th,
+          .form-container-modal table td {
+               border: 1px solid #dee2e6;
+               padding: 10px;
+               text-align: left;
+          }
+
+          .form-container-modal table th {
+               background-color: #e2e6ea;
+               font-weight: bold;
+               color: #343a40;
+          }
+
+          .form-container-modal .signature-section {
+               margin-top: 30px;
+               text-align: center;
+          }
+
+          .form-container-modal .signature-box {
+               border: 1px dashed #007bff;
+               padding: 20px;
+               border-radius: 8px;
+               display: inline-block;
+               min-width: 300px;
+          }
+
+          .form-container-modal .signature-preview {
+               background-color: #fff;
+               border: 1px solid #ced4da;
+               padding: 5px;
+               display: inline-block;
+          }
+
+          .form-container-modal .date-input input {
+               width: auto;
+               display: inline-block;
+               margin-left: 10px;
+          }
      </style>
 </head>
 
@@ -191,41 +295,43 @@
                     </div>
                     <div class="modal-body">
                          <!-- Form content will be loaded here -->
-                         <div class="form-container" style="margin: 0 auto; box-shadow: none; padding: 0;">
+                         <div class="form-container-modal">
                               <h2>VEHICLE REQUISITION FORM FOR OUTSTATION TRIP</h2>
                               <div class="note">(To be submitted to the Transport Division at least 03 working days prior to departure date)</div>
 
                               <div class="section-title">Applicant Details</div>
-                              <div class="row">
-                                   <div class="col">
+                              <div class="row mb-3">
+                                   <div class="col-md-4">
                                         <label>1. Service No. and Name of Applicant:</label>
-                                        <input type="text" name="service_no_name" readonly>
+                                        <input type="text" name="service_no_name" class="form-control" readonly>
                                    </div>
-                                   <div class="col">
+                                   <div class="col-md-4">
                                         <label>2. Designation:</label>
-                                        <input type="text" name="designation" readonly>
+                                        <input type="text" name="designation" class="form-control" readonly>
                                    </div>
-                                   <div class="col">
+                                   <div class="col-md-4">
                                         <label>3. Faculty:</label>
-                                        <input type="text" name="faculty" readonly>
+                                        <input type="text" name="faculty" class="form-control" readonly>
                                    </div>
                               </div>
 
-                              <div class="row">
-                                   <div class="col">
+                              <div class="row mb-3">
+                                   <div class="col-md-6">
                                         <label>4. Department:</label>
-                                        <input type="text" name="department" readonly>
+                                        <input type="text" name="department" class="form-control" readonly>
                                    </div>
-                                   <div class="col">
+                                   <div class="col-md-6">
                                         <label>5. Contact No./s:</label>
-                                        <input type="text" name="contact_no" readonly>
+                                        <input type="text" name="contact_no" class="form-control" readonly>
                                    </div>
                               </div>
 
-                              <label>6. Purpose of Travelling:</label>
-                              <textarea name="purpose" readonly></textarea>
+                              <div class="mb-3">
+                                   <label>6. Purpose of Travelling:</label>
+                                   <textarea name="purpose" class="form-control" readonly></textarea>
+                              </div>
 
-                              <div class="checkbox-group">
+                              <div class="checkbox-group mb-3">
                                    <label>Supporting Document(s) attached:</label>
                                    <input type="checkbox" name="supporting_docs" value="yes" disabled> Yes
                                    <input type="checkbox" name="supporting_docs" value="no" disabled> No
@@ -233,7 +339,7 @@
 
                               <div class="section-title">6. Name(s) of Person(s) Travelling</div>
 
-                              <table id="travelers-table-modal">
+                              <table id="travelers-table-modal" class="table table-bordered mb-3">
                                    <thead>
                                         <tr>
                                              <th>SN</th>
@@ -247,36 +353,40 @@
                               </table>
 
                               <div class="section-title">7. Proposed Journey</div>
-                              <div class="row">
-                                   <div class="col">
+                              <div class="row mb-3">
+                                   <div class="col-md-6">
                                         <label>From:</label>
-                                        <input type="text" name="from_location" readonly>
+                                        <input type="text" name="from_location" class="form-control" readonly>
                                    </div>
-                                   <div class="col">
+                                   <div class="col-md-6">
                                         <label>To:</label>
-                                        <input type="text" name="to_location" readonly>
+                                        <input type="text" name="to_location" class="form-control" readonly>
                                    </div>
                               </div>
-                              <div class="row">
-                                   <div class="col">
+                              <div class="row mb-3">
+                                   <div class="col-md-6">
                                         <label>8. Date & Time of Departure:</label>
-                                        <input type="date" name="departure_date" readonly>
-                                        <input type="time" name="departure_time" readonly>
+                                        <input type="date" name="departure_date" class="form-control" readonly>
+                                        <input type="time" name="departure_time" class="form-control" readonly>
                                    </div>
-                                   <div class="col">
+                                   <div class="col-md-6">
                                         <label>9. Date & Time of Return (From Outstation):</label>
-                                        <input type="date" name="return_date" readonly>
-                                        <input type="time" name="return_time" readonly>
+                                        <input type="date" name="return_date" class="form-control" readonly>
+                                        <input type="time" name="return_time" class="form-control" readonly>
                                    </div>
                               </div>
-                              <label>10. Proposed Route:</label>
-                              <input type="text" name="route" readonly>
-                              <label>11. Name of the place to park vehicle:</label>
-                              <input type="text" name="parking_place" readonly>
-                              <div class="note">In Colombo, the vehicle should be parked at APC, Mt. Lavinia</div>
+                              <div class="mb-3">
+                                   <label>10. Proposed Route:</label>
+                                   <input type="text" name="route" class="form-control" readonly>
+                              </div>
+                              <div class="mb-3">
+                                   <label>11. Name of the place to park vehicle:</label>
+                                   <input type="text" name="parking_place" class="form-control" readonly>
+                              </div>
+                              <div class="note mb-3">In Colombo, the vehicle should be parked at APC, Mt. Lavinia</div>
 
                               <div class="section-title">12. Tentative Programme</div>
-                              <table id="program-table-modal">
+                              <table id="program-table-modal" class="table table-bordered mb-3">
                                    <thead>
                                         <tr>
                                              <th>Day</th>
@@ -289,11 +399,11 @@
                                    </tbody>
                               </table>
 
-                              <div class="note">
+                              <div class="note mb-3">
                                    I am aware of the general instructions on the usage of University vehicles and declare that I will take full care and responsibility of the vehicle during the period of the trip.
                               </div>
 
-                              <div class="signature-section">
+                              <div class="signature-section mb-3">
                                    <div class="signature-box">
                                         <label>Signature of the Applicant</label>
                                         <div class="signature-preview" style="margin-top: 10px;">
@@ -302,7 +412,7 @@
                                         <br>
                                         <label style="margin-top: 10px;">Date:</label>
                                         <div class="date-input">
-                                             <input type="date" name="applicant_date" readonly>
+                                             <input type="date" name="applicant_date" class="form-control" readonly>
                                         </div>
                                    </div>
                               </div>
@@ -360,8 +470,8 @@
                                         const row = document.createElement('tr');
                                         row.innerHTML = `
                                              <td>${toRoman(index + 1)}.</td>
-                                             <td><input type="text" value="${traveler.service_no || ''}" readonly></td>
-                                             <td><input type="text" value="${traveler.name || ''}" readonly></td>
+                                             <td><input type="text" value="${traveler.service_no || ''}" class="form-control" readonly></td>
+                                             <td><input type="text" value="${traveler.name || ''}" class="form-control" readonly></td>
                                         `;
                                         travelersBody.appendChild(row);
                                    });
@@ -384,8 +494,8 @@
                                         const row = document.createElement('tr');
                                         row.innerHTML = `
                                              <td>${(index + 1).toString().padStart(2, '0')}</td>
-                                             <td><input type="date" value="${item.date || ''}" readonly></td>
-                                             <td><input type="text" value="${item.place || ''}" readonly></td>
+                                             <td><input type="date" value="${item.date || ''}" class="form-control" readonly></td>
+                                             <td><input type="text" value="${item.place || ''}" class="form-control" readonly></td>
                                         `;
                                         programBody.appendChild(row);
                                    });
