@@ -2,6 +2,8 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ApplicationFormController;
+use App\Http\Controllers\VehicleController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -34,3 +36,15 @@ Route::middleware([
         return view('dashboard');
     })->name('dashboard');
 });
+
+// Vehicle routes
+Route::prefix('admin')->group(function () {
+    Route::get('/vehicles', [VehicleController::class, 'index'])->name('vehicle.index');
+    Route::post('/vehicles', [VehicleController::class, 'store'])->name('vehicle.store');
+    Route::delete('/vehicles/{vehicle}', [VehicleController::class, 'destroy'])->name('vehicle.delete');
+    Route::get('/vehicles/{vehicle}/edit', [VehicleController::class, 'edit'])->name('vehicle.edit');
+    Route::put('/vehicles/{vehicle}', [VehicleController::class, 'update'])->name('vehicle.update');
+    Route::patch('/admin/vehicles/{vehicle}/status', [VehicleController::class, 'updateStatus'])->name('vehicle.status');
+});
+
+

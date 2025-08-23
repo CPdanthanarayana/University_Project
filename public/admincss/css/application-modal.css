@@ -1,0 +1,169 @@
+#applicationModal .form-container {
+    background: #fff;
+    max-width: 100%;
+    margin: 0 auto;
+    border-radius: 8px;
+    padding: 20px;
+}
+
+#applicationModal h2 {
+    text-align: center;
+    margin-bottom: 16px;
+    font-size: 1.5em;
+    font-weight: 500;
+    letter-spacing: 1px;
+}
+
+#applicationModal .section-title {
+    font-weight: 500;
+    margin-top: 28px;
+    margin-bottom: 10px;
+    color: #2d3a4b;
+    font-size: 1.1em;
+    border-bottom: 1px solid #e0e0e0;
+    padding-bottom: 3px;
+}
+
+#applicationModal label {
+    display: inline-block;
+    margin-bottom: 5px;
+    font-weight: 500;
+}
+
+#applicationModal input[type="text"],
+#applicationModal input[type="date"],
+#applicationModal input[type="time"],
+#applicationModal textarea,
+#applicationModal select {
+    width: 100%;
+    padding: 7px 10px;
+    margin-bottom: 14px;
+    border: 1px solid #bfc9d1;
+    border-radius: 4px;
+    font-size: 1em;
+    background: #fafbfc;
+}
+
+#applicationModal input[readonly],
+#applicationModal textarea[readonly],
+#applicationModal select[disabled] {
+    cursor: not-allowed;
+    background-color: #f8f9fa;
+}
+
+#applicationModal .row {
+    display: flex;
+    gap: 18px;
+}
+
+#applicationModal .col {
+    flex: 1;
+}
+
+#applicationModal table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 18px;
+    background: #f7f8fa;
+}
+
+#applicationModal table input[type="text"],
+#applicationModal table input[type="date"] {
+    margin-bottom: 0;
+    background-color: transparent;
+    border: none;
+    padding: 0;
+}
+
+#applicationModal th,
+#applicationModal td {
+    border: 1px solid #bfc9d1;
+    padding: 7px 8px;
+    text-align: left;
+    font-size: 1em;
+}
+
+#applicationModal th {
+    background: #eaf0f6;
+    font-weight: 500;
+}
+
+#applicationModal .note {
+    text-align: center;
+    font-size: 0.95em;
+    color: #666;
+    margin: 18px 0;
+}
+
+#applicationModal .signature-section {
+    margin-top: 30px;
+    border-top: 1px dashed #bfc9d1;
+    padding-top: 16px;
+    display: flex;
+    gap: 30px;
+    flex-wrap: wrap;
+}
+
+#applicationModal .signature-box {
+    flex: 1;
+    min-width: 240px;
+    text-align: center;
+}
+
+#applicationModal .checkbox-group {
+    margin: 1rem 0;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+#applicationModal .checkbox-group input[type="checkbox"] {
+    margin: 0;
+}
+
+#applicationModal .signature-preview {
+    border: 1px solid #dee2e6;
+    padding: 1rem;
+    margin: 0.5rem 0;
+    min-height: 100px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #fff;
+}
+
+/* Modal specific overrides */
+#applicationModal .modal-xl {
+    max-width: 95%;
+}
+
+#applicationModal .modal-body {
+    padding: 1.5rem;
+}
+
+/* Enhanced responsive styles */
+@media (max-width: 768px) {
+    #applicationModal .row {
+        flex-direction: column;
+        gap: 0;
+    }
+
+    #applicationModal .modal-xl {
+        margin: 10px;
+    }
+
+    #applicationModal .form-container {
+        padding: 15px;
+    }
+
+    #applicationModal table {
+        display: block;
+        overflow-x: auto;
+        white-space: nowrap;
+    }
+
+    #applicationModal .signature-section {
+        flex-direction: column;
+        align-items: center;
+    }
+}
