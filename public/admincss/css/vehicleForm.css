@@ -22,12 +22,12 @@
 }
 
 .section-title {
-    color: #5a5c69;
-    font-size: 16px;
+    color: #212529;
+    font-size: 18px;
     font-weight: 600;
-    margin: 24px 0 16px;
+    margin: 32px 0 20px;
     padding-bottom: 8px;
-    border-bottom: 1px solid #eaecf4;
+    border-bottom: 2px solid #dee2e6;
 }
 
 label {
@@ -43,23 +43,37 @@ input[type="date"],
 select,
 textarea {
     width: 100%;
-    padding: 7.6px 12px;
+    padding: 8px 12px;
     font-size: 14px;
-    line-height: 24px;
-    color: #6e707e;
+    line-height: 22px;
+    color: #444;
     background-color: #fff;
     border: 1px solid #d1d3e2;
-    border-radius: 5.6px;
-    transition: border-color 150ms ease-in-out, box-shadow 150ms ease-in-out;
+    border-radius: 6px;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
     margin-bottom: 16px;
+    box-sizing: border-box;
+    height: 40px;
+}
+
+select {
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' stroke='%236e707e' stroke-width='2' stroke-linecap='round' stroke-linejoin='round' class='feather feather-chevron-down' viewBox='0 0 24 24'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 12px center;
+    background-size: 16px;
+    padding-right: 36px;
+    cursor: pointer;
 }
 
 input:focus,
 select:focus,
 textarea:focus {
-    border-color: #bac8f3;
+    border-color: #4e73df;
     outline: 0;
-    box-shadow: 0 0 0 3.2px rgba(78, 115, 223, 0.25);
+    box-shadow: 0 0 0 0.2rem rgba(78, 115, 223, 0.25);
 }
 
 .form-actions {
