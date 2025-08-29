@@ -6,7 +6,7 @@
   .form-container {
     background: #fff;
     max-width: 1100px;
-    margin-left: 350px; margin-top: 50px;
+    margin-left: 200px; margin-top: 50px;
     border-radius: 8px;
     box-shadow: 0 2px 8px #fcdbcc;
     padding: 32px 40px 40px 40px;
@@ -356,8 +356,7 @@
     
   </div>
 
-          <!-- ========== App Menu Start ========== -->
-          @include('userview.appMenu')
+          
           <!-- ========== App Menu End ========== -->
 
           <!-- ==================================================== -->

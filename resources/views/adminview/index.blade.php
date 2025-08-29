@@ -45,6 +45,8 @@
                max-height: 500px;
           }
 
+          
+
      </style>
 </head>
 
@@ -191,54 +193,54 @@
                     </div>
                     <div class="modal-body">
                          <!-- Form content will be loaded here -->
-                         <div class="form-container" style="margin: 0 auto; box-shadow: none; padding: 0;">
-                              <h2>VEHICLE REQUISITION FORM FOR OUTSTATION TRIP</h2>
+                         <div class="form-container" style="margin: 0 auto; box-shadow: none; padding: 0; background: #fff; max-width: 1100px; border-radius: 8px;">
+                              <h2 style="text-align: center; margin-bottom: 16px; font-size: 1.5em; font-weight: 500; letter-spacing: 1px;">VEHICLE REQUISITION FORM FOR OUTSTATION TRIP</h2>
                               <div class="note">(To be submitted to the Transport Division at least 03 working days prior to departure date)</div>
 
-                              <div class="section-title">Applicant Details</div>
-                              <div class="row">
-                                   <div class="col">
-                                        <label>1. Service No. and Name of Applicant:</label>
-                                        <input type="text" name="service_no_name" readonly>
+                              <div class="section-title" style="font-weight: 500; margin-top: 28px; margin-bottom: 10px; color: #2d3a4b; font-size: 1.1em; border-bottom: 1px solid #e0e0e0; padding-bottom: 3px;">Applicant Details</div>
+                              <div class="row" style="display: flex; gap: 18px;">
+                                   <div class="col" style="flex: 1;">
+                                        <label style="display: inline-block; margin-bottom: 5px; font-weight: 500;">1. Service No. and Name of Applicant:</label>
+                                        <input type="text" name="service_no_name" readonly style="width: 100%; padding: 7px 10px; margin-bottom: 14px; border: 1px solid #bfc9d1; border-radius: 4px; font-size: 1em; background: #fafbfc;">
                                    </div>
-                                   <div class="col">
-                                        <label>2. Designation:</label>
-                                        <input type="text" name="designation" readonly>
+                                   <div class="col" style="flex: 1;">
+                                        <label style="display: inline-block; margin-bottom: 5px; font-weight: 500;">2. Designation:</label>
+                                        <input type="text" name="designation" readonly style="width: 100%; padding: 7px 10px; margin-bottom: 14px; border: 1px solid #bfc9d1; border-radius: 4px; font-size: 1em; background: #fafbfc;">
                                    </div>
-                                   <div class="col">
-                                        <label>3. Faculty:</label>
-                                        <input type="text" name="faculty" readonly>
-                                   </div>
-                              </div>
-
-                              <div class="row">
-                                   <div class="col">
-                                        <label>4. Department:</label>
-                                        <input type="text" name="department" readonly>
-                                   </div>
-                                   <div class="col">
-                                        <label>5. Contact No./s:</label>
-                                        <input type="text" name="contact_no" readonly>
+                                   <div class="col" style="flex: 1;">
+                                        <label style="display: inline-block; margin-bottom: 5px; font-weight: 500;">3. Faculty:</label>
+                                        <input type="text" name="faculty" readonly style="width: 100%; padding: 7px 10px; margin-bottom: 14px; border: 1px solid #bfc9d1; border-radius: 4px; font-size: 1em; background: #fafbfc;">
                                    </div>
                               </div>
 
-                              <label>6. Purpose of Travelling:</label>
-                              <textarea name="purpose" readonly></textarea>
-
-                              <div class="checkbox-group">
-                                   <label>Supporting Document(s) attached:</label>
-                                   <input type="checkbox" name="supporting_docs" value="yes" disabled> Yes
-                                   <input type="checkbox" name="supporting_docs" value="no" disabled> No
+                              <div class="row" style="display: flex; gap: 18px;">
+                                   <div class="col" style="flex: 1;">
+                                        <label style="display: inline-block; margin-bottom: 5px; font-weight: 500;">4. Department:</label>
+                                        <input type="text" name="department" readonly style="width: 100%; padding: 7px 10px; margin-bottom: 14px; border: 1px solid #bfc9d1; border-radius: 4px; font-size: 1em; background: #fafbfc;">
+                                   </div>
+                                   <div class="col" style="flex: 1;">
+                                        <label style="display: inline-block; margin-bottom: 5px; font-weight: 500;">5. Contact No./s:</label>
+                                        <input type="text" name="contact_no" readonly style="width: 100%; padding: 7px 10px; margin-bottom: 14px; border: 1px solid #bfc9d1; border-radius: 4px; font-size: 1em; background: #fafbfc;">
+                                   </div>
                               </div>
 
-                              <div class="section-title">6. Name(s) of Person(s) Travelling</div>
+                              <label style="display: inline-block; margin-bottom: 5px; font-weight: 500;">6. Purpose of Travelling:</label>
+                              <textarea name="purpose" readonly style="width: 100%; padding: 7px 10px; margin-bottom: 14px; border: 1px solid #bfc9d1; border-radius: 4px; font-size: 1em; background: #fafbfc; min-height: 50px; resize: vertical;"></textarea>
 
-                              <table id="travelers-table-modal">
+                              <div class="checkbox-group" style="margin-bottom: 10px;">
+                                   <label style="display: inline-block; margin-bottom: 5px; font-weight: 500;">Supporting Document(s) attached:</label>
+                                   <label style="margin-right: 16px; font-weight: 400;"><input type="checkbox" name="supporting_docs" value="yes" disabled> Yes</label>
+                                   <label style="margin-right: 16px; font-weight: 400;"><input type="checkbox" name="supporting_docs" value="no" disabled> No</label>
+                              </div>
+
+                              <div class="section-title" style="font-weight: 500; margin-top: 28px; margin-bottom: 10px; color: #2d3a4b; font-size: 1.1em; border-bottom: 1px solid #e0e0e0; padding-bottom: 3px;">6. Name(s) of Person(s) Travelling</div>
+
+                              <table id="travelers-table-modal" style="width: 100%; border-collapse: collapse; margin-bottom: 18px; background: #f7f8fa;">
                                    <thead>
                                         <tr>
-                                             <th>SN</th>
-                                             <th>Service No.</th>
-                                             <th>Name</th>
+                                             <th style="border: 1px solid #bfc9d1; padding: 7px 8px; text-align: left; font-size: 1em; background: #eaf0f6; font-weight: 500;">SN</th>
+                                             <th style="border: 1px solid #bfc9d1; padding: 7px 8px; text-align: left; font-size: 1em; background: #eaf0f6; font-weight: 500;">Service No.</th>
+                                             <th style="border: 1px solid #bfc9d1; padding: 7px 8px; text-align: left; font-size: 1em; background: #eaf0f6; font-weight: 500;">Name</th>
                                         </tr>
                                    </thead>
                                    <tbody id="travelers-body-modal">
@@ -246,42 +248,42 @@
                                    </tbody>
                               </table>
 
-                              <div class="section-title">7. Proposed Journey</div>
-                              <div class="row">
-                                   <div class="col">
-                                        <label>From:</label>
-                                        <input type="text" name="from_location" readonly>
+                              <div class="section-title" style="font-weight: 500; margin-top: 28px; margin-bottom: 10px; color: #2d3a4b; font-size: 1.1em; border-bottom: 1px solid #e0e0e0; padding-bottom: 3px;">7. Proposed Journey</div>
+                              <div class="row" style="display: flex; gap: 18px;">
+                                   <div class="col" style="flex: 1;">
+                                        <label style="display: inline-block; margin-bottom: 5px; font-weight: 500;">From:</label>
+                                        <input type="text" name="from_location" readonly style="width: 100%; padding: 7px 10px; margin-bottom: 14px; border: 1px solid #bfc9d1; border-radius: 4px; font-size: 1em; background: #fafbfc;">
                                    </div>
-                                   <div class="col">
-                                        <label>To:</label>
-                                        <input type="text" name="to_location" readonly>
-                                   </div>
-                              </div>
-                              <div class="row">
-                                   <div class="col">
-                                        <label>8. Date & Time of Departure:</label>
-                                        <input type="date" name="departure_date" readonly>
-                                        <input type="time" name="departure_time" readonly>
-                                   </div>
-                                   <div class="col">
-                                        <label>9. Date & Time of Return (From Outstation):</label>
-                                        <input type="date" name="return_date" readonly>
-                                        <input type="time" name="return_time" readonly>
+                                   <div class="col" style="flex: 1;">
+                                        <label style="display: inline-block; margin-bottom: 5px; font-weight: 500;">To:</label>
+                                        <input type="text" name="to_location" readonly style="width: 100%; padding: 7px 10px; margin-bottom: 14px; border: 1px solid #bfc9d1; border-radius: 4px; font-size: 1em; background: #fafbfc;">
                                    </div>
                               </div>
-                              <label>10. Proposed Route:</label>
-                              <input type="text" name="route" readonly>
-                              <label>11. Name of the place to park vehicle:</label>
-                              <input type="text" name="parking_place" readonly>
-                              <div class="note">In Colombo, the vehicle should be parked at APC, Mt. Lavinia</div>
+                              <div class="row" style="display: flex; gap: 18px;">
+                                   <div class="col" style="flex: 1;">
+                                        <label style="display: inline-block; margin-bottom: 5px; font-weight: 500;">8. Date & Time of Departure:</label>
+                                        <input type="date" name="departure_date" readonly style="width: 100%; padding: 7px 10px; margin-bottom: 14px; border: 1px solid #bfc9d1; border-radius: 4px; font-size: 1em; background: #fafbfc;">
+                                        <input type="time" name="departure_time" readonly style="width: 100%; padding: 7px 10px; margin-bottom: 14px; border: 1px solid #bfc9d1; border-radius: 4px; font-size: 1em; background: #fafbfc;">
+                                   </div>
+                                   <div class="col" style="flex: 1;">
+                                        <label style="display: inline-block; margin-bottom: 5px; font-weight: 500;">9. Date & Time of Return (From Outstation):</label>
+                                        <input type="date" name="return_date" readonly style="width: 100%; padding: 7px 10px; margin-bottom: 14px; border: 1px solid #bfc9d1; border-radius: 4px; font-size: 1em; background: #fafbfc;">
+                                        <input type="time" name="return_time" readonly style="width: 100%; padding: 7px 10px; margin-bottom: 14px; border: 1px solid #bfc9d1; border-radius: 4px; font-size: 1em; background: #fafbfc;">
+                                   </div>
+                              </div>
+                              <label style="display: inline-block; margin-bottom: 5px; font-weight: 500;">10. Proposed Route:</label>
+                              <input type="text" name="route" readonly style="width: 100%; padding: 7px 10px; margin-bottom: 14px; border: 1px solid #bfc9d1; border-radius: 4px; font-size: 1em; background: #fafbfc;">
+                              <label style="display: inline-block; margin-bottom: 5px; font-weight: 500;">11. Name of the place to park vehicle:</label>
+                              <input type="text" name="parking_place" readonly style="width: 100%; padding: 7px 10px; margin-bottom: 14px; border: 1px solid #bfc9d1; border-radius: 4px; font-size: 1em; background: #fafbfc;">
+                              <div class="note" style="font-size: 0.95em; color: #666; margin-top: 18px;">In Colombo, the vehicle should be parked at APC, Mt. Lavinia</div>
 
-                              <div class="section-title">12. Tentative Programme</div>
-                              <table id="program-table-modal">
+                              <div class="section-title" style="font-weight: 500; margin-top: 28px; margin-bottom: 10px; color: #2d3a4b; font-size: 1.1em; border-bottom: 1px solid #e0e0e0; padding-bottom: 3px;">12. Tentative Programme</div>
+                              <table id="program-table-modal" style="width: 100%; border-collapse: collapse; margin-bottom: 18px; background: #f7f8fa;">
                                    <thead>
                                         <tr>
-                                             <th>Day</th>
-                                             <th>Date</th>
-                                             <th>Place(s) to be visited</th>
+                                             <th style="border: 1px solid #bfc9d1; padding: 7px 8px; text-align: left; font-size: 1em; background: #eaf0f6; font-weight: 500;">Day</th>
+                                             <th style="border: 1px solid #bfc9d1; padding: 7px 8px; text-align: left; font-size: 1em; background: #eaf0f6; font-weight: 500;">Date</th>
+                                             <th style="border: 1px solid #bfc9d1; padding: 7px 8px; text-align: left; font-size: 1em; background: #eaf0f6; font-weight: 500;">Place(s) to be visited</th>
                                         </tr>
                                    </thead>
                                    <tbody id="program-body-modal">
@@ -289,20 +291,20 @@
                                    </tbody>
                               </table>
 
-                              <div class="note">
+                              <div class="note" style="font-size: 0.95em; color: #666; margin-top: 18px;">
                                    I am aware of the general instructions on the usage of University vehicles and declare that I will take full care and responsibility of the vehicle during the period of the trip.
                               </div>
 
-                              <div class="signature-section">
-                                   <div class="signature-box">
-                                        <label>Signature of the Applicant</label>
+                              <div class="signature-section" style="margin-top: 30px; border-top: 1px dashed #bfc9d1; padding-top: 16px; display: flex; gap: 30px; flex-wrap: wrap;">
+                                   <div class="signature-box" style="flex: 1; min-width: 240px;">
+                                        <label style="display: inline-block; margin-bottom: 5px; font-weight: 500;">Signature of the Applicant</label>
                                         <div class="signature-preview" style="margin-top: 10px;">
                                              <img id="applicantSignaturePreviewModal" src="" alt="Signature Preview" style="max-height: 80px; display: none; border: 1px solid #ccc; padding: 4px;">
                                         </div>
                                         <br>
-                                        <label style="margin-top: 10px;">Date:</label>
-                                        <div class="date-input">
-                                             <input type="date" name="applicant_date" readonly>
+                                        <label style="margin-top: 10px; display: inline-block; margin-bottom: 5px; font-weight: 500;">Date:</label>
+                                        <div class="date-input" style="width: 40%; display: flex; gap: 800px;">
+                                             <input type="date" name="applicant_date" readonly style="width: 100%; padding: 7px 10px; margin-bottom: 14px; border: 1px solid #bfc9d1; border-radius: 4px; font-size: 1em; background: #fafbfc;">
                                         </div>
                                    </div>
                               </div>
@@ -359,9 +361,9 @@
                                    data.travelers.forEach((traveler, index) => {
                                         const row = document.createElement('tr');
                                         row.innerHTML = `
-                                             <td>${toRoman(index + 1)}.</td>
-                                             <td><input type="text" value="${traveler.service_no || ''}" readonly></td>
-                                             <td><input type="text" value="${traveler.name || ''}" readonly></td>
+                                             <td style="border: 1px solid #bfc9d1; padding: 7px 8px; text-align: left; font-size: 1em;">${toRoman(index + 1)}.</td>
+                                             <td style="border: 1px solid #bfc9d1; padding: 7px 8px; text-align: left; font-size: 1em;"><input type="text" value="${traveler.service_no || ''}" readonly style="width: 100%; padding: 7px 10px; margin-bottom: 14px; border: 1px solid #bfc9d1; border-radius: 4px; font-size: 1em; background: #fafbfc;"></td>
+                                             <td style="border: 1px solid #bfc9d1; padding: 7px 8px; text-align: left; font-size: 1em;"><input type="text" value="${traveler.name || ''}" readonly style="width: 100%; padding: 7px 10px; margin-bottom: 14px; border: 1px solid #bfc9d1; border-radius: 4px; font-size: 1em; background: #fafbfc;"></td>
                                         `;
                                         travelersBody.appendChild(row);
                                    });
@@ -383,9 +385,9 @@
                                    data.program.forEach((item, index) => {
                                         const row = document.createElement('tr');
                                         row.innerHTML = `
-                                             <td>${(index + 1).toString().padStart(2, '0')}</td>
-                                             <td><input type="date" value="${item.date || ''}" readonly></td>
-                                             <td><input type="text" value="${item.place || ''}" readonly></td>
+                                             <td style="border: 1px solid #bfc9d1; padding: 7px 8px; text-align: left; font-size: 1em;">${(index + 1).toString().padStart(2, '0')}</td>
+                                             <td style="border: 1px solid #bfc9d1; padding: 7px 8px; text-align: left; font-size: 1em;"><input type="date" value="${item.date || ''}" readonly style="width: 100%; padding: 7px 10px; margin-bottom: 14px; border: 1px solid #bfc9d1; border-radius: 4px; font-size: 1em; background: #fafbfc;"></td>
+                                             <td style="border: 1px solid #bfc9d1; padding: 7px 8px; text-align: left; font-size: 1em;"><input type="text" value="${item.place || ''}" readonly style="width: 100%; padding: 7px 10px; margin-bottom: 14px; border: 1px solid #bfc9d1; border-radius: 4px; font-size: 1em; background: #fafbfc;"></td>
                                         `;
                                         programBody.appendChild(row);
                                    });
