@@ -26,7 +26,9 @@
             border-radius: 8px;
             box-shadow: 0 2px 8px #fcdbcc;
             width: 100%;
-            max-width: 450px;
+            max-width: 700px;
+            margin-top: 40px;
+            margin-bottom: 40px;
         }
 
         .logo-section {
@@ -221,6 +223,36 @@
             <div class="form-group">
                 <label for="email" class="form-label">Email Address</label>
                 <input id="email" class="form-input" type="email" name="email" value="{{ old('email') }}" required placeholder="Enter your email">
+            </div>
+
+            <div class="form-group">
+                <label for="contactNo" class="form-label">Contact Number</label>
+                <input id="contactNo" class="form-input" type="text" name="contactNo" placeholder="Enter your contact number">
+            </div>
+
+            <div class="form-group">
+                <label for="faculty" class="form-label">Faculty/Non-Academic</label>
+                <select class="form-input" id="faculty" name="faculty">
+                    <option value="Faculty of Social Science & Language">Faculty of Social Science & Language</option>
+                    <option value="Faculty of Management">Faculty of Management</option>
+                    <option value="Faculty of Applied Sciences">Faculty of Applied Sciences</option>
+                    <option value="Faculty of Agricultural Scinece">Faculty of Agricultural Scinece</option>
+                    <option value="Faculty of Medicine">Faculty of Medicine</option>
+                    <option value="Faculty of Technology">Faculty of Technology</option>
+                    <option value="Faculty of Computing">Faculty of Computing</option>
+                    <option value="Faculty of Graduate Studies">Faculty of Graduate Studies</option>
+                    <option value="Non-Academic">Non-Academic</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="department" class="form-label">Department/Branch</label>
+                <input id="department" class="form-input" type="text" name="department" placeholder="Enter your department or branch">
+            </div>
+
+            <div class="form-group">
+                <label for="contactNo" class="form-label">Contact Number</label>
+                <input id="contactNo" class="form-input" type="text" name="contactNo" placeholder="Enter your contact number">
             </div>
 
             <div class="form-group">
