@@ -1,0 +1,128 @@
+*{
+    margin: 0;
+    padding: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    box-sizing: border-box;
+    scroll-padding-top: 4rem;
+    scroll-behavior: smooth;
+    list-style: none;
+    text-decoration: none;
+}
+
+section{
+    padding: 50px 90px;
+}
+
+:root{
+    --main-color:rgb(148, 7, 94);
+    --secondary-color:#edeae3;
+    --text-color:#1b1b1b;
+    --bg-color:#fff;
+    --box-shadow: 2px 2px 10px 14px rgb(14 55 54 / 15%);
+}
+body{
+    min-height:100vh;
+    background-size :cover;
+    background-repeat: no-repeat;
+    background-position:center;
+}
+
+.catering{
+    min-height: 100vh;
+}
+
+.catering-text{
+    width: 60%;
+    float: left;
+}
+.catering-img{
+    width: 35%;
+    float: right;
+}
+
+.catering-text h5{
+    position: relative;
+    margin-top: 30px;
+    font-size: 1rem;
+    font-weight: 100;
+    text-transform: inherit;
+}
+
+h2{
+    position: relative;
+    margin-top: 115px;
+    margin-left: 30px;
+    font-size: 1rem;
+    text-transform: inherit;
+}
+
+.catering-text ol li{
+    font-size: 0.938rem;
+    margin-top: 7px;
+    margin-bottom: 1px;
+    list-style:circle;
+}
+
+.catering-text h2{
+    position: relative;
+    font-size: 1.5rem;
+    color: var(--main-color);
+    font-weight: 300;
+    margin: 5px;
+}
+.quote-text h5{
+    font-size: 0.9rem;
+}
+.request-form label{
+    width: 200px;
+    display:inline-block;
+    margin-left: 300px;
+}
+#answer{
+    width: 350px;
+    height: 30px;
+    border:  1px solid rgb(202, 202, 235);
+    border-radius: 4px;
+}
+#answer_2{
+    width: 350px;
+    border-radius: 4px;
+    border:  1px solid rgb(202, 202, 235);
+}
+.submit{
+    text-align: center;
+    padding: 10px;
+    color: var(--bg-color);
+    background-color: var(--main-color);
+    border: 1px solid var(--main-color);
+    border-radius: 5px;
+    margin-left: 790px;
+    cursor: pointer;
+}
+
+
+.container_f {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+}
+
+
+
+.quote-text h1{
+    margin-top: 20px;
+    color: var(--main-color);
+}
+
+.copyrightText{
+    width: 100%;
+    background: black;
+    padding: 20px 100px 30px;
+    text-align: center;
+    color: var(--secondary-color);
+    border: 1px solid black;
+}
+
+
+
+
