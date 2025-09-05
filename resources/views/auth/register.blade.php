@@ -39,7 +39,7 @@
         .logo {
             width: 80px;
             height: 80px;
-            background: #a7d4f8ff;
+            background: #f8dda7ff;
             border-radius: 50%;
             margin: 0 auto 20px;
             display: flex;
@@ -51,7 +51,7 @@
         }
 
         .title {
-            color: #2d3a4b;
+            color: #4b3e2dff;
             font-size: 28px;
             font-weight: 500;
             margin-bottom: 8px;
@@ -59,7 +59,7 @@
         }
 
         .subtitle {
-            color: #2d3a4b;
+            color: #4b3e2dff;
             font-size: 14px;
             margin-bottom: 30px;
             opacity: 0.8;
@@ -73,14 +73,14 @@
             display: block;
             margin-bottom: 5px;
             font-weight: 500;
-            color: #2d3a4b;
+            color: #4b3e2dff;
             font-size: 14px;
         }
 
         .form-input {
             width: 100%;
             padding: 7px 10px;
-            border: 1px solid #bfc9d1;
+            border: 1px solid #d1cabfff;
             border-radius: 4px;
             font-size: 1em;
             transition: all 0.3s ease;
@@ -90,9 +90,9 @@
 
         .form-input:focus {
             outline: none;
-            border-color: #a7d4f8ff;
+            border-color: #f8dda7ff;
             background: white;
-            box-shadow: 0 0 0 3px rgba(167, 212, 248, 0.1);
+            box-shadow: 0 0 0 3px rgba(248, 221, 167, 0.1);
         }
 
         .checkbox-group {
@@ -110,25 +110,25 @@
 
         .checkbox-label {
             font-size: 14px;
-            color: #2d3a4b;
+            color: #4b3e2dff;
             cursor: pointer;
             font-weight: 400;
             line-height: 1.4;
         }
 
         .checkbox-label a {
-            color: #a7d4f8ff;
+            color: #f8dda7ff;
             text-decoration: none;
         }
 
         .checkbox-label a:hover {
-            color: #2853ffff;
+            color: #ffa228ff;
         }
 
         .register-btn {
             width: 100%;
             padding: 10px;
-            background-color: #a7d4f8ff;
+            background-color: #f8dda7ff;
             border: none;
             border-radius: 4px;
             color: white;
@@ -140,7 +140,7 @@
         }
 
         .register-btn:hover {
-            background-color: #2853ffff;
+            background-color: #ffa228ff;
         }
 
         .login-link {
@@ -148,14 +148,14 @@
         }
 
         .login-link a {
-            color: #a7d4f8ff;
+            color: #f8dda7ff;
             text-decoration: none;
             font-size: 14px;
             transition: color 0.3s ease;
         }
 
         .login-link a:hover {
-            color: #2853ffff;
+            color: #ffa228ff;
         }
 
         .alert {
@@ -167,7 +167,7 @@
 
         .alert-error {
             background: #fcdbcc;
-            color: #2d3a4b;
+            color: #4b3e2dff;
             border: 1px solid #bfc9d1;
         }
 
@@ -248,11 +248,6 @@
             <div class="form-group">
                 <label for="department" class="form-label">Department/Branch</label>
                 <input id="department" class="form-input" type="text" name="department" placeholder="Enter your department or branch">
-            </div>
-
-            <div class="form-group">
-                <label for="contactNo" class="form-label">Contact Number</label>
-                <input id="contactNo" class="form-input" type="text" name="contactNo" placeholder="Enter your contact number">
             </div>
 
             <div class="form-group">
