@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ApplicationFormController;
 use App\Http\Controllers\VehicleController;
+use App\Http\Controllers\Admin\UserManagementController;
 
 
 /*
@@ -16,8 +17,10 @@ use App\Http\Controllers\VehicleController;
 |
 */
 
-// Application form routes
-Route::get('/', [ApplicationFormController::class, 'index'])->name('form.index');
+// Application form routes (redirect to login)
+Route::get('/', function () {
+    return redirect()->route('login');
+})->name('form.index');
 Route::post('/submit-application', [ApplicationFormController::class, 'submit'])->name('form.submit');
 Route::get('/application-status/{id}', [ApplicationFormController::class, 'status'])->name('form.status');
 
@@ -25,7 +28,8 @@ Route::get('/application-status/{id}', [ApplicationFormController::class, 'statu
 Route::middleware([
     'auth:sanctum',
     config('jetstream.auth_session'),
-    'verified'
+    'verified',
+    'redirect.usertype'
 ])->group(function () {
     Route::get('/userform', function () {
         return view('userview.userForm');
@@ -33,9 +37,21 @@ Route::middleware([
 });
 
 // Admin routes
-Route::get('/admin', function () {
-    return view('adminview.index');
-})->name('admin.dashboard');
+Route::middleware([
+    'auth:sanctum',
+    config('jetstream.auth_session'),
+    'verified',
+    'redirect.usertype'
+])->group(function () {
+    Route::get('/admin', function () {
+        return view('adminview.index');
+    })->name('admin.dashboard');
+    
+    // User Management Routes
+    Route::get('/admin/users', [UserManagementController::class, 'index'])->name('admin.users');
+    Route::patch('/admin/users/{user}/update-type', [UserManagementController::class, 'updateUserType'])->name('admin.users.update-type');
+    Route::get('/admin/users/{user}', [UserManagementController::class, 'show'])->name('admin.users.show');
+});
 
 // Dashboard routes (protected by authentication)
 Route::middleware([
@@ -49,7 +65,12 @@ Route::middleware([
 });
 
 // Vehicle routes
-Route::prefix('admin')->group(function () {
+Route::prefix('admin')->middleware([
+    'auth:sanctum',
+    config('jetstream.auth_session'),
+    'verified',
+    'redirect.usertype'
+])->group(function () {
     Route::get('/vehicles', [VehicleController::class, 'index'])->name('vehicle.index');
     Route::post('/vehicles', [VehicleController::class, 'store'])->name('vehicle.store');
     Route::delete('/vehicles/{vehicle}', [VehicleController::class, 'destroy'])->name('vehicle.delete');

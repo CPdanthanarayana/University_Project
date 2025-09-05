@@ -14,8 +14,18 @@ class LoginResponse implements LoginResponseContract
      */
     public function toResponse($request)
     {
-        return $request->wantsJson()
-                    ? response()->json(['two_factor' => false])
-                    : redirect()->intended(config('fortify.home', '/userform'));
+        if ($request->wantsJson()) {
+            return response()->json(['two_factor' => false]);
+        }
+
+        $user = auth()->user();
+        
+        // Redirect based on user type
+        if ($user && $user->isAdmin()) {
+            return redirect()->intended('/admin');
+        }
+        
+        // Default redirect for regular users
+        return redirect()->intended('/userform');
     }
 }

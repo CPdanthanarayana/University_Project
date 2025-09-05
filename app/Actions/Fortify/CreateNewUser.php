@@ -37,6 +37,7 @@ class CreateNewUser implements CreatesNewUsers
             'contactNo' => $input['contactNo'] ?? null,
             'faculty' => $input['faculty'] ?? null,
             'department' => $input['department'] ?? null,
+            'user_type' => 'user', // Default all new registrations to 'user'
         ]);
     }
 }
