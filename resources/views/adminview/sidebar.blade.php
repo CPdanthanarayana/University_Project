@@ -30,6 +30,9 @@
                 <a href="{{ route('vehicle.index') }}" class="nav-link {{ request()->routeIs('vehicle.*') ? 'active' : '' }}">
                     <i class="bi bi-car-front"></i> Vehicle Management
                 </a>
+                <a href="{{ route('admin.users') }}" class="nav-link {{ request()->routeIs('admin.users*') ? 'active' : '' }}">
+                    <i class="bi bi-people"></i> User Management
+                </a>
             </li>
         </ul>
     </div>

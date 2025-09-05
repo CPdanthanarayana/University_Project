@@ -58,6 +58,20 @@
   .submit-button:hover {
     background-color: #2853ffff;
   }
+  .logout-button {
+    background-color: #dc3545;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    margin-left: 10px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: background-color 0.3s ease;
+  }
+  .logout-button:hover {
+    background-color: #c82333;
+  }
   textarea {
     min-height: 50px;
     resize: vertical;
@@ -338,12 +352,20 @@
       <br>
     <!-- Date -->
     <label style="margin-top: 10px;">Date:</label>
-    <div class="date-input" >
-      <input type="date" name="applicant_date" required>
+    <div class="date-input" style="display: flex; align-items: center; gap: 10px;">
+      <input type="date" name="applicant_date" required style="width: auto;">
       <button class="submit-button" type="submit" id="submitBtn">
         <span id="submitText">Submit</span>
         <span id="loadingText" style="display: none;">Submitting...</span>
       </button>
+      
+      <!-- Logout Button -->
+      <form method="POST" action="{{ route('logout') }}" style="display: inline;">
+        @csrf
+        <button type="submit" class="logout-button" onclick="return confirm('Are you sure you want to logout?')">
+          <i class="bx bx-log-out"></i> Logout
+        </button>
+      </form>
     </div>
   </div>
 </div>

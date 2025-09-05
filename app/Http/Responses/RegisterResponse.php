@@ -14,8 +14,11 @@ class RegisterResponse implements RegisterResponseContract
      */
     public function toResponse($request)
     {
-        return $request->wantsJson()
-                    ? response()->json(['message' => 'Registration successful'])
-                    : redirect('/userform');
+        if ($request->wantsJson()) {
+            return response()->json(['message' => 'Registration successful']);
+        }
+
+        // All new registrations default to 'user' type, so redirect to userform
+        return redirect('/userform');
     }
 }
