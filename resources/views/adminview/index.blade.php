@@ -1,114 +1,37 @@
 
-<!DOCTYPE html>
-<html lang="en">
+@extends('adminview.layout')
 
-<head>
-     <meta charset="UTF-8">
-     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-     <title>Admin Dashboard</title>
-     <!-- Bootstrap 5 CSS -->
-     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
-     <!-- Bootstrap Icons -->
-     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
-     <style>
-          .sidebar {
-               min-height: 100vh;
-               background-color: #212529;
-          }
+@section('content')
+<style>
+     .stat-card {
+          border-left: 4px solid #0d6efd;
+          transition: transform 0.3s;
+     }
 
-          .sidebar .nav-link {
-               color: rgba(255, 255, 255, 0.75);
-               padding: 12px 20px;
-               border-radius: 5px;
-               margin-bottom: 5px;
-          }
+     .stat-card:hover {
+          transform: translateY(-5px);
+     }
 
-          .sidebar .nav-link:hover,
-          .sidebar .nav-link.active {
-               background-color: #495057;
-               color: white;
-          }
-
-          .sidebar .nav-link i {
-               margin-right: 10px;
-          }
-
-          .stat-card {
-               border-left: 4px solid #0d6efd;
-               transition: transform 0.3s;
-          }
-
-          .stat-card:hover {
-               transform: translateY(-5px);
-          }
-
-          .table-responsive {
-               max-height: 500px;
-          }
-
-          
-
-     </style>
-</head>
-
-<body>
-     <div class="container-fluid">
-          <div class="row">
-               <!-- Sidebar -->
-               <div class="col-md-3 col-lg-2 p-0 sidebar">
-                    <div class="d-flex flex-column p-3">
-                         <a href="#"
-                              class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none">
-                              <span class="fs-4">Admin Panel</span>
-                         </a>
-                         <hr>
-                         <div class="dropdown">
-                              <a href="#"
-                                   class="d-flex align-items-center text-white text-decoration-none dropdown-toggle"
-                                   id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
-                                   <img src="https://placehold.co/40x40"
-                                        alt="Admin profile picture showing a professional headshot with grey background"
-                                        class="rounded-circle me-2">
-                                   <strong>Admin</strong>
-                              </a>
-                              <ul class="dropdown-menu dropdown-menu-dark text-small shadow"
-                                   aria-labelledby="dropdownUser1">
-                                   <li><a class="dropdown-item" href="#">Profile</a></li>
-                                   <li><a class="dropdown-item" href="#">Settings</a></li>
-                                   <li>
-                                        <hr class="dropdown-divider">
-                                   </li>
-                                   <li><a class="dropdown-item" href="#">Sign out</a></li>
-                              </ul>
-                         </div>
-                         <hr>
-                         <ul class="nav nav-pills flex-column mb-auto">
-                              <li class="nav-item">
-                                   <a href="#" class="nav-link active" aria-current="page">
-                                        <i class="bi bi-speedometer2"></i>
-                                        Dashboard
-                                   </a>
-                              </li>
-                         </ul>
-                    </div>
-               </div>
+     .table-responsive {
+          max-height: 500px;
+     }
+</style>
 
                <!-- Main Content -->
-               <div class="col-md-9 col-lg-10 ms-sm-auto p-0">
-                    <div class="container-fluid p-4">
-                         <div
-                              class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-                              <h1 class="h2">Dashboard</h1>
-                              <div class="btn-toolbar mb-2 mb-md-0">
-                                   <div class="btn-group me-2">
-                                        <button type="button" class="btn btn-sm btn-outline-secondary">Share</button>
-                                        <button type="button" class="btn btn-sm btn-outline-secondary">Export</button>
-                                   </div>
-                                   <button type="button" class="btn btn-sm btn-outline-secondary dropdown-toggle">
-                                        <i class="bi bi-calendar"></i> This week
-                                   </button>
+               <div class="container-fluid p-4">
+                    <div
+                         class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+                         <h1 class="h2">Dashboard</h1>
+                         <div class="btn-toolbar mb-2 mb-md-0">
+                              <div class="btn-group me-2">
+                                   <button type="button" class="btn btn-sm btn-outline-secondary">Share</button>
+                                   <button type="button" class="btn btn-sm btn-outline-secondary">Export</button>
                               </div>
+                              <button type="button" class="btn btn-sm btn-outline-secondary dropdown-toggle">
+                                   <i class="bi bi-calendar"></i> This week
+                              </button>
                          </div>
+                    </div>
 
                          <!-- Messages Table -->
                          <div class="card shadow mb-4">
@@ -178,11 +101,9 @@
                          </div>
                     </div>
                </div>
-          </div>
-     </div>
+@endsection
 
-     <!-- Bootstrap 5 JS Bundle with Popper -->
-     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+@push('scripts')
 
      <!-- Application Details Modal -->
      <div class="modal fade" id="applicationModal" tabindex="-1" aria-labelledby="applicationModalLabel" aria-hidden="true">
@@ -429,7 +350,5 @@
                }
           });
      </script>
-</body>
-
-</html>
+@endpush
 
