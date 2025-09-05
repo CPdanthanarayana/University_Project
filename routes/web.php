@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ApplicationFormController;
 use App\Http\Controllers\VehicleController;
 use App\Http\Controllers\Admin\UserManagementController;
+use App\Http\Controllers\Admin\AdminController;
 
 
 /*
@@ -78,5 +79,8 @@ Route::prefix('admin')->middleware([
     Route::put('/vehicles/{vehicle}', [VehicleController::class, 'update'])->name('vehicle.update');
     Route::patch('/admin/vehicles/{vehicle}/status', [VehicleController::class, 'updateStatus'])->name('vehicle.status');
 });
+
+Route::get('/logout', [AdminController::class, 'logout'])->name('logout');
+
 
 
