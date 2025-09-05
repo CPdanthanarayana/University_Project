@@ -11,7 +11,7 @@
 
                               <!-- Menu Toggle Button -->
                               <div class="topbar-item">
-                                   <h4 class="fw-bold topbar-button pe-none text-uppercase mb-0">Welcome To The VEHICLE REQUISITION FOR OUTSTATION TRIP!</h4>
+                                   <h4 class="fw-bold topbar-button text-uppercase mb-0 ">Welcome To The VEHICLE REQUISITION FOR OUTSTATION TRIP!</h4>
                               </div>
                          </div>
 
