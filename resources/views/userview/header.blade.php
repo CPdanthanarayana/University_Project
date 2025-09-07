@@ -11,7 +11,7 @@
 
                               <!-- Menu Toggle Button -->
                               <div class="topbar-item">
-                                   <h4 class="fw-bold topbar-button pe-none text-uppercase mb-0">Welcome To The VEHICLE REQUISITION FOR OUTSTATION TRIP!</h4>
+                                   <h4 class="fw-bold topbar-button text-uppercase mb-0 ">Welcome To The VEHICLE REQUISITION FOR OUTSTATION TRIP!</h4>
                               </div>
                          </div>
 
@@ -140,34 +140,43 @@
                               <div class="dropdown topbar-item">
                                    <a type="button" class="topbar-button" id="page-header-user-dropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                         <span class="d-flex align-items-center">
-                                             <img class="rounded-circle" width="32" src="admincss/images/avatar-1.jpg" alt="avatar-3">
+                                             <img class="rounded-circle" width="32" src="{{ asset('admincss/images/avatar-1.jpg') }}" alt="User Avatar">
                                         </span>
                                    </a>
                                    <div class="dropdown-menu dropdown-menu-end">
                                         <!-- item-->
-                                        <h6 class="dropdown-header">Welcome Gaston!</h6>
-                                        <a class="dropdown-item" href="pages-profile.html">
+                                        <h6 class="dropdown-header">Welcome {{ auth()->check() ? auth()->user()->name : 'Guest' }}!</h6>
+                                        @auth
+                                        <a class="dropdown-item" href="{{ route('profile.show') }}">
                                              <i class="bx bx-user-circle text-muted fs-18 align-middle me-1"></i><span class="align-middle">Profile</span>
                                         </a>
-                                        <a class="dropdown-item" href="apps-chat.html">
+                                        <a class="dropdown-item" href="javascript:void(0);">
                                              <i class="bx bx-message-dots text-muted fs-18 align-middle me-1"></i><span class="align-middle">Messages</span>
                                         </a>
 
-                                        <a class="dropdown-item" href="pages-pricing.html">
+                                        <a class="dropdown-item" href="javascript:void(0);">
                                              <i class="bx bx-wallet text-muted fs-18 align-middle me-1"></i><span class="align-middle">Pricing</span>
                                         </a>
-                                        <a class="dropdown-item" href="pages-faqs.html">
+                                        <a class="dropdown-item" href="javascript:void(0);">
                                              <i class="bx bx-help-circle text-muted fs-18 align-middle me-1"></i><span class="align-middle">Help</span>
-                                        </a>
-                                        <a class="dropdown-item" href="auth-lock-screen.html">
-                                             <i class="bx bx-lock text-muted fs-18 align-middle me-1"></i><span class="align-middle">Lock screen</span>
                                         </a>
 
                                         <div class="dropdown-divider my-1"></div>
 
-                                        <a class="dropdown-item text-danger" href="auth-signin.html">
-                                             <i class="bx bx-log-out fs-18 align-middle me-1"></i><span class="align-middle">Logout</span>
+                                        <form method="POST" action="{{ route('logout') }}" id="logout-form">
+                                             @csrf
+                                             <a class="dropdown-item text-danger" href="#" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                                                  <i class="bx bx-log-out fs-18 align-middle me-1"></i><span class="align-middle">Logout</span>
+                                             </a>
+                                        </form>
+                                        @else
+                                        <a class="dropdown-item" href="{{ route('login') }}">
+                                             <i class="bx bx-log-in fs-18 align-middle me-1"></i><span class="align-middle">Login</span>
                                         </a>
+                                        <a class="dropdown-item" href="{{ route('register') }}">
+                                             <i class="bx bx-user-plus fs-18 align-middle me-1"></i><span class="align-middle">Register</span>
+                                        </a>
+                                        @endauth
                                    </div>
                               </div>
 

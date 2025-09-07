@@ -27,6 +27,10 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'contactNo',
+        'faculty',
+        'department',
+        'user_type',
     ];
 
     /**
@@ -65,5 +69,21 @@ class User extends Authenticatable
     public function applications()
     {
         return $this->hasMany(Application::class);
+    }
+
+    /**
+     * Check if user is admin.
+     */
+    public function isAdmin()
+    {
+        return $this->user_type === 'admin';
+    }
+
+    /**
+     * Check if user is regular user.
+     */
+    public function isUser()
+    {
+        return $this->user_type === 'user';
     }
 }

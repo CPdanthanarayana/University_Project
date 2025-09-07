@@ -1,0 +1,136 @@
+[33mcommit f5a31d6ac809bd5c819ede73f03195f4e294cf09[m[33m ([m[1;36mHEAD -> [m[1;32mfeature/login-registration[m[33m)[m
+Merge: 55d0c06 1fec7c3
+Author: mayuraabhayasinghe <abhayasinghemayura@gmail.com>
+Date:   Mon Aug 18 00:16:24 2025 +0530
+
+    had a merge conflict
+
+[33mcommit 1fec7c3786c235ad46174cea964aa2c30dabf8ed[m[33m ([m[1;31morigin/dev[m[33m)[m
+Author: oditha4523 <odithachamod@gmail.com>
+Date:   Sun Aug 17 19:57:56 2025 +0530
+
+    Adding an alert when the form is submitted successfully.
+
+[33mcommit ef76e92a903be8e6bb292922a99d4602588cdc49[m
+Author: oditha4523 <odithachamod@gmail.com>
+Date:   Sun Aug 17 18:28:10 2025 +0530
+
+    Database integration
+
+[33mcommit 55d0c069d8f738ca2692fa72135a25b5e2bedc0b[m[33m ([m[1;31morigin/feature/login-registration[m[33m)[m
+Merge: f3508f4 f53615a
+Author: mayuraabhayasinghe <abhayasinghemayura@gmail.com>
+Date:   Sat Aug 16 02:28:12 2025 +0530
+
+    latest changes
+
+[33mcommit f3508f46c64d59529860a9a37c7df8ef38ca68ab[m
+Author: mayuraabhayasinghe <abhayasinghemayura@gmail.com>
+Date:   Sat Aug 16 02:23:54 2025 +0530
+
+    admin registration page has been created
+
+[33mcommit 3313bd5a045e32791f0e6c71a0eedf3c5baaa51a[m
+Merge: 93ffed8 305e7d2
+Author: mayuraabhayasinghe <abhayasinghemayura@gmail.com>
+Date:   Sat Aug 16 01:10:02 2025 +0530
+
+    changes pulled from dev
+
+[33mcommit f53615ab265d129d3718e254d2d52b2e99bae4b5[m
+Author: NethmiPramoddya <nethmik2001@gmail.com>
+Date:   Fri Aug 15 19:41:58 2025 +0530
+
+    login page frontend
+
+[33mcommit 305e7d2f7598c4267ac8a0f3634331ccc1200cd9[m
+Merge: ca5ff3c 0491356
+Author: CPdanthanarayana <162734281+CPdanthanarayana@users.noreply.github.com>
+Date:   Thu Aug 14 18:52:06 2025 +0530
+
+    Merge pull request #5 from CPdanthanarayana/UserForm-dev
+    
+    User form dev
+
+[33mcommit 0491356fb331732f9ab3762dddafbf08b922ac49[m
+Merge: 4f29554 ca5ff3c
+Author: CPdanthanarayana <162734281+CPdanthanarayana@users.noreply.github.com>
+Date:   Thu Aug 14 18:51:56 2025 +0530
+
+    Merge branch 'dev' into UserForm-dev
+
+[33mcommit 4f29554ae43d17d097af5fb3d28fabfb8beb057f[m
+Author: chamath <dcpoorna887@gmail.com>
+Date:   Thu Aug 14 18:49:41 2025 +0530
+
+     aded submit button and improve ui
+
+[33mcommit 93ffed8244d8aa44f7a935feb7df4fd0d064fe8d[m
+Author: mayuraabhayasinghe <abhayasinghemayura@gmail.com>
+Date:   Sun Aug 10 18:02:46 2025 +0530
+
+    user registration page is added and route is created.
+
+[33mcommit eb92cfc183a4a13853bd5e2a6d499b3a7c9fdf96[m
+Author: chamath <dcpoorna887@gmail.com>
+Date:   Wed Aug 6 01:02:49 2025 +0530
+
+    fix user form and added some user friendly functions
+
+[33mcommit cacff75068c643d50382b8fbe98e9e0b311519d7[m[33m ([m[1;31morigin/UserForm-dev[m[33m)[m
+Author: AshyRanaweera <ashiniranaweera12@gmail.com>
+Date:   Wed Jul 23 17:27:43 2025 +0530
+
+    feat: Design and align User Form frontend layout
+
+[33mcommit ca5ff3c2fe935d45d311bf943e26142cd961f510[m[33m ([m[1;32mdev[m[33m)[m
+Merge: 5e0e6bd 106f362
+Author: CPdanthanarayana <162734281+CPdanthanarayana@users.noreply.github.com>
+Date:   Wed May 14 14:04:09 2025 +0530
+
+    Merge pull request #3 from CPdanthanarayana/feature/AddVehicleForm
+    
+    chore: add php74.bat to .gitignore
+
+[33mcommit 106f362a8e75501047c3dc457d8b62a0cad60385[m[33m ([m[1;31morigin/feature/AddVehicleForm[m[33m)[m
+Author: ThashmikaRathnayake <thashrath7@gmail.com>
+Date:   Wed May 14 13:03:02 2025 +0530
+
+    chore: add php74.bat to .gitignore
+    
+    - Updated `.gitignore` to include `php74.bat` so that it is ignored by Git.
+    - This change was necessary because my local PHP version is 8.2.12, and `php74.bat` is used to run Laravel with PHP 7.4, as required by the project.
+    - Ignoring `php74.bat` ensures it doesn't get tracked by Git, avoiding version conflicts.
+
+[33mcommit 5e0e6bd5eff68485a3f51a9ce1bab7e0a89762c9[m
+Author: chamath <dcpoorna887@gmail.com>
+Date:   Tue May 13 23:47:28 2025 +0530
+
+    basic structure updated
+
+[33mcommit 37342078ab0c9533144dcef87d73e99b68c8a8bc[m
+Merge: 478944d 31dc439
+Author: CPdanthanarayana <162734281+CPdanthanarayana@users.noreply.github.com>
+Date:   Tue May 13 23:53:12 2025 +0530
+
+    Merge pull request #1 from CPdanthanarayana/dev
+    
+    Dev
+
+[33mcommit 31dc43996dc05c2ee7d9cb3f4804a2ece1548ee0[m
+Author: CPdanthanarayana <162734281+CPdanthanarayana@users.noreply.github.com>
+Date:   Tue May 13 23:31:55 2025 +0530
+
+    Delete sample.html
+
+[33mcommit 707f000fb069705236101630b2ee170208a8fc92[m
+Author: chamath <dcpoorna887@gmail.com>
+Date:   Sat May 10 22:00:22 2025 +0530
+
+    Initial Laravel project structure
+
+[33mcommit 478944d1d41467a58300e85cde68f0c0ebf35ba8[m[33m ([m[1;31morigin/main[m[33m, [m[1;31morigin/HEAD[m[33m, [m[1;32mmain[m[33m)[m
+Author: oditha4523 <odithachamod@gmail.com>
+Date:   Wed Apr 23 14:37:19 2025 +0530
+
+    initial commit
