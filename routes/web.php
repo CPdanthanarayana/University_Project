@@ -4,6 +4,9 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ApplicationFormController;
 use App\Http\Controllers\VehicleController;
 use App\Http\Controllers\Admin\UserManagementController;
+use App\Http\Controllers\Admin\AdminController;
+use App\Http\Controllers\ApplicationAllocationController;
+
 
 
 /*
@@ -43,15 +46,15 @@ Route::middleware([
     'verified',
     'redirect.usertype'
 ])->group(function () {
-    Route::get('/admin', function () {
-        return view('adminview.index');
-    })->name('admin.dashboard');
-    
+    Route::get('/admin', [\App\Http\Controllers\ApplicationController::class, 'adminIndex'])
+        ->name('admin.dashboard');
+
     // User Management Routes
     Route::get('/admin/users', [UserManagementController::class, 'index'])->name('admin.users');
     Route::patch('/admin/users/{user}/update-type', [UserManagementController::class, 'updateUserType'])->name('admin.users.update-type');
     Route::get('/admin/users/{user}', [UserManagementController::class, 'show'])->name('admin.users.show');
 });
+
 
 // Dashboard routes (protected by authentication)
 Route::middleware([
@@ -76,7 +79,15 @@ Route::prefix('admin')->middleware([
     Route::delete('/vehicles/{vehicle}', [VehicleController::class, 'destroy'])->name('vehicle.delete');
     Route::get('/vehicles/{vehicle}/edit', [VehicleController::class, 'edit'])->name('vehicle.edit');
     Route::put('/vehicles/{vehicle}', [VehicleController::class, 'update'])->name('vehicle.update');
-    Route::patch('/admin/vehicles/{vehicle}/status', [VehicleController::class, 'updateStatus'])->name('vehicle.status');
+    Route::patch('/vehicles/{vehicle}/status', [VehicleController::class, 'updateStatus'])->name('vehicle.status');
 });
+
+//Vehicle allocation routes
+Route::get('/applications/{id}/available-vehicles', [App\Http\Controllers\ApplicationAllocationController::class, 'availableVehicles'])->name('applications.availableVehicles');
+Route::post('/applications/allocate', [App\Http\Controllers\ApplicationAllocationController::class, 'allocateVehicle'])->name('applications.allocateVehicle');
+
+
+Route::get('/logout', [AdminController::class, 'logout'])->name('logout');
+
 
 

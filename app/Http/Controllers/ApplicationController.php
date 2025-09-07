@@ -14,13 +14,11 @@ use Illuminate\Support\Facades\Auth;
 
 class ApplicationController extends Controller
 {
-    public function index()
+    public function adminIndex()
     {
-        $applications = Application::with(['applicant', 'user', 'application_members'])
-            ->orderBy('created_at', 'desc')
-            ->paginate(15);
-        
-        return view('applications.index', compact('applications'));
+        $applications = Application::with(['applicant', 'user'])->orderBy('created_at', 'desc')->get();
+
+        return view('adminview.index', compact('applications'));
     }
 
     /**
@@ -47,7 +45,7 @@ class ApplicationController extends Controller
             'faculty' => 'required|string|max:255',
             'department' => 'required|string|max:255',
             'contact_no' => 'required|string|max:20',
-            
+
             // Application details with UI field mapping
             'purpose' => 'required|string',
             'supporting_docs' => 'required|in:yes,no', // UI radio button format
@@ -64,13 +62,13 @@ class ApplicationController extends Controller
             'return_time' => 'nullable|date_format:H:i',
             'route' => 'nullable|string|max:500',
             'parking_place' => 'nullable|string|max:255',
-            
+
             // Signature with UI field mapping
             'applicant_signature' => 'nullable|file|mimes:jpg,jpeg,png|max:2048', // UI field name
             'applicant_signature_path' => 'nullable|file|mimes:jpg,jpeg,png|max:2048', // API field name
             'applicant_date' => 'nullable|date', // UI field name
             'applicant_signed_date' => 'nullable|date', // API field name
-            
+
             // Program visits (UI format)
             'prog1_date' => 'nullable|date',
             'prog1_place' => 'nullable|string|max:255',
@@ -80,12 +78,12 @@ class ApplicationController extends Controller
             'prog3_place' => 'nullable|string|max:255',
             'prog4_date' => 'nullable|date',
             'prog4_place' => 'nullable|string|max:255',
-            
+
             // Members (UI format - support both existing and new)
             'members' => 'nullable|array',
             'members.*.name' => 'required|string|max:255',
             'members.*.service_no' => 'nullable|string|max:255',
-            
+
             // UI member format (sn1_name, sn2_name, etc.)
             'sn1_service_no' => 'nullable|string|max:50',
             'sn1_name' => 'nullable|string|max:255',
@@ -97,7 +95,7 @@ class ApplicationController extends Controller
             'sn4_name' => 'nullable|string|max:255',
             'sn5_service_no' => 'nullable|string|max:50',
             'sn5_name' => 'nullable|string|max:255',
-            
+
             // Authentication
             'user_id' => 'nullable|exists:users,id'
         ]);
@@ -112,11 +110,11 @@ class ApplicationController extends Controller
                 $validated['service_no'] = trim($serviceNoName[0]);
                 $validated['applicant_name'] = isset($serviceNoName[1]) ? trim($serviceNoName[1]) : '';
             }
-            
+
             // Map UI location fields to model fields
             $validated['from_location'] = $validated['from'] ?? $validated['from_location'] ?? '';
             $validated['to_location'] = $validated['to'] ?? $validated['to_location'] ?? '';
-            
+
             // Map UI signature fields
             $signatureFile = $request->file('applicant_signature') ?? $request->file('applicant_signature_path');
             $validated['applicant_signed_date'] = $validated['applicant_date'] ?? $validated['applicant_signed_date'] ?? null;
@@ -161,7 +159,7 @@ class ApplicationController extends Controller
 
             // Set user_id with fallback to authenticated user or provided user_id
             $validated['user_id'] = auth()->id() ?? $validated['user_id'] ?? null;
-            
+
             if (!$validated['user_id']) {
                 throw new \Exception('User authentication required');
             }
@@ -185,7 +183,7 @@ class ApplicationController extends Controller
 
             // Add members from both formats
             $membersCreated = 0;
-            
+
             // Handle legacy members array format
             if (!empty($validated['members'])) {
                 foreach ($validated['members'] as $member) {
@@ -197,12 +195,12 @@ class ApplicationController extends Controller
                     $membersCreated++;
                 }
             }
-            
+
             // Handle UI format members (sn1_name, sn2_name, etc.)
             for ($i = 1; $i <= 10; $i++) {
                 $serviceNoKey = "sn{$i}_service_no";
                 $nameKey = "sn{$i}_name";
-                
+
                 if (!empty($validated[$serviceNoKey]) && !empty($validated[$nameKey])) {
                     ApplicationMember::create([
                         'application_id' => $application->id,
@@ -218,7 +216,7 @@ class ApplicationController extends Controller
             for ($i = 1; $i <= 10; $i++) {
                 $dateKey = "prog{$i}_date";
                 $placeKey = "prog{$i}_place";
-                
+
                 if (!empty($validated[$dateKey]) && !empty($validated[$placeKey])) {
                     ApplicationVisit::create([
                         'application_id' => $application->id,
@@ -251,7 +249,7 @@ class ApplicationController extends Controller
 
         } catch (\Exception $e) {
             DB::rollBack();
-            
+
             if ($request->wantsJson()) {
                 return response()->json([
                     'success' => false,
@@ -341,7 +339,7 @@ class ApplicationController extends Controller
     {
         try {
             $application->delete();
-            
+
             return response()->json([
                 'success' => true,
                 'message' => 'Application deleted successfully!'
@@ -372,4 +370,7 @@ class ApplicationController extends Controller
             'data' => $application
         ]);
     }
+
+
+
 }

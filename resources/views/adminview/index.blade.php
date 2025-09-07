@@ -53,25 +53,40 @@
                                                   </tr>
                                              </thead>
                                              <tbody>
-                                                  <tr>
-                                                       <td>1</td>
-                                                       <td>
-                                                            <div class="d-flex align-items-center">
-                                                                 <img src="https://placehold.co/30x30"
-                                                                      alt="Profile picture of John Doe, male with short brown hair"
-                                                                      class="rounded-circle me-2" width="30"
-                                                                      height="30">
-                                                                 <div>John Doe</div>
-                                                            </div>
-                                                       </td>
-                                                       <td>john@example.com</td>
-                                                       <td>
-                                                            <button class="btn btn-primary Approve-btn">Approve</button>
-                                                       </td>
-                                                       <td><a href="#" data-bs-toggle="modal" data-bs-target="#applicationModal" data-application-id="1">Form</a></td>
-                                                       <td>2023-05-12</td>
-                                                  </tr>
-                                             </tbody>
+                                                @foreach($applications as $application)
+                                                <tr>
+                                                    <td>{{ $loop->iteration }}</td>
+                                                    <td>
+                                                        <div class="d-flex align-items-center">
+                                                            <img src="https://placehold.co/30x30"
+                                                                alt="Profile picture"
+                                                                class="rounded-circle me-2" width="30" height="30">
+                                                            <div>{{ $application->applicant->name ?? 'N/A' }}</div>
+                                                        </div>
+                                                    </td>
+                                                    <td>{{ $application->user->email ?? 'N/A' }}</td>
+                                                    <td>
+                                                        @if($application->status === 'allocated')
+                                                            <button class="btn btn-success" disabled>Allocated</button>
+                                                        @else
+                                                            <button class="btn btn-primary Approve-btn" data-application-id="{{ $application->id }}">
+                                                                Approve
+                                                            </button>
+                                                        @endif
+                                                    </td>
+                                                    <td>
+                                                        <a href="#"
+                                                        data-bs-toggle="modal"
+                                                        data-bs-target="#applicationModal"
+                                                        data-application-id="{{ $application->id }}">
+                                                        Form
+                                                        </a>
+                                                    </td>
+                                                    <td>{{ $application->created_at->format('Y-m-d') }}</td>
+                                                </tr>
+                                                @endforeach
+                                            </tbody>
+
                                         </table>
                                    </div>
                                    <div class="d-flex justify-content-between mt-3">
@@ -239,6 +254,35 @@
           </div>
      </div>
 
+    <!-- Vehicle Allocation Modal -->
+     <div class="modal fade" id="allocationModal" tabindex="-1" aria-labelledby="allocationModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="allocationModalLabel">Allocate Vehicle</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <form id="vehicleAllocationForm">
+                    <div class="modal-body">
+                        <input type="hidden" name="application_id" id="allocationApplicationId">
+
+                        <div class="mb-3">
+                            <label for="vehicleSelect" class="form-label">Select Vehicle</label>
+                            <select class="form-select" id="vehicleSelect" name="vehicle_id" required>
+                                <option value="">-- Choose a Vehicle --</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-primary">Allocate</button>
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+
      <script>
           document.addEventListener('DOMContentLoaded', function() {
                var applicationModal = document.getElementById('applicationModal');
@@ -349,6 +393,92 @@
                     return result.toLowerCase();
                }
           });
+
+        // Vehicle Allocation Modal Logic
+        document.querySelectorAll('.Approve-btn').forEach(button => {
+        button.addEventListener('click', function() {
+            const applicationId = this.getAttribute('data-application-id');
+            document.getElementById('allocationApplicationId').value = applicationId;
+
+            // Fetch available vehicles for this application
+            fetch(`/applications/${applicationId}/available-vehicles`)
+                .then(response => response.json())
+                .then(data => {
+                    const select = document.getElementById('vehicleSelect');
+                    select.innerHTML = '<option value="">-- Choose a Vehicle --</option>';
+
+                    if (data.length > 0) {
+                        data.forEach(vehicle => {
+                            let option = document.createElement('option');
+                            option.value = vehicle.id;
+                            option.textContent = `${vehicle.vehicle_no} - ${vehicle.type} (Seats: ${vehicle.capacity})`;
+                            select.appendChild(option);
+                        });
+                    } else {
+                        let option = document.createElement('option');
+                        option.disabled = true;
+                        option.textContent = 'No available vehicles found';
+                        select.appendChild(option);
+                    }
+                });
+
+            // Show modal
+            new bootstrap.Modal(document.getElementById('allocationModal')).show();
+        });
+    });
+
+    // Handle form submit
+    document.getElementById('vehicleAllocationForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+
+        const formData = new FormData(this);
+        const applicationId = formData.get('application_id');
+
+        fetch('/applications/allocate', {
+            method: 'POST',
+            headers: {
+                'X-CSRF-TOKEN': '{{ csrf_token() }}',
+                'Accept': 'application/json'
+            },
+            body: formData
+        })
+        .then(async response => {
+            let data;
+            try {
+                data = await response.json();
+            } catch (e) {
+                const text = await response.text();
+                throw new Error(text);
+            }
+
+            if (!response.ok) {
+                throw new Error(data.message || 'Something went wrong');
+            }
+
+            alert(data.message);
+
+            // Change the button text to "Allocated"
+            const approveButton = document.querySelector(`.Approve-btn[data-application-id="${applicationId}"]`);
+            if (approveButton) {
+                approveButton.textContent = 'Allocated';
+                approveButton.classList.remove('btn-primary'); // optional styling
+                approveButton.classList.add('btn-success');
+                approveButton.disabled = true; // prevent multiple allocations
+            }
+
+            // Close modal
+            const allocationModalEl = document.getElementById('allocationModal');
+            const allocationModal = bootstrap.Modal.getInstance(allocationModalEl);
+            allocationModal.hide();
+
+        })
+        .catch(error => {
+            console.error('Error allocating vehicle:', error);
+            alert(error.message || 'Failed to allocate vehicle. Please try again.');
+        });
+    });
+
+
      </script>
 @endpush
 
