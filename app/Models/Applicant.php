@@ -30,14 +30,13 @@ use Illuminate\Database\Eloquent\Model;
 class Applicant extends Model
 {
 	protected $table = 'applicants';
-
 	protected $fillable = [
 		'service_no',
 		'name',
 		'designation',
 		'faculty',
 		'department',
-		'contact_no'
+		'email'
 	];
 
 	public function applications()

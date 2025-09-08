@@ -53,25 +53,36 @@
                                                   </tr>
                                              </thead>
                                              <tbody>
-                                                  <tr>
-                                                       <td>1</td>
-                                                       <td>
-                                                            <div class="d-flex align-items-center">
-                                                                 <img src="https://placehold.co/30x30"
-                                                                      alt="Profile picture of John Doe, male with short brown hair"
-                                                                      class="rounded-circle me-2" width="30"
-                                                                      height="30">
-                                                                 <div>John Doe</div>
-                                                            </div>
-                                                       </td>
-                                                       <td>john@example.com</td>
-                                                       <td>
-                                                            <button class="btn btn-primary Approve-btn">Approve</button>
-                                                       </td>
-                                                       <td><a href="#" data-bs-toggle="modal" data-bs-target="#applicationModal" data-application-id="1">Form</a></td>
-                                                       <td>2023-05-12</td>
-                                                  </tr>
-                                             </tbody>
+                                                  @forelse ($applicants as $applicant)
+                                                      <tr>
+                                                          <td>{{ $applicant->id }}</td>
+                                                          <td>
+                                                              <div class="d-flex align-items-center">
+                                                                  <img src="https://placehold.co/30x30"
+                                                                       alt="Profile picture"
+                                                                       class="rounded-circle me-2" width="30" height="30">
+                                                                  <div>{{ $applicant->name }}</div>
+                                                              </div>
+                                                          </td>
+                                                          <td>{{ $applicant->email }}</td>
+                                                          <td>
+                                                              <button class="btn btn-primary Approve-btn">Approve</button>
+                                                          </td>
+                                                          <td>
+                                                              <a href="#" data-bs-toggle="modal"
+                                                                 data-bs-target="#applicationModal"
+                                                                 data-application-id="{{ $applicant->id }}">
+                                                                 Form
+                                                              </a>
+                                                          </td>
+                                                          <td>{{ $applicant->created_at->format('Y-m-d') }}</td>
+                                                      </tr>
+                                                  @empty
+                                                      <tr>
+                                                          <td colspan="6" class="text-center text-muted">Nothing to show</td>
+                                                      </tr>
+                                                  @endforelse
+                                              </tbody>
                                         </table>
                                    </div>
                                    <div class="d-flex justify-content-between mt-3">
