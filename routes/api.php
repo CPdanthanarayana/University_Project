@@ -36,14 +36,14 @@ Route::middleware(['web'])->group(function () {
 Route::middleware('auth:sanctum')->group(function () {
     Route::apiResource('applications', ApplicationController::class)->except(['store']);
     Route::put('applications/{application}/status', [ApplicationController::class, 'updateStatus']);
-    
+
     Route::apiResource('applications.members', ApplicationMemberController::class)->shallow();
     Route::post('applications/{application}/members/bulk', [ApplicationMemberController::class, 'bulkStore']);
-    
+
     Route::apiResource('applications.visits', ApplicationVisitsController::class)->shallow();
     Route::put('application-visits/{applicationVisit}/status', [ApplicationVisitsController::class, 'updateStatus']);
     Route::get('application-visits/date-range', [ApplicationVisitsController::class, 'getByDateRange']);
-    
+
     Route::apiResource('users', UserController::class);
     Route::get('users/search', [UserController::class, 'search']);
     Route::get('dashboard', [UserController::class, 'dashboard']);
@@ -52,4 +52,8 @@ Route::middleware('auth:sanctum')->group(function () {
 // Test routes for form integration
 Route::get('test/form-submission', [App\Http\Controllers\TestFormController::class, 'testFormSubmission']);
 Route::get('test/field-mapping', [App\Http\Controllers\TestFormController::class, 'testFieldMapping']);
+
+//Vehicle Allocation Routes
+Route::get('/applications/{id}/available-vehicles', [ApplicationAllocationController::class, 'availableVehicles']);
+Route::post('/allocate-vehicle', [ApplicationAllocationController::class, 'allocateVehicle']);
 
