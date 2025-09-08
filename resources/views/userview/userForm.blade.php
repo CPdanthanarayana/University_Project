@@ -208,8 +208,8 @@
     <input type="text" name="department" required>
   </div>
   <div class="col">
-    <label>5. Contact No./s:</label>
-    <input type="text" name="contact_no" required>
+    <label>5. Email:</label>
+    <input type="email" name="email" required>
   </div>
 </div>
 

@@ -19,7 +19,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property string|null $designation
  * @property string|null $faculty
  * @property string|null $department
- * @property string|null $contact_no
+ * @property string|null $email
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
  * 
