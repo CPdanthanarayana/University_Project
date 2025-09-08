@@ -15,6 +15,47 @@
      .table-responsive {
           max-height: 500px;
      }
+
+     .table-footer {
+    padding: 16px 24px;
+    background: #f8f9fc;
+    border-top: 1px solid #e3e6f0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 0;
+}
+
+/* Pagination */
+.pagination .page-item .page-link {
+    color: #ffffff;
+    background-color: #212529;
+    border: 1px solid #212529;
+    padding: 6px 10px;
+    font-size: 14px;
+    transition: all 0.2s;
+}
+
+.pagination .page-item .page-link:hover {
+    background-color: #495057;
+    border-color: #495057;
+    color: #ffffff;
+}
+
+.pagination .page-item.active .page-link {
+    background-color: #495057;
+    border-color: #495057;
+    color: #ffffff;
+}
+
+.pagination .page-item.disabled .page-link {
+    background-color: #212529;
+    border-color: #212529;
+    color: rgba(255, 255, 255, 0.5);
+    cursor: not-allowed;
+}
+
+
 </style>
 
                <!-- Main Content -->
@@ -36,82 +77,91 @@
                          <!-- Messages Table -->
                          <div class="card shadow mb-4">
                               <div class="card-header py-3 d-flex justify-content-between align-items-center">
-                                   <h6 class="m-0 font-weight-bold text-primary">User Messages</h6>
-                                   <button class="btn btn-primary btn-sm"><i class="bi bi-plus"></i> Add New</button>
+                                   <h6 class="m-0 font-weight-bold text-black">User Applications</h6>
+                                   <button class="btn btn-dark btn-sm"><i class="bi bi-plus"></i> Add New</button>
                               </div>
-                              <div class="card-body">
-                                   <div class="table-responsive">
-                                        <table class="table table-striped table-hover">
-                                             <thead>
-                                                  <tr>
-                                                       <th>ID</th>
-                                                       <th>Name</th>
-                                                       <th>Email</th>
-                                                       <th>Approval</th>
-                                                       <th>Form</th>
-                                                       <th>Date</th>
-                                                  </tr>
-                                             </thead>
-                                             <tbody>
+                                <div class="card-body">
+                                    <div class="table-responsive">
+                                        <table class="table table-striped table-hover align-middle">
+                                            <thead class="table-dark">
+                                                <tr>
+                                                    <th scope="col" class="px-4 py-3">#</th>
+                                                    <th scope="col" class="px-4 py-3">Name</th>
+                                                    <th scope="col" class="px-4 py-3">Email</th>
+                                                    <th scope="col" class="px-4 py-3 text-center">Approval</th>
+                                                    <th scope="col" class="px-4 py-3">Form</th>
+                                                    <th scope="col" class="px-4 py-3">Date</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
                                                 @foreach($applications as $application)
                                                 <tr>
-                                                    <td>{{ $loop->iteration }}</td>
-                                                    <td>
+                                                    <td class="px-4 py-3">{{ $loop->iteration }}</td>
+
+                                                    <td class="px-4 py-3">
                                                         <div class="d-flex align-items-center">
-                                                            <img src="https://placehold.co/30x30"
+                                                            <img src="https://placehold.co/40x40"
                                                                 alt="Profile picture"
-                                                                class="rounded-circle me-2" width="30" height="30">
-                                                            <div>{{ $application->applicant->name ?? 'N/A' }}</div>
+                                                                class="rounded-circle me-3" width="40" height="40">
+                                                            <span class="fw-semibold">{{ $application->applicant->name ?? 'N/A' }}</span>
                                                         </div>
                                                     </td>
-                                                    <td>{{ $application->user->email ?? 'N/A' }}</td>
-                                                    <td>
+
+                                                    <td class="px-4 py-3">{{ $application->user->email ?? 'N/A' }}</td>
+
+                                                    <td class="px-4 py-3 text-center">
                                                         @if($application->status === 'allocated')
-                                                            <button class="btn btn-success" disabled>Allocated</button>
+                                                            <button class="btn btn-sm btn-secondary w-20 disabled" aria-disabled="true">Allocated</button>
                                                         @else
-                                                            <button class="btn btn-primary Approve-btn" data-application-id="{{ $application->id }}">
+                                                            <button class="btn btn-sm btn-outline-dark w-20 Approve-btn"
+                                                                    data-application-id="{{ $application->id }}">
                                                                 Approve
                                                             </button>
                                                         @endif
                                                     </td>
-                                                    <td>
+
+                                                    <td class="px-4 py-3">
                                                         <a href="#"
+                                                        class="text-decoration-none text-dark d-flex align-items-center"
                                                         data-bs-toggle="modal"
                                                         data-bs-target="#applicationModal"
                                                         data-application-id="{{ $application->id }}">
-                                                        Form
+                                                        <i class="bi bi-file-earmark-text me-2"></i> View Application
                                                         </a>
                                                     </td>
-                                                    <td>{{ $application->created_at->format('Y-m-d') }}</td>
+
+                                                    <td class="px-4 py-3">{{ $application->created_at->format('Y-m-d') }}</td>
                                                 </tr>
                                                 @endforeach
                                             </tbody>
-
                                         </table>
-                                   </div>
-                                   <div class="d-flex justify-content-between mt-3">
-                                        <div>
-                                             <select class="form-select form-select-sm" style="width: 80px;">
-                                                  <option>5</option>
-                                                  <option selected>10</option>
-                                                  <option>25</option>
-                                                  <option>50</option>
-                                             </select>
-                                        </div>
-                                        <nav aria-label="Page navigation">
-                                             <ul class="pagination pagination-sm">
-                                                  <li class="page-item disabled">
-                                                       <a class="page-link" href="#" tabindex="-1">Previous</a>
-                                                  </li>
-                                                  <li class="page-item active"><a class="page-link" href="#">1</a></li>
-                                                  <li class="page-item"><a class="page-link" href="#">2</a></li>
-                                                  <li class="page-item"><a class="page-link" href="#">3</a></li>
-                                                  <li class="page-item">
-                                                       <a class="page-link" href="#">Next</a>
-                                                  </li>
-                                             </ul>
-                                        </nav>
-                                   </div>
+                                    </div>
+                                </div>
+
+                                   <!-- Footer with Pagination -->
+                                <div class="table-footer">
+                                    <div class="rows-per-page">
+                                        <select id="rowsPerPage" class="form-select form-select-sm">
+                                            <option>5</option>
+                                            <option selected>10</option>
+                                            <option>25</option>
+                                            <option>50</option>
+                                        </select>
+                                    </div>
+                                    <nav aria-label="Page navigation">
+                                        <ul class="pagination pagination-sm">
+                                            <li class="page-item disabled">
+                                                <a class="page-link" href="#" tabindex="-1">Previous</a>
+                                            </li>
+                                            <li class="page-item active"><a class="page-link" href="#">1</a></li>
+                                            <li class="page-item"><a class="page-link" href="#">2</a></li>
+                                            <li class="page-item"><a class="page-link" href="#">3</a></li>
+                                            <li class="page-item">
+                                                <a class="page-link" href="#">Next</a>
+                                            </li>
+                                        </ul>
+                                    </nav>
+                                </div>
                               </div>
                          </div>
                     </div>
@@ -274,7 +324,7 @@
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <button type="submit" class="btn btn-primary">Allocate</button>
+                        <button type="submit" class="btn btn-dark">Allocate</button>
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
                     </div>
                 </form>
