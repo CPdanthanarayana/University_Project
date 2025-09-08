@@ -37,7 +37,8 @@ class Application extends Model
 		'return_date',
 		'applicant_signature_path',
 		'applicant_signed_date',
-		'status'
+		'status',
+        'vehicle_id'
 	];
 
 	public function applicant()
@@ -59,4 +60,10 @@ class Application extends Model
 	{
 		return $this->hasMany(ApplicationVisit::class);
 	}
+
+    public function vehicle()
+    {
+        return $this->belongsTo(Vehicle::class);
+    }
+
 }
