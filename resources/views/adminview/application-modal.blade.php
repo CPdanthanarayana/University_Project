@@ -37,8 +37,8 @@
                                         <input type="text" name="department" readonly>
                                    </div>
                                    <div class="col">
-                                        <label>5. Contact No./s:</label>
-                                        <input type="text" name="contact_no" readonly>
+                                        <label>5. Email:</label>
+                                        <input type="email" name="email" readonly>
                                    </div>
                               </div>
 
@@ -158,7 +158,7 @@
                               applicationModal.querySelector('[name="designation"]').value = data.designation || '';
                               applicationModal.querySelector('[name="faculty"]').value = data.faculty || '';
                               applicationModal.querySelector('[name="department"]').value = data.department || '';
-                              applicationModal.querySelector('[name="contact_no"]').value = data.contact_no || '';
+                              applicationModal.querySelector('[name="email"]').value = data.email || '';
                               applicationModal.querySelector('[name="purpose"]').value = data.purpose || '';
 
                               // Supporting documents checkbox

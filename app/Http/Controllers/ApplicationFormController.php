@@ -36,7 +36,7 @@ class ApplicationFormController extends Controller
                 'designation' => 'required|string|max:255',
                 'faculty' => 'required|string|max:255',
                 'department' => 'required|string|max:255',
-                'contact_no' => 'required|string|max:50',
+                'email' => 'required|email|max:255',
                 'purpose' => 'required|string',
                 'supporting_docs' => 'required|in:yes,no',
                 'from' => 'required|string|max:255',
@@ -105,7 +105,7 @@ class ApplicationFormController extends Controller
                     'designation' => $validated['designation'],
                     'faculty' => $validated['faculty'],
                     'department' => $validated['department'],
-                    'contact_no' => $validated['contact_no']
+                    'email' => $validated['email']
                 ]
             );
 
