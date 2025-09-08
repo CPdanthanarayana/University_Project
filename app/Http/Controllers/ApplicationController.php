@@ -44,8 +44,8 @@ class ApplicationController extends Controller
             'designation' => 'required|string|max:255',
             'faculty' => 'required|string|max:255',
             'department' => 'required|string|max:255',
-            'contact_no' => 'required|string|max:20',
-
+            'email' => 'required|email|max:255',
+            
             // Application details with UI field mapping
             'purpose' => 'required|string',
             'supporting_docs' => 'required|in:yes,no', // UI radio button format
@@ -128,7 +128,7 @@ class ApplicationController extends Controller
                         'designation' => $validated['designation'] ?? null,
                         'faculty' => $validated['faculty'] ?? null,
                         'department' => $validated['department'] ?? null,
-                        'contact_no' => $validated['contact_no'] ?? null,
+                        'email' => $validated['email'] ?? null,
                     ]
                 );
                 $validated['applicant_id'] = $applicant->id;

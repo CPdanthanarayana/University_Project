@@ -80,60 +80,52 @@
                                    <h6 class="m-0 font-weight-bold text-black">User Applications</h6>
                                    <button class="btn btn-dark btn-sm"><i class="bi bi-plus"></i> Add New</button>
                               </div>
-                                <div class="card-body">
-                                    <div class="table-responsive">
-                                        <table class="table table-striped table-hover align-middle">
-                                            <thead class="table-dark">
-                                                <tr>
-                                                    <th scope="col" class="px-4 py-3">#</th>
-                                                    <th scope="col" class="px-4 py-3">Name</th>
-                                                    <th scope="col" class="px-4 py-3">Email</th>
-                                                    <th scope="col" class="px-4 py-3 text-center">Approval</th>
-                                                    <th scope="col" class="px-4 py-3">Form</th>
-                                                    <th scope="col" class="px-4 py-3">Date</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                @foreach($applications as $application)
-                                                <tr>
-                                                    <td class="px-4 py-3">{{ $loop->iteration }}</td>
 
-                                                    <td class="px-4 py-3">
-                                                        <div class="d-flex align-items-center">
-                                                            <img src="https://placehold.co/40x40"
-                                                                alt="Profile picture"
-                                                                class="rounded-circle me-3" width="40" height="40">
-                                                            <span class="fw-semibold">{{ $application->applicant->name ?? 'N/A' }}</span>
-                                                        </div>
-                                                    </td>
+                              <div class="card-body">
+                                   <div class="table-responsive">
+                                        <table class="table table-striped table-hover">
+                                             <thead>
+                                                  <tr>
+                                                       <th>ID</th>
+                                                       <th>Name</th>
+                                                       <th>Email</th>
+                                                       <th>Approval</th>
+                                                       <th>Form</th>
+                                                       <th>Date</th>
+                                                  </tr>
+                                             </thead>
+                                             <tbody>
+                                                  @forelse ($applicants as $applicant)
+                                                      <tr>
+                                                          <td>{{ $applicant->id }}</td>
+                                                          <td>
+                                                              <div class="d-flex align-items-center">
+                                                                  <img src="https://placehold.co/30x30"
+                                                                       alt="Profile picture"
+                                                                       class="rounded-circle me-2" width="30" height="30">
+                                                                  <div>{{ $applicant->name }}</div>
+                                                              </div>
+                                                          </td>
+                                                          <td>{{ $applicant->email }}</td>
+                                                          <td>
+                                                              <button class="btn btn-primary Approve-btn">Approve</button>
+                                                          </td>
+                                                          <td>
+                                                              <a href="#" data-bs-toggle="modal"
+                                                                 data-bs-target="#applicationModal"
+                                                                 data-application-id="{{ $applicant->id }}">
+                                                                 Form
+                                                              </a>
+                                                          </td>
+                                                          <td>{{ $applicant->created_at->format('Y-m-d') }}</td>
+                                                      </tr>
+                                                  @empty
+                                                      <tr>
+                                                          <td colspan="6" class="text-center text-muted">Nothing to show</td>
+                                                      </tr>
+                                                  @endforelse
+                                              </tbody>
 
-                                                    <td class="px-4 py-3">{{ $application->user->email ?? 'N/A' }}</td>
-
-                                                    <td class="px-4 py-3 text-center">
-                                                        @if($application->status === 'allocated')
-                                                            <button class="btn btn-sm btn-secondary w-20 disabled" aria-disabled="true">Allocated</button>
-                                                        @else
-                                                            <button class="btn btn-sm btn-outline-dark w-20 Approve-btn"
-                                                                    data-application-id="{{ $application->id }}">
-                                                                Approve
-                                                            </button>
-                                                        @endif
-                                                    </td>
-
-                                                    <td class="px-4 py-3">
-                                                        <a href="#"
-                                                        class="text-decoration-none text-dark d-flex align-items-center"
-                                                        data-bs-toggle="modal"
-                                                        data-bs-target="#applicationModal"
-                                                        data-application-id="{{ $application->id }}">
-                                                        <i class="bi bi-file-earmark-text me-2"></i> View Application
-                                                        </a>
-                                                    </td>
-
-                                                    <td class="px-4 py-3">{{ $application->created_at->format('Y-m-d') }}</td>
-                                                </tr>
-                                                @endforeach
-                                            </tbody>
                                         </table>
                                     </div>
                                 </div>
@@ -206,8 +198,8 @@
                                         <input type="text" name="department" readonly style="width: 100%; padding: 7px 10px; margin-bottom: 14px; border: 1px solid #bfc9d1; border-radius: 4px; font-size: 1em; background: #fafbfc;">
                                    </div>
                                    <div class="col" style="flex: 1;">
-                                        <label style="display: inline-block; margin-bottom: 5px; font-weight: 500;">5. Contact No./s:</label>
-                                        <input type="text" name="contact_no" readonly style="width: 100%; padding: 7px 10px; margin-bottom: 14px; border: 1px solid #bfc9d1; border-radius: 4px; font-size: 1em; background: #fafbfc;">
+                                        <label style="display: inline-block; margin-bottom: 5px; font-weight: 500;">5. Email:</label>
+                                        <input type="email" name="email" readonly style="width: 100%; padding: 7px 10px; margin-bottom: 14px; border: 1px solid #bfc9d1; border-radius: 4px; font-size: 1em; background: #fafbfc;">
                                    </div>
                               </div>
 
@@ -356,7 +348,7 @@
                               applicationModal.querySelector('[name="designation"]').value = data.designation || '';
                               applicationModal.querySelector('[name="faculty"]').value = data.faculty || '';
                               applicationModal.querySelector('[name="department"]').value = data.department || '';
-                              applicationModal.querySelector('[name="contact_no"]').value = data.contact_no || '';
+                              applicationModal.querySelector('[name="email"]').value = data.email || '';
                               applicationModal.querySelector('[name="purpose"]').value = data.purpose || '';
 
                               // Supporting documents checkbox

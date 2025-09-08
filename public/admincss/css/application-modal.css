@@ -31,6 +31,7 @@
 }
 
 #applicationModal input[type="text"],
+#applicationModal input[type="email"],
 #applicationModal input[type="date"],
 #applicationModal input[type="time"],
 #applicationModal textarea,
@@ -42,6 +43,19 @@
     border-radius: 4px;
     font-size: 1em;
     background: #fafbfc;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+#applicationModal input[type="text"]:focus,
+#applicationModal input[type="email"]:focus,
+#applicationModal input[type="date"]:focus,
+#applicationModal input[type="time"]:focus,
+#applicationModal textarea:focus,
+#applicationModal select:focus {
+    outline: none;
+    border-color: #0d6efd;
+    box-shadow: 0 0 0 2px rgba(13, 110, 253, 0.2);
+    background: #fff;
 }
 
 #applicationModal input[readonly],
@@ -68,6 +82,7 @@
 }
 
 #applicationModal table input[type="text"],
+#applicationModal table input[type="email"],
 #applicationModal table input[type="date"] {
     margin-bottom: 0;
     background-color: transparent;

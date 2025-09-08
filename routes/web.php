@@ -5,7 +5,6 @@ use App\Http\Controllers\ApplicationFormController;
 use App\Http\Controllers\VehicleController;
 use App\Http\Controllers\Admin\UserManagementController;
 use App\Http\Controllers\Admin\AdminController;
-use App\Http\Controllers\ApplicationAllocationController;
 
 
 
@@ -60,11 +59,15 @@ Route::middleware([
 Route::middleware([
     'auth:sanctum',
     config('jetstream.auth_session'),
-    'verified'
+    'verified',
+    'redirect.usertype'
 ])->group(function () {
-    Route::get('/dashboard', function () {
-        return view('dashboard');
-    })->name('dashboard');
+    Route::get('/admin', [AdminController::class, 'index'])->name('admin.dashboard');
+    
+    // User Management Routes
+    Route::get('/admin/users', [UserManagementController::class, 'index'])->name('admin.users');
+    Route::patch('/admin/users/{user}/update-type', [UserManagementController::class, 'updateUserType'])->name('admin.users.update-type');
+    Route::get('/admin/users/{user}', [UserManagementController::class, 'show'])->name('admin.users.show');
 });
 
 // Vehicle routes
@@ -82,12 +85,10 @@ Route::prefix('admin')->middleware([
     Route::patch('/vehicles/{vehicle}/status', [VehicleController::class, 'updateStatus'])->name('vehicle.status');
 });
 
-//Vehicle allocation routes
-Route::get('/applications/{id}/available-vehicles', [App\Http\Controllers\ApplicationAllocationController::class, 'availableVehicles'])->name('applications.availableVehicles');
-Route::post('/applications/allocate', [App\Http\Controllers\ApplicationAllocationController::class, 'allocateVehicle'])->name('applications.allocateVehicle');
-
-
 Route::get('/logout', [AdminController::class, 'logout'])->name('logout');
 
+Route::middleware(['auth', 'admin'])->group(function () {
+    Route::get('/admin/dashboard', [AdminController::class, 'index'])->name('admin.dashboard');
+});
 
 
