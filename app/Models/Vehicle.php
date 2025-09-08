@@ -18,4 +18,11 @@ class Vehicle extends Model
         'insurance_expiry',
         'status'
     ];
+
+    public function applications()
+    {
+        return $this->hasMany(Application::class);
+    }
+
+
 }

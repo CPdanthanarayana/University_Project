@@ -15,6 +15,47 @@
      .table-responsive {
           max-height: 500px;
      }
+
+     .table-footer {
+    padding: 16px 24px;
+    background: #f8f9fc;
+    border-top: 1px solid #e3e6f0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 0;
+}
+
+/* Pagination */
+.pagination .page-item .page-link {
+    color: #ffffff;
+    background-color: #212529;
+    border: 1px solid #212529;
+    padding: 6px 10px;
+    font-size: 14px;
+    transition: all 0.2s;
+}
+
+.pagination .page-item .page-link:hover {
+    background-color: #495057;
+    border-color: #495057;
+    color: #ffffff;
+}
+
+.pagination .page-item.active .page-link {
+    background-color: #495057;
+    border-color: #495057;
+    color: #ffffff;
+}
+
+.pagination .page-item.disabled .page-link {
+    background-color: #212529;
+    border-color: #212529;
+    color: rgba(255, 255, 255, 0.5);
+    cursor: not-allowed;
+}
+
+
 </style>
 
                <!-- Main Content -->
@@ -36,9 +77,10 @@
                          <!-- Messages Table -->
                          <div class="card shadow mb-4">
                               <div class="card-header py-3 d-flex justify-content-between align-items-center">
-                                   <h6 class="m-0 font-weight-bold text-primary">User Messages</h6>
-                                   <button class="btn btn-primary btn-sm"><i class="bi bi-plus"></i> Add New</button>
+                                   <h6 class="m-0 font-weight-bold text-black">User Applications</h6>
+                                   <button class="btn btn-dark btn-sm"><i class="bi bi-plus"></i> Add New</button>
                               </div>
+
                               <div class="card-body">
                                    <div class="table-responsive">
                                         <table class="table table-striped table-hover">
@@ -83,31 +125,35 @@
                                                       </tr>
                                                   @endforelse
                                               </tbody>
+
                                         </table>
-                                   </div>
-                                   <div class="d-flex justify-content-between mt-3">
-                                        <div>
-                                             <select class="form-select form-select-sm" style="width: 80px;">
-                                                  <option>5</option>
-                                                  <option selected>10</option>
-                                                  <option>25</option>
-                                                  <option>50</option>
-                                             </select>
-                                        </div>
-                                        <nav aria-label="Page navigation">
-                                             <ul class="pagination pagination-sm">
-                                                  <li class="page-item disabled">
-                                                       <a class="page-link" href="#" tabindex="-1">Previous</a>
-                                                  </li>
-                                                  <li class="page-item active"><a class="page-link" href="#">1</a></li>
-                                                  <li class="page-item"><a class="page-link" href="#">2</a></li>
-                                                  <li class="page-item"><a class="page-link" href="#">3</a></li>
-                                                  <li class="page-item">
-                                                       <a class="page-link" href="#">Next</a>
-                                                  </li>
-                                             </ul>
-                                        </nav>
-                                   </div>
+                                    </div>
+                                </div>
+
+                                   <!-- Footer with Pagination -->
+                                <div class="table-footer">
+                                    <div class="rows-per-page">
+                                        <select id="rowsPerPage" class="form-select form-select-sm">
+                                            <option>5</option>
+                                            <option selected>10</option>
+                                            <option>25</option>
+                                            <option>50</option>
+                                        </select>
+                                    </div>
+                                    <nav aria-label="Page navigation">
+                                        <ul class="pagination pagination-sm">
+                                            <li class="page-item disabled">
+                                                <a class="page-link" href="#" tabindex="-1">Previous</a>
+                                            </li>
+                                            <li class="page-item active"><a class="page-link" href="#">1</a></li>
+                                            <li class="page-item"><a class="page-link" href="#">2</a></li>
+                                            <li class="page-item"><a class="page-link" href="#">3</a></li>
+                                            <li class="page-item">
+                                                <a class="page-link" href="#">Next</a>
+                                            </li>
+                                        </ul>
+                                    </nav>
+                                </div>
                               </div>
                          </div>
                     </div>
@@ -250,6 +296,35 @@
           </div>
      </div>
 
+    <!-- Vehicle Allocation Modal -->
+     <div class="modal fade" id="allocationModal" tabindex="-1" aria-labelledby="allocationModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="allocationModalLabel">Allocate Vehicle</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <form id="vehicleAllocationForm">
+                    <div class="modal-body">
+                        <input type="hidden" name="application_id" id="allocationApplicationId">
+
+                        <div class="mb-3">
+                            <label for="vehicleSelect" class="form-label">Select Vehicle</label>
+                            <select class="form-select" id="vehicleSelect" name="vehicle_id" required>
+                                <option value="">-- Choose a Vehicle --</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-dark">Allocate</button>
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+
      <script>
           document.addEventListener('DOMContentLoaded', function() {
                var applicationModal = document.getElementById('applicationModal');
@@ -360,6 +435,92 @@
                     return result.toLowerCase();
                }
           });
+
+        // Vehicle Allocation Modal Logic
+        document.querySelectorAll('.Approve-btn').forEach(button => {
+        button.addEventListener('click', function() {
+            const applicationId = this.getAttribute('data-application-id');
+            document.getElementById('allocationApplicationId').value = applicationId;
+
+            // Fetch available vehicles for this application
+            fetch(`/applications/${applicationId}/available-vehicles`)
+                .then(response => response.json())
+                .then(data => {
+                    const select = document.getElementById('vehicleSelect');
+                    select.innerHTML = '<option value="">-- Choose a Vehicle --</option>';
+
+                    if (data.length > 0) {
+                        data.forEach(vehicle => {
+                            let option = document.createElement('option');
+                            option.value = vehicle.id;
+                            option.textContent = `${vehicle.vehicle_no} - ${vehicle.type} (Seats: ${vehicle.capacity})`;
+                            select.appendChild(option);
+                        });
+                    } else {
+                        let option = document.createElement('option');
+                        option.disabled = true;
+                        option.textContent = 'No available vehicles found';
+                        select.appendChild(option);
+                    }
+                });
+
+            // Show modal
+            new bootstrap.Modal(document.getElementById('allocationModal')).show();
+        });
+    });
+
+    // Handle form submit
+    document.getElementById('vehicleAllocationForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+
+        const formData = new FormData(this);
+        const applicationId = formData.get('application_id');
+
+        fetch('/applications/allocate', {
+            method: 'POST',
+            headers: {
+                'X-CSRF-TOKEN': '{{ csrf_token() }}',
+                'Accept': 'application/json'
+            },
+            body: formData
+        })
+        .then(async response => {
+            let data;
+            try {
+                data = await response.json();
+            } catch (e) {
+                const text = await response.text();
+                throw new Error(text);
+            }
+
+            if (!response.ok) {
+                throw new Error(data.message || 'Something went wrong');
+            }
+
+            alert(data.message);
+
+            // Change the button text to "Allocated"
+            const approveButton = document.querySelector(`.Approve-btn[data-application-id="${applicationId}"]`);
+            if (approveButton) {
+                approveButton.textContent = 'Allocated';
+                approveButton.classList.remove('btn-primary'); // optional styling
+                approveButton.classList.add('btn-success');
+                approveButton.disabled = true; // prevent multiple allocations
+            }
+
+            // Close modal
+            const allocationModalEl = document.getElementById('allocationModal');
+            const allocationModal = bootstrap.Modal.getInstance(allocationModalEl);
+            allocationModal.hide();
+
+        })
+        .catch(error => {
+            console.error('Error allocating vehicle:', error);
+            alert(error.message || 'Failed to allocate vehicle. Please try again.');
+        });
+    });
+
+
      </script>
 @endpush
 
