@@ -32,7 +32,7 @@
     margin-bottom: 5px;
     font-weight: 500;
   }
-  input[type="text"], input[type="date"], input[type="time"], textarea, select {
+  input[type="text"], input[type="email"], input[type="date"], input[type="time"], textarea, select {
     width: 100%;
     padding: 7px 10px;
     margin-bottom: 14px;
@@ -40,6 +40,21 @@
     border-radius: 4px;
     font-size: 1em;
     background: #fafbfc;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+  }
+  
+  input[type="text"]:focus, input[type="email"]:focus, input[type="date"]:focus, 
+  input[type="time"]:focus, textarea:focus, select:focus {
+    outline: none;
+    border-color: #a7d4f8ff;
+    box-shadow: 0 0 0 2px rgba(167, 212, 248, 0.2);
+    background: #fff;
+  }
+  
+  input::placeholder {
+    color: #6c757d;
+    opacity: 0.8;
+    font-style: italic;
   }
   .date-input {
     width: 40%;
@@ -208,8 +223,8 @@
     <input type="text" name="department" required>
   </div>
   <div class="col">
-    <label>5. Contact No./s:</label>
-    <input type="text" name="contact_no" required>
+    <label>5. Email:</label>
+    <input type="email" name="email" placeholder="example@university.edu.lk" required>
   </div>
 </div>
 
