@@ -54,36 +54,52 @@
                                              </thead>
                                              <tbody>
                                                   @forelse ($applicants as $applicant)
-                                                      <tr>
-                                                          <td>{{ $applicant->id }}</td>
-                                                          <td>
-                                                              <div class="d-flex align-items-center">
-                                                                  <img src="https://placehold.co/30x30"
-                                                                       alt="Profile picture"
-                                                                       class="rounded-circle me-2" width="30" height="30">
-                                                                  <div>{{ $applicant->name }}</div>
-                                                              </div>
-                                                          </td>
-                                                          <td>{{ $applicant->email }}</td>
-                                                          <td>
-                                                              <button class="btn btn-primary Approve-btn">Approve</button>
-                                                          </td>
-                                                          <td>
-                                                              <a href="#" data-bs-toggle="modal"
-                                                                 data-bs-target="#applicationModal"
-                                                                 data-application-id="{{ $applicant->id }}">
-                                                                 Form
-                                                              </a>
-                                                          </td>
-                                                          <td>{{ $applicant->created_at->format('Y-m-d') }}</td>
-                                                      </tr>
+                                                      @foreach($applicant->applications as $application) <!-- only pending ones -->
+                                                          <tr>
+                                                              <td>{{ $applicant->id }}</td>
+                                                              <td>
+                                                                  <div class="d-flex align-items-center">
+                                                                      <img src="https://placehold.co/30x30"
+                                                                           alt="Profile picture"
+                                                                           class="rounded-circle me-2" width="30" height="30">
+                                                                      <div>{{ $applicant->name }}</div>
+                                                                  </div>
+                                                              </td>
+                                                              <td>{{ $applicant->email }}</td>
+                                                              <td>
+                                                                  <form action="{{ route('applicants.updateStatus', $applicant->id) }}" method="POST">
+                                                                      @csrf
+                                                                      @method('PUT')
+                                                                      <select name="status" class="form-select">
+                                                                          <option value="approved">Approve</option>
+                                                                          <option value="rejected">Reject</option>
+                                                                      </select>
+                                                                      <button type="submit" class="btn btn-sm btn-primary mt-1">Save</button>
+                                                                  </form>
+                                                              </td>
+                                                              <td>
+                                                                  <a href="#" data-bs-toggle="modal"
+                                                                     data-bs-target="#applicationModal"
+                                                                     data-application-id="{{ $application->id }}">
+                                                                     Form
+                                                                  </a>
+                                                              </td>
+                                                              <td>{{ $application->created_at->format('Y-m-d') }}</td>
+                                                          </tr>
+                                                      @endforeach
                                                   @empty
                                                       <tr>
                                                           <td colspan="6" class="text-center text-muted">Nothing to show</td>
                                                       </tr>
                                                   @endforelse
-                                              </tbody>
+                                                  </tbody>
+                                        
                                         </table>
+                                        @if(session('email_sent'))
+                                        <script>
+                                        alert("Application status updated and email has been sent to higher admin.");
+                                        </script>
+                                        @endif
                                    </div>
                                    <div class="d-flex justify-content-between mt-3">
                                         <div>
