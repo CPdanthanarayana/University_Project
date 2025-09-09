@@ -30,11 +30,12 @@ Route::get('applicants/search', [ApplicantController::class, 'search']);
 // Application routes with CSRF protection for web forms
 Route::middleware(['web'])->group(function () {
     Route::post('applications', [ApplicationController::class, 'store'])->name('api.applications.store');
+    Route::apiResource('applications', ApplicationController::class)->except(['store']); // Moved here
 });
 
 // API routes (for authenticated API access)
 Route::middleware('auth:sanctum')->group(function () {
-    Route::apiResource('applications', ApplicationController::class)->except(['store']);
+    // Route::apiResource('applications', ApplicationController::class)->except(['store']); // Removed from here
     Route::put('applications/{application}/status', [ApplicationController::class, 'updateStatus']);
     
     Route::apiResource('applications.members', ApplicationMemberController::class)->shallow();
@@ -52,4 +53,3 @@ Route::middleware('auth:sanctum')->group(function () {
 // Test routes for form integration
 Route::get('test/form-submission', [App\Http\Controllers\TestFormController::class, 'testFormSubmission']);
 Route::get('test/field-mapping', [App\Http\Controllers\TestFormController::class, 'testFieldMapping']);
-

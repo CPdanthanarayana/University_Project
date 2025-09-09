@@ -177,7 +177,11 @@ class ApplicationController extends Controller
                 'from_location' => $validated['from_location'],
                 'to_location' => $validated['to_location'],
                 'departure_date' => $validated['departure_date'],
+                'departure_time' => $validated['departure_time'] ?? null,
                 'return_date' => $validated['return_date'],
+                'return_time' => $validated['return_time'] ?? null,
+                'route' => $validated['route'] ?? null,
+                'parking_place' => $validated['parking_place'] ?? null,
                 'applicant_signature_path' => $validated['applicant_signature_path'] ?? null,
                 'applicant_signed_date' => $validated['applicant_signed_date'],
                 'status' => 'pending',
@@ -271,7 +275,7 @@ class ApplicationController extends Controller
     public function show(Application $application)
     {
         $application->load(['applicant', 'user', 'application_members', 'application_visits']);
-        return view('applications.show', compact('application'));
+        return response()->json($application);
     }
 
     /**
@@ -296,7 +300,11 @@ class ApplicationController extends Controller
             'from_location' => 'required|string|max:255',
             'to_location' => 'required|string|max:255',
             'departure_date' => 'required|date',
+            'departure_time' => 'nullable|date_format:H:i',
             'return_date' => 'required|date|after_or_equal:departure_date',
+            'return_time' => 'nullable|date_format:H:i',
+            'route' => 'nullable|string|max:500',
+            'parking_place' => 'nullable|string|max:255',
             'status' => 'required|in:pending,approved,rejected',
         ]);
 

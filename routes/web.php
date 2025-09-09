@@ -86,11 +86,9 @@ Route::prefix('admin')->middleware([
 
 Route::get('/logout', [AdminController::class, 'logout'])->name('logout');
 
-Route::middleware(['auth', 'admin'])->group(function () {
+Route::middleware(['auth', 'redirect.usertype'])->group(function () {
     Route::get('/admin/dashboard', [AdminController::class, 'index'])->name('admin.dashboard');
 });
 
 Route::put('/applicants/{id}/status', [AdminController::class, 'updateStatus'])
      ->name('applicants.updateStatus');
-
-
