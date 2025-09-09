@@ -47,7 +47,7 @@
                                                        <th>ID</th>
                                                        <th>Name</th>
                                                        <th>Email</th>
-                                                       <th>Approval</th>
+                                                       <th class="text-center">Approval</th>
                                                        <th>Form</th>
                                                        <th>Date</th>
                                                   </tr>
@@ -66,15 +66,15 @@
                                                                   </div>
                                                               </td>
                                                               <td>{{ $applicant->email }}</td>
-                                                              <td>
+                                                              <td class="text-center">
                                                                   <form action="{{ route('applicants.updateStatus', $applicant->id) }}" method="POST">
                                                                       @csrf
                                                                       @method('PUT')
-                                                                      <select name="status" class="form-select">
-                                                                          <option value="approved">Approve</option>
-                                                                          <option value="rejected">Reject</option>
+                                                                      <select name="status" class="form-select" style="margin-bottom: 10px">
+                                                                          <option value="approved" class="text-center">Approve</option>
+                                                                          <option value="rejected" class="text-center">Reject</option>
                                                                       </select>
-                                                                      <button type="submit" class="btn btn-sm btn-primary mt-1">Save</button>
+                                                                      <button type="submit" class="btn btn-sm btn-primary mt-1" style="border-radius: 20px;">Save</button>
                                                                   </form>
                                                               </td>
                                                               <td>
