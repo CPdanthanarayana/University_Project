@@ -1,4 +1,3 @@
-
 @extends('adminview.layout')
 
 @section('content')
@@ -289,18 +288,12 @@
                          })
                          .then(data => {
                               // Populate form fields
-
                               applicationModal.querySelector('[name="service_no_name"]').value = (data.applicant.service_no || '') + ' - ' + (data.applicant.name || '');
                               applicationModal.querySelector('[name="designation"]').value = data.applicant.designation || '';
                               applicationModal.querySelector('[name="faculty"]').value = data.applicant.faculty || '';
                               applicationModal.querySelector('[name="department"]').value = data.applicant.department || '';
                               applicationModal.querySelector('[name="contact_no"]').value = data.applicant.contact_no || '';
-
-                              applicationModal.querySelector('[name="service_no_name"]').value = data.service_no_name || '';
-                              applicationModal.querySelector('[name="designation"]').value = data.designation || '';
-                              applicationModal.querySelector('[name="faculty"]').value = data.faculty || '';
-                              applicationModal.querySelector('[name="department"]').value = data.department || '';
-                              applicationModal.querySelector('[name="email"]').value = data.email || '';
+                              applicationModal.querySelector('[name="email"]').value = data.applicant.email || '';
                               applicationModal.querySelector('[name="purpose"]').value = data.purpose || '';
 
                               // Supporting documents checkbox
