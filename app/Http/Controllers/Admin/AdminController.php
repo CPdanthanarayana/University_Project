@@ -51,31 +51,51 @@ public function index()
 
 
 
-    public function updateStatus(Request $request, $applicantId)
+public function updateStatus(Request $request, $applicantId)
 {
     $request->validate([
         'status' => 'required|in:approved,rejected',
     ]);
 
+    $userFaculty = Auth::user()->faculty;
+
     $application = Application::where('applicant_id', $applicantId)->firstOrFail();
-    $application->status = $request->status;
-    $application->save();
+    $applicant   = Applicant::findOrFail($applicantId);
 
-    $applicant = Applicant::findOrFail($applicantId);
+    if ($userFaculty === 'All') {
+        // Super admin → update final_status instead of status
+        $application->final_status = $request->status;
+        $application->save();
 
-    if ($request->status === 'approved') {
-        // Send email to higher admin
-        $higherAdminEmail = "hashanewatawala@gmail.com"; // replace with real email
-        Mail::to($higherAdminEmail)
-            ->send(new ApplicationStatusMail($application, $applicant, Auth::user()));
-    } else if ($request->status === 'rejected') {
-        // Send rejection email to applicant
-        Mail::to($applicant->email)
-            ->send(new ApplicationRejectedMail($application));
+        // Always notify applicant directly (approve or reject)
+        if ($request->status === 'approved') {
+            Mail::to($applicant->email)
+                ->send(new ApplicationStatusMail($application, $applicant, Auth::user()));
+        } else if ($request->status === 'rejected') {
+            Mail::to($applicant->email)
+                ->send(new ApplicationRejectedMail($application));
+        }
+
+    } else {
+        // Regular faculty admin → old behavior
+        $application->status = $request->status;
+        $application->save();
+
+        if ($request->status === 'approved') {
+            // Send to higher admin
+            $higherAdminEmail = "hashanewatawala@gmail.com"; // replace with real email
+            Mail::to($higherAdminEmail)
+                ->send(new ApplicationStatusMail($application, $applicant, Auth::user()));
+        } else if ($request->status === 'rejected') {
+            // Send rejection to applicant
+            Mail::to($applicant->email)
+                ->send(new ApplicationRejectedMail($application));
+        }
     }
 
     return redirect()->back()->with('email_sent', true);
 }
+
 
 
 }
