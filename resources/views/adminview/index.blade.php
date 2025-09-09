@@ -324,6 +324,8 @@
                                              <td style="border: 1px solid #bfc9d1; padding: 7px 8px; text-align: left; font-size: 1em;">${toRoman(index + 1)}.</td>
                                              <td style="border: 1px solid #bfc9d1; padding: 7px 8px; text-align: left; font-size: 1em;"><input type="text" value="${member.service_no || ''}" readonly style="width: 100%; padding: 7px 10px; margin-bottom: 14px; border: 1px solid #bfc9d1; border-radius: 4px; font-size: 1em; background: #fafbfc;"></td>
                                              <td style="border: 1px solid #bfc9d1; padding: 7px 8px; text-align: left; font-size: 1em;"><input type="text" value="${member.name || ''}" readonly style="width: 100%; padding: 7px 10px; margin-bottom: 14px; border: 1px solid #bfc9d1; border-radius: 4px; font-size: 1em; background: #fafbfc;"></td>
+                                             <td style="border: 1px solid #bfc9d1; padding: 7px 8px; text-align: left; font-size: 1em;"><input type="text" value="${member.service_no || ''}" readonly style="width: 100%; padding: 7px 10px; margin-bottom: 14px; border: 1px solid #bfc9d1; border-radius: 4px; font-size: 1em; background: #fafbfc;"></td>
+                                             <td style="border: 1px solid #bfc9d1; padding: 7px 8px; text-align: left; font-size: 1em;"><input type="text" value="${member.name || ''}" readonly style="width: 100%; padding: 7px 10px; margin-bottom: 14px; border: 1px solid #bfc9d1; border-radius: 4px; font-size: 1em; background: #fafbfc;"></td>
                                         `;
                                         travelersBody.appendChild(row);
                                    });
