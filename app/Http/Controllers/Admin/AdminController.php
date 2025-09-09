@@ -25,17 +25,30 @@ public function index()
 {
     $userFaculty = Auth::user()->faculty;
 
-    $applicants = Applicant::where('faculty', $userFaculty)
-        ->whereHas('applications', function ($query) {
-            $query->where('status', 'pending');
-        })
-        ->with(['applications' => function ($query) {
-            $query->where('status', 'pending'); // load only pending apps
-        }])
-        ->get();
+    if ($userFaculty === 'All') {
+        // If admin faculty is 'All' → show all faculties approved applications
+        $applicants = Applicant::whereHas('applications', function ($query) {
+                $query->where('status', 'approved');
+            })
+            ->with(['applications' => function ($query) {
+                $query->where('status', 'approved'); // load only approved apps
+            }])
+            ->get();
+    } else {
+        // Existing logic: show only pending applications for that faculty
+        $applicants = Applicant::where('faculty', $userFaculty)
+            ->whereHas('applications', function ($query) {
+                $query->where('status', 'pending');
+            })
+            ->with(['applications' => function ($query) {
+                $query->where('status', 'pending'); // load only pending apps
+            }])
+            ->get();
+    }
 
     return view('adminview.index', compact('applicants'));
 }
+
 
 
     public function updateStatus(Request $request, $applicantId)
