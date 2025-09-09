@@ -26,28 +26,33 @@ public function index()
     $userFaculty = Auth::user()->faculty;
 
     if ($userFaculty === 'All') {
-        // If admin faculty is 'All' → show all faculties approved applications
+        // Admin of "All" faculty: show apps with status approved & final_status still pending
         $applicants = Applicant::whereHas('applications', function ($query) {
-                $query->where('status', 'approved');
+                $query->where('status', 'approved')
+                      ->where('final_status', 'pending');
             })
             ->with(['applications' => function ($query) {
-                $query->where('status', 'approved'); // load only approved apps
+                $query->where('status', 'approved')
+                      ->where('final_status', 'pending');
             }])
             ->get();
     } else {
-        // Existing logic: show only pending applications for that faculty
+        // Other faculty admins: show apps with status pending & final_status still pending
         $applicants = Applicant::where('faculty', $userFaculty)
             ->whereHas('applications', function ($query) {
-                $query->where('status', 'pending');
+                $query->where('status', 'pending')
+                      ->where('final_status', 'pending');
             })
             ->with(['applications' => function ($query) {
-                $query->where('status', 'pending'); // load only pending apps
+                $query->where('status', 'pending')
+                      ->where('final_status', 'pending');
             }])
             ->get();
     }
 
     return view('adminview.index', compact('applicants'));
 }
+
 
 
 
