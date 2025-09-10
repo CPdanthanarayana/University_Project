@@ -83,37 +83,37 @@
         
         .main-heading {
             font-weight: 700;
-            margin-bottom: 20px;
-            font-size: 4rem;
+            margin-bottom: 16px;
+            font-size: 3rem;
             color: #124C82;
             letter-spacing: -0.5px;
         }
         
         .sub-heading {
             font-weight: 400;
-            margin-bottom: 30px;
-            font-size: 2rem;
+            margin-bottom: 25px;
+            font-size: 1.5rem;
             color: #4A4A4A;
         }
         
         .lead {
             color: #6B7280;
-            max-width: 800px;
+            max-width: 700px;
             margin-left: auto;
             margin-right: auto;
-            font-size: 1.3rem;
-            line-height: 1.8;
+            font-size: 1.1rem;
+            line-height: 1.7;
         }
         
         .btn-container {
-            margin-top: 50px;
-            margin-bottom: 20px;
+            margin-top: 40px;
+            margin-bottom: 15px;
         }
         
         .btn-landing {
-            padding: 15px 40px;
-            font-size: 1.2rem;
-            margin: 0 15px;
+            padding: 12px 35px;
+            font-size: 1rem;
+            margin: 0 12px;
             transition: all 0.3s ease;
             font-weight: 600;
             border-radius: 50px;
@@ -211,15 +211,15 @@
         
         @media (max-width: 991px) {
             .main-heading {
-                font-size: 3rem;
+                font-size: 2.5rem;
             }
             
             .sub-heading {
-                font-size: 1.5rem;
+                font-size: 1.3rem;
             }
             
             .lead {
-                font-size: 1.1rem;
+                font-size: 1rem;
                 max-width: 90%;
             }
         }
@@ -236,12 +236,12 @@
             }
             
             .main-heading {
-                font-size: 2.5rem;
+                font-size: 2.2rem;
                 margin-bottom: 15px;
             }
             
             .sub-heading {
-                font-size: 1.3rem;
+                font-size: 1.2rem;
                 margin-bottom: 20px;
             }
             
@@ -265,11 +265,15 @@
             }
             
             .main-heading {
-                font-size: 2rem;
+                font-size: 1.8rem;
+            }
+            
+            .sub-heading {
+                font-size: 1.1rem;
             }
             
             .lead {
-                font-size: 1rem;
+                font-size: 0.95rem;
                 line-height: 1.6;
             }
             
