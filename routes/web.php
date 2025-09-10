@@ -19,9 +19,14 @@ use App\Http\Controllers\Admin\AdminController;
 */
 
 // Application form routes (redirect to login)
-Route::get('/', function () {
-    return redirect()->route('login');
-})->name('form.index');
+
+// Route::get('/', function () {
+//     return redirect()->route('login');
+// })->name('form.index');
+Route::get('/', function (){
+    return view('landingPage');
+})->name('landing');
+
 Route::post('/submit-application', [ApplicationFormController::class, 'submit'])->name('form.submit');
 Route::get('/application-status/{id}', [ApplicationFormController::class, 'status'])->name('form.status');
 
