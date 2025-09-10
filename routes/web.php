@@ -58,11 +58,15 @@ Route::middleware([
 Route::middleware([
     'auth:sanctum',
     config('jetstream.auth_session'),
-    'verified'
+    'verified',
+    'redirect.usertype'
 ])->group(function () {
-    Route::get('/dashboard', function () {
-        return view('dashboard');
-    })->name('dashboard');
+    Route::get('/admin', [AdminController::class, 'index'])->name('admin.dashboard');
+    
+    // User Management Routes
+    Route::get('/admin/users', [UserManagementController::class, 'index'])->name('admin.users');
+    Route::patch('/admin/users/{user}/update-type', [UserManagementController::class, 'updateUserType'])->name('admin.users.update-type');
+    Route::get('/admin/users/{user}', [UserManagementController::class, 'show'])->name('admin.users.show');
 });
 
 // Vehicle routes
@@ -86,3 +90,7 @@ Route::get('/logout', [AdminController::class, 'logout'])->name('logout');
 Route::get('/test-login-page', function () {
     return view('auth.test-login-page');
 });
+Route::middleware(['auth', 'admin'])->group(function () {
+    Route::get('/admin/dashboard', [AdminController::class, 'index'])->name('admin.dashboard');
+});
+

@@ -53,25 +53,36 @@
                                                   </tr>
                                              </thead>
                                              <tbody>
-                                                  <tr>
-                                                       <td>1</td>
-                                                       <td>
-                                                            <div class="d-flex align-items-center">
-                                                                 <img src="https://placehold.co/30x30"
-                                                                      alt="Profile picture of John Doe, male with short brown hair"
-                                                                      class="rounded-circle me-2" width="30"
-                                                                      height="30">
-                                                                 <div>John Doe</div>
-                                                            </div>
-                                                       </td>
-                                                       <td>john@example.com</td>
-                                                       <td>
-                                                            <button class="btn btn-primary Approve-btn">Approve</button>
-                                                       </td>
-                                                       <td><a href="#" data-bs-toggle="modal" data-bs-target="#applicationModal" data-application-id="1">Form</a></td>
-                                                       <td>2023-05-12</td>
-                                                  </tr>
-                                             </tbody>
+                                                  @forelse ($applicants as $applicant)
+                                                      <tr>
+                                                          <td>{{ $applicant->id }}</td>
+                                                          <td>
+                                                              <div class="d-flex align-items-center">
+                                                                  <img src="https://placehold.co/30x30"
+                                                                       alt="Profile picture"
+                                                                       class="rounded-circle me-2" width="30" height="30">
+                                                                  <div>{{ $applicant->name }}</div>
+                                                              </div>
+                                                          </td>
+                                                          <td>{{ $applicant->email }}</td>
+                                                          <td>
+                                                              <button class="btn btn-primary Approve-btn">Approve</button>
+                                                          </td>
+                                                          <td>
+                                                              <a href="#" data-bs-toggle="modal"
+                                                                 data-bs-target="#applicationModal"
+                                                                 data-application-id="{{ $applicant->id }}">
+                                                                 Form
+                                                              </a>
+                                                          </td>
+                                                          <td>{{ $applicant->created_at->format('Y-m-d') }}</td>
+                                                      </tr>
+                                                  @empty
+                                                      <tr>
+                                                          <td colspan="6" class="text-center text-muted">Nothing to show</td>
+                                                      </tr>
+                                                  @endforelse
+                                              </tbody>
                                         </table>
                                    </div>
                                    <div class="d-flex justify-content-between mt-3">
@@ -141,8 +152,8 @@
                                         <input type="text" name="department" readonly style="width: 100%; padding: 7px 10px; margin-bottom: 14px; border: 1px solid #bfc9d1; border-radius: 4px; font-size: 1em; background: #fafbfc;">
                                    </div>
                                    <div class="col" style="flex: 1;">
-                                        <label style="display: inline-block; margin-bottom: 5px; font-weight: 500;">5. Contact No./s:</label>
-                                        <input type="text" name="contact_no" readonly style="width: 100%; padding: 7px 10px; margin-bottom: 14px; border: 1px solid #bfc9d1; border-radius: 4px; font-size: 1em; background: #fafbfc;">
+                                        <label style="display: inline-block; margin-bottom: 5px; font-weight: 500;">5. Email:</label>
+                                        <input type="email" name="email" readonly style="width: 100%; padding: 7px 10px; margin-bottom: 14px; border: 1px solid #bfc9d1; border-radius: 4px; font-size: 1em; background: #fafbfc;">
                                    </div>
                               </div>
 
@@ -262,7 +273,7 @@
                               applicationModal.querySelector('[name="designation"]').value = data.designation || '';
                               applicationModal.querySelector('[name="faculty"]').value = data.faculty || '';
                               applicationModal.querySelector('[name="department"]').value = data.department || '';
-                              applicationModal.querySelector('[name="contact_no"]').value = data.contact_no || '';
+                              applicationModal.querySelector('[name="email"]').value = data.email || '';
                               applicationModal.querySelector('[name="purpose"]').value = data.purpose || '';
 
                               // Supporting documents checkbox
