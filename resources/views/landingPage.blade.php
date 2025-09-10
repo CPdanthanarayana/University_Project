@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Vehicle Allocation System - Sabaragamuwa University of Sri Lanka</title>
+    <title>Vehicle Allocation System - SUSL</title>
     
     <!-- Google Font -->
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -25,7 +25,8 @@
         }
         
         body {
-            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 50%, #dee2e6 100%);
+            background: url('{{asset('images/background.jpg')}}') no-repeat center center fixed;
+            background-size: cover;
             min-height: 100vh;
             width: 100%;
             color: #333;
@@ -40,7 +41,16 @@
         
         /* Clean modern styling */
         
-        /* Clean background styling */
+        /* Background overlay for better readability */
+        .bg-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: -1;
+        }
         
         .landing-container {
             min-height: 100vh;
@@ -54,10 +64,12 @@
         }
         
         .content-card {
-            background-color: #ffffff;
+            background-color: rgba(255, 255, 255, 0.65);
             padding: 3.5rem;
-            border-radius: 15px;
-            box-shadow: 0 10px 30px rgba(31, 38, 135, 0.1);
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
             max-width: 1000px;
             width: 100%;
             min-height: 500px;
@@ -66,11 +78,13 @@
             display: flex;
             flex-direction: column;
             justify-content: center;
+            border: 1px solid rgba(255, 255, 255, 0.4);
         }
         
         .content-card:hover {
             transform: translateY(-5px);
-            box-shadow: 0 12px 36px rgba(31, 38, 135, 0.25);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
+            background-color: rgba(255, 255, 255, 0.7);
         }
         
         .university-logo {
@@ -85,24 +99,26 @@
             font-weight: 700;
             margin-bottom: 16px;
             font-size: 3rem;
-            color: #124C82;
+            color: #0A3A6A;
             letter-spacing: -0.5px;
+            text-shadow: 0 1px 2px rgba(255, 255, 255, 0.3);
         }
         
         .sub-heading {
-            font-weight: 400;
+            font-weight: 500;
             margin-bottom: 25px;
             font-size: 1.5rem;
-            color: #4A4A4A;
+            color: #333333;
         }
         
         .lead {
-            color: #6B7280;
+            color: #444444;
             max-width: 700px;
             margin-left: auto;
             margin-right: auto;
             font-size: 1.1rem;
             line-height: 1.7;
+            font-weight: 400;
         }
         
         .btn-container {
@@ -174,9 +190,11 @@
             margin-top: 2rem;
             width: 100%;
             text-align: center;
-            color: #6B7280;
+            color: #ffffff;
             font-size: 0.9rem;
             padding: 1rem 0;
+            text-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+            font-weight: 500;
         }
         
         .wave-container {
@@ -197,8 +215,8 @@
         }
         
         .wave-container .shape-fill {
-            fill: #124C82;
-            opacity: 0.05;
+            fill: #ffffff;
+            opacity: 0.15;
         }
         
         /* Responsive styling */
@@ -287,6 +305,8 @@
     </style>
 </head>
 <body>
+    <!-- Background overlay -->
+    <div class="bg-overlay"></div>
     
     <div class="container-fluid landing-container">
         <div class="row justify-content-center">
