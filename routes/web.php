@@ -86,6 +86,10 @@ Route::prefix('admin')->middleware([
 
 Route::get('/logout', [AdminController::class, 'logout'])->name('logout');
 
+//test- login
+Route::get('/test-login-page', function () {
+    return view('auth.test-login-page');
+});
 Route::middleware(['auth', 'admin'])->group(function () {
     Route::get('/admin/dashboard', [AdminController::class, 'index'])->name('admin.dashboard');
 });
