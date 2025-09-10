@@ -25,12 +25,12 @@
         }
         
         body {
-            background: url('{{asset('images/background.jpg')}}') no-repeat center center fixed;
+            background: url("{{ asset('images/background.jpg') }}") no-repeat center center fixed;
             background-size: cover;
             min-height: 100vh;
             width: 100%;
             color: #333;
-            font-family: 'Poppins', sans-serif;
+            font-family: 'Roboto', sans-serif;
             overflow-x: hidden;
             position: relative;
         }
@@ -98,7 +98,7 @@
         .main-heading {
             font-weight: 700;
             margin-bottom: 16px;
-            font-size: 3rem;
+            font-size: 2.2rem;
             color: #0A3A6A;
             letter-spacing: -0.5px;
             text-shadow: 0 1px 2px rgba(255, 255, 255, 0.3);
@@ -107,7 +107,7 @@
         .sub-heading {
             font-weight: 500;
             margin-bottom: 25px;
-            font-size: 1.5rem;
+            font-size: 1.2rem;
             color: #333333;
         }
         
@@ -116,8 +116,8 @@
             max-width: 700px;
             margin-left: auto;
             margin-right: auto;
-            font-size: 1.1rem;
-            line-height: 1.7;
+            font-size: 1rem;
+            line-height: 1.6;
             font-weight: 400;
         }
         
@@ -127,8 +127,8 @@
         }
         
         .btn-landing {
-            padding: 12px 35px;
-            font-size: 1rem;
+            padding: 10px 28px;
+            font-size: 0.95rem;
             margin: 0 12px;
             transition: all 0.3s ease;
             font-weight: 600;
@@ -191,7 +191,7 @@
             width: 100%;
             text-align: center;
             color: #ffffff;
-            font-size: 0.9rem;
+            font-size: 0.8rem;
             padding: 1rem 0;
             text-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
             font-weight: 500;
@@ -310,12 +310,12 @@
     
     <div class="container-fluid landing-container">
         <div class="row justify-content-center">
-            <div class="col-md-12 text-center">
+            <div class="text-center col-md-12">
                 <div class="content-card">
                     <img src="{{asset('images/Logo-SUSL.png')}}" alt="Sabaragamuwa University Logo" class="university-logo">
                     <h1 class="main-heading">Vehicle Allocation System</h1>
                     <h2 class="sub-heading">Sabaragamuwa University of Sri Lanka</h2>
-                    <p class="lead mb-4">Efficient management of requesting and scheduling of university vehicles</p>
+                    <p class="mb-4 lead">Efficient management of requesting and scheduling of university vehicles</p>
                     
                     <div class="btn-container">
                         <a href="/login" class="btn btn-primary btn-landing">
