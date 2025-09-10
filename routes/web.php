@@ -94,3 +94,7 @@ Route::middleware(['auth', 'admin'])->group(function () {
     Route::get('/admin/dashboard', [AdminController::class, 'index'])->name('admin.dashboard');
 });
 
+//Landing page
+Route::get('/landing-page', function () {
+    return view('landingPage');
+});
