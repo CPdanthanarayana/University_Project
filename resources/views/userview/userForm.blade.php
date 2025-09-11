@@ -226,10 +226,6 @@
     <label>5. Email:</label>
     <input type="email" name="email" placeholder="example@university.edu.lk" required>
   </div>
-  <div class="col">
-    <label>Email:</label>
-    <input type="email" name="email" required>
-  </div>
 </div>
 
 <label>6. Purpose of Travelling:</label>
@@ -417,6 +413,13 @@
      <!-- App Javascript (Require in all Page) -->
      <script src="admincss/js/app.js"></script>
 
+     <!-- Vector Map Js -->
+     <script src="admincss/js/jsvectormap.min.js"></script>
+     <script src="admincss/js/world-merc.js"></script>
+     <script src="admincss/js/world.js"></script>
+
+     <!-- Dashboard Js -->
+     <script src="admincss/js/dashboard.js"></script>
     <script>
       let rowCount = 5; // You already have 5 default rows: i. to v.
 
