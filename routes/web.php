@@ -100,7 +100,7 @@ Route::put('/applicants/{id}/status', [AdminController::class, 'updateStatus'])
 Route::get('/test-login-page', function () {
     return view('auth.test-login-page');
 });
-Route::middleware(['auth', 'admin'])->group(function () {
+Route::middleware(['auth', 'redirect.usertype'])->group(function () {
     Route::get('/admin/dashboard', [AdminController::class, 'index'])->name('admin.dashboard');
 });
 

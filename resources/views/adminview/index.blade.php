@@ -167,6 +167,10 @@
                                         <input type="text" name="department" readonly style="width: 100%; padding: 7px 10px; margin-bottom: 14px; border: 1px solid #bfc9d1; border-radius: 4px; font-size: 1em; background: #fafbfc;">
                                    </div>
                                    <div class="col" style="flex: 1;">
+                                        <label style="display: inline-block; margin-bottom: 5px; font-weight: 500;">5. Contact No./s:</label>
+                                        <input type="text" name="contact_no" readonly style="width: 100%; padding: 7px 10px; margin-bottom: 14px; border: 1px solid #bfc9d1; border-radius: 4px; font-size: 1em; background: #fafbfc;">
+                                   </div>
+                                   <div class="col" style="flex: 1;">
                                         <label style="display: inline-block; margin-bottom: 5px; font-weight: 500;">5. Email:</label>
                                         <input type="email" name="email" readonly style="width: 100%; padding: 7px 10px; margin-bottom: 14px; border: 1px solid #bfc9d1; border-radius: 4px; font-size: 1em; background: #fafbfc;">
                                    </div>
