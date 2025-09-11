@@ -54,52 +54,36 @@
                                              </thead>
                                              <tbody>
                                                   @forelse ($applicants as $applicant)
-                                                      @foreach($applicant->applications as $application) <!-- only pending ones -->
-                                                          <tr>
-                                                              <td>{{ $applicant->id }}</td>
-                                                              <td>
-                                                                  <div class="d-flex align-items-center">
-                                                                      <img src="https://placehold.co/30x30"
-                                                                           alt="Profile picture"
-                                                                           class="rounded-circle me-2" width="30" height="30">
-                                                                      <div>{{ $applicant->name }}</div>
-                                                                  </div>
-                                                              </td>
-                                                              <td>{{ $applicant->email }}</td>
-                                                              <td>
-                                                                  <form action="{{ route('applicants.updateStatus', $applicant->id) }}" method="POST">
-                                                                      @csrf
-                                                                      @method('PUT')
-                                                                      <select name="status" class="form-select">
-                                                                          <option value="approved">Approve</option>
-                                                                          <option value="rejected">Reject</option>
-                                                                      </select>
-                                                                      <button type="submit" class="btn btn-sm btn-primary mt-1">Save</button>
-                                                                  </form>
-                                                              </td>
-                                                              <td>
-                                                                  <a href="#" data-bs-toggle="modal"
-                                                                     data-bs-target="#applicationModal"
-                                                                     data-application-id="{{ $application->id }}">
-                                                                     Form
-                                                                  </a>
-                                                              </td>
-                                                              <td>{{ $application->created_at->format('Y-m-d') }}</td>
-                                                          </tr>
-                                                      @endforeach
+                                                      <tr>
+                                                          <td>{{ $applicant->id }}</td>
+                                                          <td>
+                                                              <div class="d-flex align-items-center">
+                                                                  <img src="https://placehold.co/30x30"
+                                                                       alt="Profile picture"
+                                                                       class="rounded-circle me-2" width="30" height="30">
+                                                                  <div>{{ $applicant->name }}</div>
+                                                              </div>
+                                                          </td>
+                                                          <td>{{ $applicant->email }}</td>
+                                                          <td>
+                                                              <button class="btn btn-primary Approve-btn">Approve</button>
+                                                          </td>
+                                                          <td>
+                                                              <a href="#" data-bs-toggle="modal"
+                                                                 data-bs-target="#applicationModal"
+                                                                 data-application-id="{{ $applicant->id }}">
+                                                                 Form
+                                                              </a>
+                                                          </td>
+                                                          <td>{{ $applicant->created_at->format('Y-m-d') }}</td>
+                                                      </tr>
                                                   @empty
                                                       <tr>
                                                           <td colspan="6" class="text-center text-muted">Nothing to show</td>
                                                       </tr>
                                                   @endforelse
-                                                  </tbody>
-                                        
+                                              </tbody>
                                         </table>
-                                        @if(session('email_sent'))
-                                        <script>
-                                        alert("Application status updated and email has been sent to higher admin.");
-                                        </script>
-                                        @endif
                                    </div>
                                    <div class="d-flex justify-content-between mt-3">
                                         <div>
@@ -276,11 +260,7 @@
                     var applicationId = button.getAttribute('data-application-id');
 
                     // Fetch application data
-                    fetch(`/api/applications/${applicationId}`, {
-                        headers: {
-                            'Accept': 'application/json'
-                        }
-                    })
+                    fetch(`/api/applications/${applicationId}`)
                          .then(response => {
                               if (!response.ok) {
                                    throw new Error('Network response was not ok');
@@ -289,13 +269,6 @@
                          })
                          .then(data => {
                               // Populate form fields
-
-                              applicationModal.querySelector('[name="service_no_name"]').value = (data.applicant.service_no || '') + ' - ' + (data.applicant.name || '');
-                              applicationModal.querySelector('[name="designation"]').value = data.applicant.designation || '';
-                              applicationModal.querySelector('[name="faculty"]').value = data.applicant.faculty || '';
-                              applicationModal.querySelector('[name="department"]').value = data.applicant.department || '';
-                              applicationModal.querySelector('[name="contact_no"]').value = data.applicant.contact_no || '';
-
                               applicationModal.querySelector('[name="service_no_name"]').value = data.service_no_name || '';
                               applicationModal.querySelector('[name="designation"]').value = data.designation || '';
                               applicationModal.querySelector('[name="faculty"]').value = data.faculty || '';
@@ -317,13 +290,13 @@
                               // Travelers table
                               const travelersBody = applicationModal.querySelector('#travelers-body-modal');
                               travelersBody.innerHTML = ''; // Clear previous rows
-                              if (data.application_members && Array.isArray(data.application_members)) {
-                                   data.application_members.forEach((member, index) => {
+                              if (data.travelers && Array.isArray(data.travelers)) {
+                                   data.travelers.forEach((traveler, index) => {
                                         const row = document.createElement('tr');
                                         row.innerHTML = `
                                              <td style="border: 1px solid #bfc9d1; padding: 7px 8px; text-align: left; font-size: 1em;">${toRoman(index + 1)}.</td>
-                                             <td style="border: 1px solid #bfc9d1; padding: 7px 8px; text-align: left; font-size: 1em;"><input type="text" value="${member.service_no || ''}" readonly style="width: 100%; padding: 7px 10px; margin-bottom: 14px; border: 1px solid #bfc9d1; border-radius: 4px; font-size: 1em; background: #fafbfc;"></td>
-                                             <td style="border: 1px solid #bfc9d1; padding: 7px 8px; text-align: left; font-size: 1em;"><input type="text" value="${member.name || ''}" readonly style="width: 100%; padding: 7px 10px; margin-bottom: 14px; border: 1px solid #bfc9d1; border-radius: 4px; font-size: 1em; background: #fafbfc;"></td>
+                                             <td style="border: 1px solid #bfc9d1; padding: 7px 8px; text-align: left; font-size: 1em;"><input type="text" value="${traveler.service_no || ''}" readonly style="width: 100%; padding: 7px 10px; margin-bottom: 14px; border: 1px solid #bfc9d1; border-radius: 4px; font-size: 1em; background: #fafbfc;"></td>
+                                             <td style="border: 1px solid #bfc9d1; padding: 7px 8px; text-align: left; font-size: 1em;"><input type="text" value="${traveler.name || ''}" readonly style="width: 100%; padding: 7px 10px; margin-bottom: 14px; border: 1px solid #bfc9d1; border-radius: 4px; font-size: 1em; background: #fafbfc;"></td>
                                         `;
                                         travelersBody.appendChild(row);
                                    });
@@ -331,24 +304,23 @@
 
                               applicationModal.querySelector('[name="from_location"]').value = data.from_location || '';
                               applicationModal.querySelector('[name="to_location"]').value = data.to_location || '';
-                              applicationModal.querySelector('[name="departure_date"]').value = data.departure_date ? data.departure_date.substring(0, 10) : '';
+                              applicationModal.querySelector('[name="departure_date"]').value = data.departure_date || '';
                               applicationModal.querySelector('[name="departure_time"]').value = data.departure_time ? data.departure_time.substring(0, 5) : ''; // Format time
-                              applicationModal.querySelector('[name="return_date"]').value = data.return_date ? data.return_date.substring(0, 10) : '';
+                              applicationModal.querySelector('[name="return_date"]').value = data.return_date || '';
                               applicationModal.querySelector('[name="return_time"]').value = data.return_time ? data.return_time.substring(0, 5) : ''; // Format time
                               applicationModal.querySelector('[name="route"]').value = data.route || '';
                               applicationModal.querySelector('[name="parking_place"]').value = data.parking_place || '';
-                              applicationModal.querySelector('[name="contact_no"]').value = data.applicant.contact_no || '';
 
                               // Program table
                               const programBody = applicationModal.querySelector('#program-body-modal');
                               programBody.innerHTML = ''; // Clear previous rows
-                              if (data.application_visits && Array.isArray(data.application_visits)) { // Use application_visits
-                                   data.application_visits.forEach((item, index) => {
+                              if (data.program && Array.isArray(data.program)) {
+                                   data.program.forEach((item, index) => {
                                         const row = document.createElement('tr');
                                         row.innerHTML = `
                                              <td style="border: 1px solid #bfc9d1; padding: 7px 8px; text-align: left; font-size: 1em;">${(index + 1).toString().padStart(2, '0')}</td>
-                                             <td style="border: 1px solid #bfc9d1; padding: 7px 8px; text-align: left; font-size: 1em;"><input type="date" value="${item.visit_date ? item.visit_date.substring(0, 10) : ''}" readonly style="width: 100%; padding: 7px 10px; margin-bottom: 14px; border: 1px solid #bfc9d1; border-radius: 4px; font-size: 1em; background: #fafbfc;"></td>
-                                             <td style="border: 1px solid #bfc9d1; padding: 7px 8px; text-align: left; font-size: 1em;"><input type="text" value="${item.location || ''}" readonly style="width: 100%; padding: 7px 10px; margin-bottom: 14px; border: 1px solid #bfc9d1; border-radius: 4px; font-size: 1em; background: #fafbfc;"></td>
+                                             <td style="border: 1px solid #bfc9d1; padding: 7px 8px; text-align: left; font-size: 1em;"><input type="date" value="${item.date || ''}" readonly style="width: 100%; padding: 7px 10px; margin-bottom: 14px; border: 1px solid #bfc9d1; border-radius: 4px; font-size: 1em; background: #fafbfc;"></td>
+                                             <td style="border: 1px solid #bfc9d1; padding: 7px 8px; text-align: left; font-size: 1em;"><input type="text" value="${item.place || ''}" readonly style="width: 100%; padding: 7px 10px; margin-bottom: 14px; border: 1px solid #bfc9d1; border-radius: 4px; font-size: 1em; background: #fafbfc;"></td>
                                         `;
                                         programBody.appendChild(row);
                                    });
@@ -363,7 +335,7 @@
                                    signaturePreview.src = '';
                                    signaturePreview.style.display = 'none';
                               }
-                              applicationModal.querySelector('[name="applicant_date"]').value = data.applicant_signed_date ? data.applicant_signed_date.substring(0, 10) : '';
+                              applicationModal.querySelector('[name="applicant_date"]').value = data.applicant_date || '';
 
                          })
                          .catch(error => {
@@ -390,3 +362,4 @@
           });
      </script>
 @endpush
+
