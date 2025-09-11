@@ -19,9 +19,14 @@ use App\Http\Controllers\Admin\AdminController;
 */
 
 // Application form routes (redirect to login)
-Route::get('/', function () {
-    return redirect()->route('login');
-})->name('form.index');
+
+// Route::get('/', function () {
+//     return redirect()->route('login');
+// })->name('form.index');
+Route::get('/', function (){
+    return view('landingPage');
+})->name('landing');
+
 Route::post('/submit-application', [ApplicationFormController::class, 'submit'])->name('form.submit');
 Route::get('/application-status/{id}', [ApplicationFormController::class, 'status'])->name('form.status');
 
@@ -85,10 +90,22 @@ Route::prefix('admin')->middleware([
 });
 
 Route::get('/logout', [AdminController::class, 'logout'])->name('logout');
-
 Route::middleware(['auth', 'redirect.usertype'])->group(function () {
     Route::get('/admin/dashboard', [AdminController::class, 'index'])->name('admin.dashboard');
 });
 
 Route::put('/applicants/{id}/status', [AdminController::class, 'updateStatus'])
      ->name('applicants.updateStatus');
+
+//test- login
+Route::get('/test-login-page', function () {
+    return view('auth.test-login-page');
+});
+Route::middleware(['auth', 'admin'])->group(function () {
+    Route::get('/admin/dashboard', [AdminController::class, 'index'])->name('admin.dashboard');
+});
+
+//Landing page
+Route::get('/landing-page', function () {
+    return view('landingPage');
+});
