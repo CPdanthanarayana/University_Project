@@ -230,6 +230,10 @@
     <label>Email:</label>
     <input type="email" name="email" required>
   </div>
+  <div class="col">
+    <label>Email:</label>
+    <input type="email" name="email" required>
+  </div>
 </div>
 
 <label>6. Purpose of Travelling:</label>
