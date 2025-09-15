@@ -25,24 +25,24 @@ class Application extends Model
 	];
 
 	protected $fillable = [
-		'user_id',
-		'applicant_id',
-		'purpose',
-		'documents_attached',
-		'supporting_docs',
-		'program',
-		'from_location',
-		'to_location',
-		'departure_date',
-		'departure_time',
-		'return_date',
-		'return_time',
-		'route',
-		'parking_place',
-		'applicant_signature_path',
-		'applicant_signed_date',
-		'status'
-	];
+        'user_id',
+        'applicant_id',
+        'purpose',
+        'documents_attached',
+        'supporting_docs',
+        'program',
+        'from_location',
+        'to_location',
+        'departure_date',
+        'departure_time',
+        'return_date',
+        'return_time',
+        'route',
+        'parking_place',
+        'applicant_signature_path',
+        'applicant_signed_date',
+        'status'
+    ];
 
 	public function applicant()
 	{

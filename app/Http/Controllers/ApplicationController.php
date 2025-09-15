@@ -272,11 +272,82 @@ class ApplicationController extends Controller
     /**
      * Display the specified application.
      */
-    public function show(Application $application)
-    {
+    /**
+ * Display the specified application.
+ */
+public function show(Application $application)
+{
+    try {
+        // Load relationships
         $application->load(['applicant', 'user', 'application_members', 'application_visits']);
-        return response()->json($application);
+
+        // Prepare supporting_docs as array (handles JSON or single file)
+        $supportingDocs = [];
+        if ($application->supporting_docs) {
+            $decoded = json_decode($application->supporting_docs, true);
+            if (is_array($decoded)) {
+                $supportingDocs = $decoded;
+            } else {
+                $supportingDocs[] = $application->supporting_docs;
+            }
+        }
+
+        // Prepare response for front-end
+        $response = [
+            'id' => $application->id,
+            'purpose' => $application->purpose,
+            'documents_attached' => $application->documents_attached,
+            'supporting_docs' => $supportingDocs,
+            'program' => $application->program,
+            'from_location' => $application->from_location,
+            'to_location' => $application->to_location,
+            'departure_date' => $application->departure_date,
+            'departure_time' => $application->departure_time,
+            'return_date' => $application->return_date,
+            'return_time' => $application->return_time,
+            'route' => $application->route,
+            'parking_place' => $application->parking_place,
+            'applicant_signature_path' => $application->applicant_signature_path,
+            'applicant_signed_date' => $application->applicant_signed_date,
+            'status' => $application->status,
+            'applicant' => [
+                'id' => $application->applicant->id,
+                'service_no' => $application->applicant->service_no,
+                'name' => $application->applicant->name,
+                'email' => $application->applicant->email,
+                'designation' => $application->applicant->designation,
+                'faculty' => $application->applicant->faculty,
+                'department' => $application->applicant->department,
+            ],
+            'application_members' => $application->application_members->map(function ($m) {
+                return [
+                    'id' => $m->id,
+                    'service_no' => $m->service_no,
+                    'name' => $m->name
+                ];
+            }),
+            'application_visits' => $application->application_visits->map(function ($v) {
+                return [
+                    'id' => $v->id,
+                    'visit_date' => $v->visit_date,
+                    'location' => $v->location,
+                    'purpose' => $v->purpose,
+                    'status' => $v->status
+                ];
+            }),
+        ];
+
+        return response()->json($response, 200);
+
+    } catch (\Exception $e) {
+        return response()->json([
+            'success' => false,
+            'message' => 'Could not load application details. Please try again.',
+            'error' => $e->getMessage()
+        ], 500);
     }
+}
+
 
     /**
      * Show the form for editing the specified application.
