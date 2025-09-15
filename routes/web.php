@@ -49,9 +49,7 @@ Route::middleware([
     'verified',
     'redirect.usertype'
 ])->group(function () {
-    Route::get('/admin', function () {
-        return view('adminview.index');
-    })->name('admin.dashboard');
+    Route::get('/admin', [AdminController::class, 'index'])->name('admin.dashboard');
     
     // User Management Routes
     Route::get('/admin/users', [UserManagementController::class, 'index'])->name('admin.users');
@@ -91,11 +89,18 @@ Route::prefix('admin')->middleware([
 
 Route::get('/logout', [AdminController::class, 'logout'])->name('logout');
 
+Route::middleware(['auth', 'redirect.usertype'])->group(function () {
+    Route::get('/admin/dashboard', [AdminController::class, 'index'])->name('admin.dashboard');
+});
+
+Route::put('/applicants/{id}/status', [AdminController::class, 'updateStatus'])
+     ->name('applicants.updateStatus');
+
 //test- login
 Route::get('/test-login-page', function () {
     return view('auth.test-login-page');
 });
-Route::middleware(['auth', 'admin'])->group(function () {
+Route::middleware(['auth', 'redirect.usertype'])->group(function () {
     Route::get('/admin/dashboard', [AdminController::class, 'index'])->name('admin.dashboard');
 });
 

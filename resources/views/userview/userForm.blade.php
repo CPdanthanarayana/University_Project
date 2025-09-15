@@ -223,7 +223,11 @@
     <input type="text" name="department" required>
   </div>
   <div class="col">
-    <label>5. Email:</label>
+    <label>5. Contact No:</label>
+    <input type="text" name="contact_no" placeholder="+94xxxxxxxxx" required>
+  </div>
+  <div class="col">
+    <label>6. Email:</label>
     <input type="email" name="email" placeholder="example@university.edu.lk" required>
   </div>
 </div>
@@ -413,13 +417,6 @@
      <!-- App Javascript (Require in all Page) -->
      <script src="admincss/js/app.js"></script>
 
-     <!-- Vector Map Js -->
-     <script src="admincss/js/jsvectormap.min.js"></script>
-     <script src="admincss/js/world-merc.js"></script>
-     <script src="admincss/js/world.js"></script>
-
-     <!-- Dashboard Js -->
-     <script src="admincss/js/dashboard.js"></script>
     <script>
       let rowCount = 5; // You already have 5 default rows: i. to v.
 

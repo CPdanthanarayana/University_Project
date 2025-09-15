@@ -36,6 +36,7 @@ class ApplicationFormController extends Controller
                 'designation' => 'required|string|max:255',
                 'faculty' => 'required|string|max:255',
                 'department' => 'required|string|max:255',
+                'contact_no' => 'required|string|max:50',
                 'email' => 'required|email|max:255',
                 'purpose' => 'required|string',
                 'supporting_docs' => 'required|in:yes,no',
@@ -105,6 +106,7 @@ class ApplicationFormController extends Controller
                     'designation' => $validated['designation'],
                     'faculty' => $validated['faculty'],
                     'department' => $validated['department'],
+                    'contact_no' => $validated['contact_no'],
                     'email' => $validated['email']
                 ]
             );
@@ -136,7 +138,11 @@ class ApplicationFormController extends Controller
                 'from_location' => $validated['from'],
                 'to_location' => $validated['to'],
                 'departure_date' => $validated['departure_date'],
+                'departure_time' => $validated['departure_time'] ?? null,
                 'return_date' => $validated['return_date'],
+                'return_time' => $validated['return_time'] ?? null,
+                'route' => $validated['route'] ?? null,
+                'parking_place' => $validated['parking_place'] ?? null,
                 'applicant_signature_path' => $signaturePath,
                 'applicant_signed_date' => $validated['applicant_date'],
                 'status' => 'pending'
@@ -201,7 +207,7 @@ class ApplicationFormController extends Controller
             ], 422);
         } catch (\Exception $e) {
             DB::rollBack();
-            \Log::error('Form submission failed: ' . $e->getMessage());
+            \Log::error('Form submission failed: ' . $e->getMessage(), ['exception' => $e]); // Log the full exception
             
             return response()->json([
                 'success' => false,
