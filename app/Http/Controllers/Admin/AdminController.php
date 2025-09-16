@@ -88,7 +88,7 @@ public function updateStatus(Request $request, $applicantId)
 
         if ($request->status === 'approved') {
             // Send to higher admin
-            $higherAdminEmail = "hashanewatawala@gmail.com"; // replace with real email
+            $higherAdminEmail = "saradmin@gmail.com"; // replace with real email
             Mail::to($higherAdminEmail)
                 ->send(new ApplicationStatusMail($application, $applicant, Auth::user()));
         } else if ($request->status === 'rejected') {
