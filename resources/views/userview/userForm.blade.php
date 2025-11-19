@@ -1,6 +1,7 @@
 <!DOCTYPE html><html lang="en">
 <head>
    @include('userview.css')
+   <meta name="csrf-token" content="{{ csrf_token() }}">
   <style>
  
   .form-container {
@@ -223,12 +224,12 @@
     <input type="text" name="department" required>
   </div>
   <div class="col">
-    <label>5. Email:</label>
-    <input type="email" name="email" placeholder="example@university.edu.lk" required>
+    <label>5. Contact No:</label>
+    <input type="text" name="contact_no" placeholder="+94xxxxxxxxx" required>
   </div>
   <div class="col">
-    <label>Email:</label>
-    <input type="email" name="email" required>
+    <label>6. Email:</label>
+    <input type="email" name="email" placeholder="example@university.edu.lk" required>
   </div>
 </div>
 

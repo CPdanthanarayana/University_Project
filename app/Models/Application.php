@@ -41,7 +41,8 @@ class Application extends Model
         'parking_place',
         'applicant_signature_path',
         'applicant_signed_date',
-        'status'
+        'status',
+        'final_status'
     ];
 
 	public function applicant()
